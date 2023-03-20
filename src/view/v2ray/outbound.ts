@@ -244,7 +244,6 @@ return L.view.extend<[string[], SectionItem[][][][][][]]>({
   },
   render: function ([
     localIPs = [],
-    dns_tag = [],
     inbound_alias = [],
     inbound_tag = [],
     outbound_alias = [],
@@ -1178,7 +1177,7 @@ return L.view.extend<[string[], SectionItem[][][][][][]]>({
       _(
         "While connecting through Cloudflare CDN</br> set Initial Windows Size greater than <code>35536</code> to disable Dynamic Window mechanism"
       )
-      );
+    );
     o.modalonly = true;
     o.depends("ss_network", "grpc");
     o.datatype = "uinteger";
@@ -1329,14 +1328,14 @@ return L.view.extend<[string[], SectionItem[][][][][][]]>({
       "%s - %s".format(_("Mux"), _("Enabled"))
     );
     o.modalonly = true;
-    o.depends({ss_network:"ws", ss_security: "tls", ss_xtls_enabled: "0"});
-    o.depends({ss_network:"tcp", ss_security: "tls", ss_xtls_enabled: "0"});
-    o.depends({ss_network:"grpc", ss_security: "tls", ss_xtls_enabled: "0"});
-    o.depends({ss_network:"h2", ss_security: "tls", ss_xtls_enabled: "0"});
-    o.depends({ss_network:"ws", ss_security: "none"});
-    o.depends({ss_network:"tcp", ss_security: "none"});
-    o.depends({ss_network:"grpc", ss_security: "none"});
-    o.depends({ss_network:"h2", ss_security: "none"});
+    o.depends({ ss_network: "ws", ss_security: "tls", ss_xtls_enabled: "0" });
+    o.depends({ ss_network: "tcp", ss_security: "tls", ss_xtls_enabled: "0" });
+    o.depends({ ss_network: "grpc", ss_security: "tls", ss_xtls_enabled: "0" });
+    o.depends({ ss_network: "h2", ss_security: "tls", ss_xtls_enabled: "0" });
+    o.depends({ ss_network: "ws", ss_security: "none" });
+    o.depends({ ss_network: "tcp", ss_security: "none" });
+    o.depends({ ss_network: "grpc", ss_security: "none" });
+    o.depends({ ss_network: "h2", ss_security: "none" });
     o.enabled = "1";
     o.disabled = "0";
 

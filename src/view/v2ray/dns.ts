@@ -88,7 +88,9 @@ return L.view.extend<SectionItem[]>({
       form.MultiValue,
       "servers",
       _("DNS Servers"),
-      _("Select DNS servers to use</br><code>Only 1 fakedns configuration can be enabled at the same time,prioritized by order</code>")
+      _(
+        "Select DNS servers to use</br><code>Only 1 fakedns configuration can be enabled at the same time,prioritized by order</code>"
+      )
     );
     for (const d of dnsServers) {
       o.value(d.value, d.caption);

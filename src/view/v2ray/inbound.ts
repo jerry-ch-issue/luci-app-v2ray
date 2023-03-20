@@ -866,8 +866,7 @@ return L.view.extend<string[]>({
     o.value("fakedns");
     o.value("http");
     o.value("tls");
-    o.value("quic")
-
+    o.value("quic");
 
     o = s.taboption(
       "other",
@@ -888,12 +887,7 @@ return L.view.extend<string[]>({
     o.modalonly = true;
     o.datatype = "hostname";
 
-    o = s.taboption(
-      "other",
-      form.Flag,
-      "route_only",
-      _("Route Only")
-    );
+    o = s.taboption("other", form.Flag, "route_only", _("Route Only"));
     o.modalonly = true;
 
     o = s.taboption(
