@@ -49,6 +49,11 @@ return L.Class.extend({
             caption: caption,
             value: s[".name"],
           });
+        } else {
+          sections.push({
+            caption: "no_alias",
+            value: s[".name"],
+          });
         }
       });
       return sections;

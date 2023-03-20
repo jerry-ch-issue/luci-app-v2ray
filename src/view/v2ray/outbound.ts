@@ -17,7 +17,7 @@
 "require view/v2ray/tools/converters as converters";
 
 // @ts-ignore
-return L.view.extend<string[]>({
+return L.view.extend<[string[], SectionItem[][][][][][]]>({
   handleImportSave: function (val: string) {
     const links = val.split(/\r?\n/);
 
@@ -232,16 +232,33 @@ return L.view.extend<string[]>({
     ]);
   },
   load: function () {
-    return v2ray.getLocalIPs();
+    return Promise.all([
+      v2ray.getLocalIPs(),
+      v2ray.getSections("inbound", "alias"),
+      v2ray.getSections("inbound", "tag"),
+      v2ray.getSections("outbound", "alias"),
+      v2ray.getSections("outbound", "tag"),
+      v2ray.getSections("reverse", "bridges"),
+      v2ray.getSections("reverse", "portals"),
+    ]);
   },
-  render: function (localIPs: string[] = []) {
+  render: function ([
+    localIPs = [],
+    dns_tag = [],
+    inbound_alias = [],
+    inbound_tag = [],
+    outbound_alias = [],
+    outbound_tag = [],
+    reverse_bridges = [],
+    reverse_portals = [],
+  ]) {
     const m = new form.Map(
       "v2ray",
       "%s - %s".format(_("V2Ray"), _("Outbound"))
     );
 
     const s = m.section(form.GridSection, "outbound");
-    s.anonymous = true;
+    s.anonymous = false;
     s.addremove = true;
     s.sortable = true;
     s.modaltitle = function (section_id: string) {
@@ -271,9 +288,12 @@ return L.view.extend<string[]>({
     o.value("dns", "DNS");
     o.value("freedom", "Freedom");
     o.value("http", "HTTP/2");
+    o.value("loopback");
     o.value("mtproto", "MTProto");
     o.value("shadowsocks", "Shadowsocks");
     o.value("socks", "Socks");
+    o.value("trojan", "Trojan");
+    o.value("vless", "VLESS");
     o.value("vmess", "VMess");
 
     // Settings Blackhole
@@ -394,6 +414,30 @@ return L.view.extend<string[]>({
     o.modalonly = true;
     o.depends("protocol", "http");
     o.password = true;
+
+    // Settings - Loopback
+    o = s.taboption(
+      "general",
+      form.ListValue,
+      "s_loopback_inboundtag",
+      "%s - %s".format("Loopback", _("Inbound Tag"))
+    );
+    o.modalonly = true;
+    o.depends("protocol", "loopback");
+    o.value("", _("None"));
+    for (let i = 0; i < inbound_alias.length; i++) {
+      o.value(
+        inbound_tag[i].caption,
+        `${inbound_alias[i].caption}(${inbound_tag[i].caption})`
+      );
+    }
+    for (const rb of reverse_bridges) {
+      const stmp = String(rb.caption);
+      const cap = stmp.split(",");
+      for (const rba of cap) {
+        o.value(rba.substring(0, rba.indexOf("|")), rba);
+      }
+    }
 
     // Settings - Shadowsocks
     o = s.taboption(
@@ -522,6 +566,86 @@ return L.view.extend<string[]>({
     o.depends("protocol", "socks");
     o.datatype = "uinteger";
 
+    // Settings - Trojan
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_trojan_address",
+      "%s - %s".format("Trojan", _("Address"))
+    );
+    o.depends("protocol", "trojan");
+    o.modalonly = true;
+    o.datatype = "host";
+
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_trojan_port",
+      "%s - %s".format("Trojan", _("Port"))
+    );
+    o.depends("protocol", "trojan");
+    o.modalonly = true;
+    o.datatype = "port";
+
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_trojan_password",
+      "%s - %s".format("Trojan", _("Password"))
+    );
+    o.depends("protocol", "trojan");
+    o.modalonly = true;
+
+    // Settings - VLESS
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_vless_address",
+      "%s - %s".format("VLESS", _("Address"))
+    );
+    o.depends("protocol", "vless");
+    o.modalonly = true;
+    o.datatype = "host";
+
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_vless_port",
+      "%s - %s".format("VLESS", _("Port"))
+    );
+    o.depends("protocol", "vless");
+    o.modalonly = true;
+    o.datatype = "port";
+
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_vless_user_id",
+      "%s - %s".format("VLESS", _("User ID"))
+    );
+    o.modalonly = true;
+    o.depends("protocol", "vless");
+
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_vless_user_level",
+      "%s - %s".format("VLESS", _("User Level"))
+    );
+    o.modalonly = true;
+    o.depends("protocol", "vless");
+    o.datatype = "and(uinteger, max(10))";
+
+    o = s.taboption(
+      "general",
+      form.ListValue,
+      "s_vless_user_encryption",
+      "%s - %s".format("VLESS", _("Encryption"))
+    );
+    o.modalonly = true;
+    o.depends("protocol", "vless");
+    o.value("none");
+
     // Settings - VMess
     o = s.taboption(
       "general",
@@ -589,44 +713,68 @@ return L.view.extend<string[]>({
     /** Stream Settings **/
     o = s.taboption("stream", form.ListValue, "ss_network", _("Network"));
     o.value("");
+    o.value("grpc", "gRPC");
     o.value("tcp", "TCP");
     o.value("kcp", "mKCP");
     o.value("ws", "WebSocket");
-    o.value("http", "HTTP/2");
+    o.value("h2", "HTTP/2");
     o.value("domainsocket", "Domain Socket");
     o.value("quic", "QUIC");
 
     o = s.taboption("stream", form.ListValue, "ss_security", _("Security"));
     o.modalonly = true;
-    o.value("");
     o.value("none", _("None"));
-    o.value("tls", "TLS");
+    o.value("reality", "REALITY");
+    o.value("tls", "(x)TLS");
+
+    o = s.taboption(
+      "stream",
+      form.Flag,
+      "ss_xtls_enabled",
+      "%s - %s".format("xTLS", _("Enable")),
+      _(
+        'xTLS <span style="text-decoration:underline;color: #ec8717;">Only</span> works under <span style="text-decoration:underline;color: #ec8717;">"Trojan/VLESS"</span> protocols through <span style="text-decoration:underline;color: #ec8717;">"TCP/mKCP/DomainSocket"</span> transportations'
+      )
+    );
+    o.modalonly = true;
+    o.depends("ss_security", "tls");
+    o.enabled = "1";
+    o.disabled = "0";
+
+    o = s.taboption("stream", form.ListValue, "s_xtls_flow", "Flow");
+    o.modalonly = true;
+    o.depends("ss_xtls_enabled", "1");
+    o.depends("ss_security", "reality");
+    o.value("", _("none"));
+    o.value("xtls-rprx-vision");
+    o.value("xtls-rprx-vision-udp443");
 
     // Stream Settings - TLS
     o = s.taboption(
       "stream",
       form.Value,
       "ss_tls_server_name",
-      "%s - %s".format("TLS", _("Server name"))
+      "%s - %s".format("(x)TLS", _("Server name"))
     );
     o.modalonly = true;
     o.depends("ss_security", "tls");
 
     o = s.taboption(
       "stream",
-      form.Value,
+      form.MultiValue,
       "ss_tls_alpn",
-      "%s - %s".format("TLS", "ALPN")
+      "%s - %s".format("(x)TLS", "ALPN")
     );
     o.modalonly = true;
     o.depends("ss_security", "tls");
-    o.placeholder = "http/1.1";
+    o.value("h2");
+    o.value("http/1.1");
 
     o = s.taboption(
       "stream",
       form.Flag,
       "ss_tls_allow_insecure",
-      "%s - %s".format("TLS", _("Allow insecure"))
+      "%s - %s".format("(x)TLS", _("Allow insecure"))
     );
     o.modalonly = true;
     o.depends("ss_security", "tls");
@@ -635,7 +783,7 @@ return L.view.extend<string[]>({
       "stream",
       form.Flag,
       "ss_tls_allow_insecure_ciphers",
-      "%s - %s".format("TLS", _("Allow insecure ciphers"))
+      "%s - %s".format("(x)TLS", _("Allow insecure ciphers"))
     );
     o.modalonly = true;
     o.depends("ss_security", "tls");
@@ -644,7 +792,7 @@ return L.view.extend<string[]>({
       "stream",
       form.Flag,
       "ss_tls_disable_system_root",
-      "%s - %s".format("TLS", _("Disable system root"))
+      "%s - %s".format("(x)TLS", _("Disable system root"))
     );
     o.modalonly = true;
     o.depends("ss_security", "tls");
@@ -653,7 +801,7 @@ return L.view.extend<string[]>({
       "stream",
       form.ListValue,
       "ss_tls_cert_usage",
-      "%s - %s".format("TLS", _("Certificate usage"))
+      "%s - %s".format("(x)TLS", _("Certificate usage"))
     );
     o.modalonly = true;
     o.depends("ss_security", "tls");
@@ -666,7 +814,7 @@ return L.view.extend<string[]>({
       "stream",
       form.Value,
       "ss_tls_cert_fiile",
-      "%s - %s".format("TLS", _("Certificate file"))
+      "%s - %s".format("(x)TLS", _("Certificate file"))
     );
     o.modalonly = true;
     o.depends("ss_security", "tls");
@@ -675,10 +823,81 @@ return L.view.extend<string[]>({
       "stream",
       form.Value,
       "ss_tls_key_file",
-      "%s - %s".format("TLS", _("Key file"))
+      "%s - %s".format("(x)TLS", _("Key file"))
     );
     o.modalonly = true;
     o.depends("ss_security", "tls");
+
+    // Stream Settings - REALITY
+    o = s.taboption(
+      "stream",
+      form.ListValue,
+      "ss_reality_show",
+      "%s - %s".format("Debug", _("Info")),
+      _("Show REALITY Debug Info in LOGs")
+    );
+    o.modalonly = true;
+    o.depends("ss_security", "reality");
+    o.value("1", _("Show"));
+    o.value("0", _("Hide"));
+
+    o = s.taboption(
+      "stream",
+      form.ListValue,
+      "ss_reality_fingerprint",
+      _("fingerprint")
+    );
+    o.modalonly = true;
+    o.depends("ss_security", "reality");
+    o.depends("ss_security", "tls");
+    o.value("", "none");
+    o.value("360");
+    o.value("android");
+    o.value("chrome");
+    o.value("edge");
+    o.value("firefox");
+    o.value("ios");
+    o.value("qq");
+    o.value("random");
+    o.value("randomized");
+    o.value("safari");
+
+    o = s.taboption(
+      "stream",
+      form.Value,
+      "ss_reality_server_name",
+      _("Server Name")
+    );
+    o.modalonly = true;
+    o.datatype = "hostname";
+    o.depends("ss_security", "reality");
+    o.placeholder = "example.com";
+
+    o = s.taboption(
+      "stream",
+      form.Value,
+      "ss_reality_public_key",
+      _("Public Key")
+    );
+    o.modalonly = true;
+    o.depends("ss_security", "reality");
+    o.datatype = "rangelength(43, 43)";
+
+    o = s.taboption("stream", form.Value, "ss_reality_short_id", _("Short ID"));
+    o.modalonly = true;
+    o.depends("ss_security", "reality");
+    o.datatype = "and(hexstring, maxlength(16))";
+    o.rmempty = true;
+
+    o = s.taboption(
+      "stream",
+      form.Value,
+      "ss_reality_spiderx",
+      _("Spider Parameters")
+    );
+    o.modalonly = true;
+    o.depends("ss_security", "reality");
+    o.rmempty = true;
 
     // Stream Settings - TCP
     o = s.taboption(
@@ -893,6 +1112,77 @@ return L.view.extend<string[]>({
     o.modalonly = true;
     o.depends("ss_network", "ws");
 
+    // Stream Settings - gRPC
+
+    o = s.taboption(
+      "stream",
+      form.Value,
+      "ss_grpc_service_name",
+      "%s %s".format(_("Service"), _("Name"))
+    );
+    o.modalonly = true;
+    o.depends("ss_network", "grpc");
+    o.placeholder = "gRPC_Service";
+
+    o = s.taboption(
+      "stream",
+      form.ListValue,
+      "ss_grpc_multi_mode",
+      "%s %s".format("gRPC", _("Mode"))
+    );
+    o.modalonly = true;
+    o.depends("ss_network", "grpc");
+    o.value("0", "gun");
+    o.value("1", "Multi");
+
+    o = s.taboption(
+      "stream",
+      form.ListValue,
+      "ss_grpc_permit_without_stream",
+      _("Health Check")
+    );
+    o.modalonly = true;
+    o.depends("ss_network", "grpc");
+    o.value("0", _("Disabled"));
+    o.value("1", _("Enabled"));
+
+    o = s.taboption(
+      "stream",
+      form.Value,
+      "ss_grpc_idle_timeout",
+      _("Idle Timeout"),
+      _("No less than 10 seconds")
+    );
+
+    o.modalonly = true;
+    o.depends("ss_network", "grpc");
+    o.datatype = "and(min(10), uinteger)";
+    o.placeholder = "10";
+
+    o = s.taboption(
+      "stream",
+      form.Value,
+      "ss_grpc_health_check_timeout",
+      _("Health Check timeout")
+    );
+    o.modalonly = true;
+    o.depends("ss_grpc_permit_without_stream", "true");
+    o.datatype = "and(min(10), uinteger)";
+    o.placeholder = "20";
+
+    o = s.taboption(
+      "stream",
+      form.Value,
+      "ss_grpc_initial_windows_size",
+      _("Initial Windows Size"),
+      _(
+        "While connecting through Cloudflare CDN</br> set Initial Windows Size greater than <code>35536</code> to disable Dynamic Window mechanism"
+      )
+      );
+    o.modalonly = true;
+    o.depends("ss_network", "grpc");
+    o.datatype = "uinteger";
+
     // Stream Settings - HTTP/2
     o = s.taboption(
       "stream",
@@ -901,7 +1191,7 @@ return L.view.extend<string[]>({
       "%s - %s".format("HTTP/2", _("Host"))
     );
     o.modalonly = true;
-    o.depends("ss_network", "http");
+    o.depends("ss_network", "h2");
 
     o = s.taboption(
       "stream",
@@ -910,7 +1200,7 @@ return L.view.extend<string[]>({
       "%s - %s".format("HTTP/2", _("Path"))
     );
     o.modalonly = true;
-    o.depends("ss_network", "http");
+    o.depends("ss_network", "h2");
     o.placeholder = "/";
 
     // Stream Settings - Domain Socket
@@ -979,6 +1269,26 @@ return L.view.extend<string[]>({
     o = s.taboption(
       "stream",
       form.ListValue,
+      "ss_sockopt_domain_strategy",
+      "%s - %s".format(_("Sockopt"), _("Domain strategy"))
+    );
+    o.modalonly = true;
+    o.depends("protocol", "http");
+    o.depends("protocol", "loopback");
+    o.depends("protocol", "mtproto");
+    o.depends("protocol", "shadowsocks");
+    o.depends("protocol", "socks");
+    o.depends("protocol", "trojan");
+    o.depends("protocol", "vless");
+    o.depends("protocol", "vmess");
+    o.value("AsIs");
+    o.value("UseIP");
+    o.value("UseIPv4");
+    o.value("UseIPv6");
+
+    o = s.taboption(
+      "stream",
+      form.ListValue,
       "ss_sockopt_tcp_fast_open",
       "%s - %s".format(_("Sockopt"), _("TCP fast open"))
     );
@@ -987,16 +1297,31 @@ return L.view.extend<string[]>({
     o.value("0", _("False"));
     o.value("1", _("True"));
 
-    /** Other Settings **/
     o = s.taboption("general", form.Value, "tag", _("Tag"));
+    o.rmempty = false;
 
     o = s.taboption(
       "general",
-      form.Value,
+      form.ListValue,
       "proxy_settings_tag",
       "%s - %s".format(_("Proxy settings"), _("Tag"))
     );
     o.modalonly = true;
+    o.value("", _("None"));
+    for (let i = 0; i < outbound_alias.length; i++) {
+      o.value(
+        outbound_tag[i].caption,
+        `${outbound_alias[i].caption}(${outbound_tag[i].caption})`
+      );
+    }
+    for (const rp of reverse_portals) {
+      const stmp = String(rp.caption);
+      const cap = stmp.split(",");
+      for (const rpa of cap) {
+        o.value(rpa.substring(0, rpa.indexOf("|")), rpa);
+      }
+    }
+
     o = s.taboption(
       "other",
       form.Flag,
@@ -1004,6 +1329,16 @@ return L.view.extend<string[]>({
       "%s - %s".format(_("Mux"), _("Enabled"))
     );
     o.modalonly = true;
+    o.depends({ss_network:"ws", ss_security: "tls", ss_xtls_enabled: "0"});
+    o.depends({ss_network:"tcp", ss_security: "tls", ss_xtls_enabled: "0"});
+    o.depends({ss_network:"grpc", ss_security: "tls", ss_xtls_enabled: "0"});
+    o.depends({ss_network:"h2", ss_security: "tls", ss_xtls_enabled: "0"});
+    o.depends({ss_network:"ws", ss_security: "none"});
+    o.depends({ss_network:"tcp", ss_security: "none"});
+    o.depends({ss_network:"grpc", ss_security: "none"});
+    o.depends({ss_network:"h2", ss_security: "none"});
+    o.enabled = "1";
+    o.disabled = "0";
 
     o = s.taboption(
       "other",
@@ -1012,6 +1347,7 @@ return L.view.extend<string[]>({
       "%s - %s".format(_("Mux"), _("Concurrency"))
     );
     o.modalonly = true;
+    o.depends("mux_enabled", "1");
     o.datatype = "uinteger";
     o.placeholder = "8";
 

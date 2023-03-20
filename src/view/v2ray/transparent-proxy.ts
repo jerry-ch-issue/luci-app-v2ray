@@ -51,52 +51,31 @@ return L.view.extend<[SectionItem[], SectionItem[]]>({
           uci.get<string>("v2ray", section_id, "gfwlist_mirror") || "github";
         const url = gfwlistUrls[gfwlistMirror];
 
-        return L.Request.request(L.url("admin/services/v2ray/request"), {
-          method: "post",
-          timeout: 50 * 1000,
-          query: {
-            url: url,
-            token: L.env.token,
-            sessionid: L.env.sessionid,
-          },
-        })
-          .then(function (res: LuCI.response) {
-            let data;
-            if (res.status === 200 && (data = res.json())) {
-              let content;
-              if (!data.code && (content = data.content)) {
-                const gfwlistDomains = converters.extractGFWList(content);
-                if (gfwlistDomains) {
-                  fs.write("/etc/v2ray/gfwlist.txt", gfwlistDomains)
-                    .then(function () {
-                      ui.showModal(_("List Update"), [
-                        E("p", _("GFWList updated.")),
-                        E(
-                          "div",
-                          { class: "right" },
-                          E(
-                            "button",
-                            {
-                              class: "btn",
-                              click: hideModal,
-                            },
-                            _("OK")
-                          )
-                        ),
-                      ]);
-                    })
-                    .catch(L.raise);
-                } else {
-                  L.raise("Error", _("Failed to decode GFWList."));
-                }
+        return fs
+          .exec("/usr/share/v2ray/update_lists.sh", [listtype, url])
+          .then(
+            L.bind(function (res) {
+              if (res.code === 0) {
+                ui.showModal(_("List Update"), [
+                  E("p", _("GFWList updated.")),
+                  E(
+                    "div",
+                    { class: "right" },
+                    E("button", { class: "btn", click: hideModal }, _("OK"))
+                  ),
+                ]);
               } else {
-                L.raise("Error", data.message || _("Failed to fetch GFWList."));
+                ui.showModal(_("Update Failed"), [
+                  E("p", "Updated failed with error code:%d".format(res.code)),
+                  res.stderr ? E("pre", {}, res.stderr) : "",
+                ]);
+                L.raise("Error", "Update Failed");
               }
-            } else {
-              L.raise("Error", res.statusText);
-            }
-          })
-          .catch(function (e) {
+            }),
+            this,
+            ev.target
+          )
+          .catch(function (e: Error) {
             ui.addNotification(null, E("p", e.message));
           });
       }
@@ -105,58 +84,32 @@ return L.view.extend<[SectionItem[], SectionItem[]]>({
         const delegatedMirror =
           uci.get<string>("v2ray", section_id, "apnic_delegated_mirror") ||
           "apnic";
-
         const url = apnicDelegatedUrls[delegatedMirror];
-
-        return L.Request.request(L.url("admin/services/v2ray/request"), {
-          method: "post",
-          timeout: 50 * 1000,
-          query: {
-            url: url,
-            token: L.env.token,
-            sessionid: L.env.sessionid,
-          },
-        })
-          .then(function (res: LuCI.response) {
-            let data;
-            if (res.status === 200 && (data = res.json())) {
-              let content;
-              if ((content = data.content)) {
-                const ipList = converters.extractCHNRoute(
-                  content,
-                  listtype === "chnroute6"
-                );
-
-                fs.write(`/etc/v2ray/${listtype}.txt`, ipList)
-                  .then(function () {
-                    ui.showModal(_("List Update"), [
-                      E("p", _("CHNRoute list updated.")),
-                      E(
-                        "div",
-                        { class: "right" },
-                        E(
-                          "button",
-                          {
-                            class: "btn",
-                            click: hideModal,
-                          },
-                          _("OK")
-                        )
-                      ),
-                    ]);
-                  })
-                  .catch(L.raise);
+        return fs
+          .exec("/usr/share/v2ray/update_lists.sh", [listtype, url])
+          .then(
+            L.bind(function (res) {
+              if (res.code === 0) {
+                ui.showModal(_("List Update"), [
+                  E("p", _("China Route Lists updated.")),
+                  E(
+                    "div",
+                    { class: "right" },
+                    E("button", { class: "btn", click: hideModal }, _("OK"))
+                  ),
+                ]);
               } else {
-                L.raise(
-                  "Error",
-                  data.message || _("Failed to fetch CHNRoute list.")
-                );
+                ui.showModal(_("Update Failed"), [
+                  E("p", "Updated failed with error code:%d".format(res.code)),
+                  res.stderr ? E("pre", {}, res.stderr) : "",
+                ]);
+                L.raise("Error", "Update Failed");
               }
-            } else {
-              L.raise("Error", res.statusText);
-            }
-          })
-          .catch(function (e) {
+            }),
+            this,
+            ev.target
+          )
+          .catch(function (e: Error) {
             ui.addNotification(null, E("p", e.message));
           });
       }

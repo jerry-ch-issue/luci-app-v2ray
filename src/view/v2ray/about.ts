@@ -31,7 +31,7 @@ return L.view.extend<[string, string]>({
   render: function ([configFile = "", configContent = ""] = []) {
     return E([
       E("h2", "%s - %s".format(_("V2Ray"), _("About"))),
-      E("p", _("LuCI support for V2Ray.")),
+      E("p", _("LuCI support for Xray 1.8.0.")),
       E(
         "p",
         _("Version: %s").format(
