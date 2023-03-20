@@ -14,11 +14,10 @@ jobs:
   push-and-build:
     runs-on: ubuntu-latest
     env:
-      SDK_URL_PATH: https://downloads.openwrt.org/releases/19.07.3/targets/x86/64
-      SDK_NAME: -sdk-19.07.3-x86-64_
+      SDK_URL_PATH: https://downloads.openwrt.org/releases/19.07.9/targets/x86/64
+      SDK_NAME: -sdk-19.07.9-x86-64_
       CONFIG_CCACHE: y
       ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -61,10 +60,10 @@ jobs:
 
     - name: Prepare Cache Key
       id: cache_key
-      run: echo "::set-output name=timestamp::$(date +"%s")"
+      run: echo "timestamp=$(date +"%s")" >> $GITHUB_OUTPUT
 
     - name: Setup OpenWrt Cache
-      uses: actions/cache@v1
+      uses: actions/cache@v3
       with:
         path: ${{ env.CACHE_DIR }}
         key: openwrt-${{ env.PACKAGE_NAME }}-${{ steps.cache_key.outputs.timestamp }}
@@ -74,7 +73,7 @@ jobs:
     - name: Install Dependencies
       run: |
         DEBIAN_FRONTEND=noninteractive \
-        sudo apt-get install -y ccache gettext libncurses5-dev xsltproc python2 gcc g++
+        sudo apt-get install -y ccache gettext libncurses5-dev xsltproc gcc g++ python2
 
     - name: Create Directories
       run: |
@@ -202,8 +201,7 @@ jobs:
         find "${{ github.workspace }}" -type f -name "*.ipk" -exec ls -lh {} \;
 
     - name: Update Archives
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: ${{ env.PACKAGE_NAME }}
         path: '*.ipk'
-
