@@ -18,7 +18,7 @@ jobs:
       SDK_NAME: -sdk-19.07.3-x86-64_
       CONFIG_CCACHE: y
       ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-      
+
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -74,7 +74,7 @@ jobs:
     - name: Install Dependencies
       run: |
         DEBIAN_FRONTEND=noninteractive \
-        sudo apt-get install -y ccache gettext libncurses5-dev xsltproc
+        sudo apt-get install -y ccache gettext libncurses5-dev xsltproc python2 gcc g++
 
     - name: Create Directories
       run: |
