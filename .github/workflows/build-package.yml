@@ -101,7 +101,7 @@ jobs:
         echo "CCACHE_DIR_TARGET=$CCACHE_DIR_TARGET" >> $GITHUB_ENV
         echo "CCACHE_DIR_TOOLCHAIN=$CCACHE_DIR_TOOLCHAIN" >> $GITHUB_ENV
 
-        echo "{SDK_HOME}={$(mktemp -d)}" >> $GITHUB_ENV
+        echo "SDK_HOME=$(mktemp -d)" >> $GITHUB_ENV
 
     - name: Download and Unzip SDK
       run: |
