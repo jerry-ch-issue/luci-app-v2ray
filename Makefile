@@ -6,15 +6,15 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-v2ray
-PKG_VERSION:=2.0.1
+PKG_VERSION:=2.0.0
 PKG_RELEASE:=1
 
 PKG_LICENSE:=MIT
 PKG_MAINTAINER:=Xingwang Liao <kuoruan@gmail.com>
 
-LUCI_TITLE:=LuCI support for Xray 1.8.0
+LUCI_TITLE:=LuCI support for v2ray
 LUCI_DEPENDS:=+jshn +ip +ipset +iptables +iptables-mod-tproxy +resolveip \
-	+dnsmasq-full +curl +coreutils-base64
+	+dnsmasq-full
 LUCI_PKGARCH:=all
 
 define Package/$(PKG_NAME)/conffiles
