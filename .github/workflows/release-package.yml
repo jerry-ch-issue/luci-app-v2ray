@@ -1,8 +1,8 @@
 name: Package Build and Release
 on:
   push:
-    branches:
-      - XRAY_1.80_PORT
+    tags:
+      - '*'
 
 env:
   PACKAGE_NAME: luci-app-v2ray
