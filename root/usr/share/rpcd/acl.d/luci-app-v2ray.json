@@ -19,6 +19,9 @@
         ],
         "/etc/init.d/v2ray": [
           "exec"
+        ],
+        "/usr/share/v2ray/update_lists.sh": [
+          "exec"
         ]
       }
     },
