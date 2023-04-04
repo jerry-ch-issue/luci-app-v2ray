@@ -38,6 +38,7 @@ if [ -z "$${IPKG_INSTROOT}" ] ; then
 fi
 
 chmod 755 "$${IPKG_INSTROOT}/etc/init.d/v2ray" >/dev/null 2>&1
+chmod 755 "$${IPKG_INSTROOT}/usr/share/v2ray/update_lists.sh" >/dev/null 2>&1
 ln -sf "../init.d/v2ray" \
 	"$${IPKG_INSTROOT}/etc/rc.d/S99v2ray" >/dev/null 2>&1
 

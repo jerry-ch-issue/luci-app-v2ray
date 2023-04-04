@@ -12,10 +12,10 @@ jobs:
   build-release:
     runs-on: ubuntu-latest
     env:
-      SDK_URL_PATH: https://downloads.openwrt.org/releases/19.07.3/targets/x86/64
-      SDK_NAME: -sdk-19.07.3-x86-64_
+      SDK_URL_PATH: https://downloads.openwrt.org/releases/22.03.3/targets/x86/64
+      SDK_NAME: -sdk-22.03.3-x86-64_
       CONFIG_CCACHE: y
-      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -56,7 +56,7 @@ jobs:
     - name: Install Dependencies
       run: |
         DEBIAN_FRONTEND=noninteractive \
-        sudo apt-get install -y ccache gcc gettext g++ libncurses5-dev python2 xsltproc
+        sudo apt-get install -y ccache g++ gcc gettext libncurses5-dev python2 xsltproc
 
     - name: Create Directories
       run: |
@@ -76,15 +76,15 @@ jobs:
         test -d "$CCACHE_DIR_TARGET" || mkdir -p "$CCACHE_DIR_TARGET"
         test -d "$CCACHE_DIR_TOOLCHAIN" || mkdir -p "$CCACHE_DIR_TOOLCHAIN"
 
-        echo "::set-env name=CACHE_DIR_SDK::$CACHE_DIR_SDK"
-        echo "::set-env name=CACHE_DIR_DL::$CACHE_DIR_DL"
-        echo "::set-env name=CACHE_DIR_FEEDS::$CACHE_DIR_FEEDS"
+        echo "CACHE_DIR_SDK=$CACHE_DIR_SDK" >> $GITHUB_ENV
+        echo "CACHE_DIR_DL=$CACHE_DIR_DL" >> $GITHUB_ENV
+        echo "CACHE_DIR_FEEDS=$CACHE_DIR_FEEDS" >> $GITHUB_ENV
 
-        echo "::set-env name=CCACHE_DIR_HOST::$CCACHE_DIR_HOST"
-        echo "::set-env name=CCACHE_DIR_TARGET::$CCACHE_DIR_TARGET"
-        echo "::set-env name=CCACHE_DIR_TOOLCHAIN::$CCACHE_DIR_TOOLCHAIN"
+        echo "CCACHE_DIR_HOST=$CCACHE_DIR_HOST" >> $GITHUB_ENV
+        echo "CCACHE_DIR_TARGET=$CCACHE_DIR_TARGET" >> $GITHUB_ENV
+        echo "CCACHE_DIR_TOOLCHAIN=$CCACHE_DIR_TOOLCHAIN" >> $GITHUB_ENV
 
-        echo "::set-env name=SDK_HOME::$(mktemp -d)"
+        echo "SDK_HOME=$(mktemp -d)" >> $GITHUB_ENV
 
     - name: Download and Unzip SDK
       run: |

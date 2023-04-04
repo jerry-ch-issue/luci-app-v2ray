@@ -13,19 +13,36 @@
 // "require view";
 
 // @ts-ignore
-return L.view.extend<SectionItem[][]>({
+return L.view.extend<SectionItem[][][][][][][][][]>({
   load: function () {
     return Promise.all([
       v2ray.getSections("routing_rule"),
       v2ray.getSections("routing_balancer", "tag"),
+      v2ray.getSections("inbound", "alias"),
+      v2ray.getSections("inbound", "tag"),
+      v2ray.getSections("outbound", "alias"),
+      v2ray.getSections("outbound", "tag"),
+      v2ray.getSections("dns", "tag"),
+      v2ray.getSections("reverse", "bridges"),
+      v2ray.getSections("reverse", "portals"),
     ]);
   },
-  render: function ([routingRules = [], routingBalancers = []] = []) {
+  render: function ([
+    routingRules = [],
+    routingBalancers = [],
+    inbound_alias = [],
+    inbound_tag = [],
+    outbound_alias = [],
+    outbound_tag = [],
+    dns_tag = [],
+    reverse_bridges = [],
+    reverse_portals = [],
+  ] = []) {
     const m = new form.Map(
       "v2ray",
       "%s - %s".format(_("V2Ray"), _("Routing")),
       _("Details: %s").format(
-        '<a href="https://www.v2ray.com/en/configuration/routing.html#routingobject" target="_blank">RoutingObject</a>'
+        '<a href="https://xtls.github.io/config/routing.html#routingobject" target="_blank">RoutingObject</a>'
       )
     );
 
@@ -35,16 +52,18 @@ return L.view.extend<SectionItem[][]>({
 
     let o;
     o = s1.option(form.Flag, "enabled", _("Enabled"));
-
     o = s1.option(
       form.ListValue,
       "domain_strategy",
       _("Domain resolution strategy")
     );
-    o.value("");
     o.value("AsIs");
     o.value("IPIfNonMatch");
     o.value("IPOnDemand");
+
+    o = s1.option(form.ListValue, "main_domain_matcher", _("Domain Matcher"));
+    o.value("hybrid");
+    o.value("linear");
 
     o = s1.option(
       form.MultiValue,
@@ -72,13 +91,17 @@ return L.view.extend<SectionItem[][]>({
       _("Routing Rule"),
       _("Add routing rules here")
     );
-    s2.anonymous = true;
+    s2.anonymous = false;
     s2.addremove = true;
     s2.sortable = true;
     s2.nodescription = true;
 
     o = s2.option(form.Value, "alias", _("Alias"));
     o.rmempty = false;
+
+    o = s2.option(form.ListValue, "domain_matcher", _("Domain Matcher"));
+    o.value("hybrid");
+    o.value("linear");
 
     o = s2.option(form.ListValue, "type", _("Type"));
     o.value("field");
@@ -99,12 +122,30 @@ return L.view.extend<SectionItem[][]>({
 
     o = s2.option(form.DynamicList, "source", _("Source"));
     o.modalonly = true;
+    o.datatype = "ipaddr";
+
+    o = s2.option(form.DynamicList, "source_port", _("Source Port"));
+    o.modalonly = true;
+    o.datatype = "or(port, portrange)";
 
     o = s2.option(form.DynamicList, "user", _("User"));
     o.modalonly = true;
 
-    o = s2.option(form.DynamicList, "inbound_tag", _("Inbound tag"));
-
+    o = s2.option(form.MultiValue, "inbound_tag", _("Inbound Tag"));
+    o.value(dns_tag[0].caption, `DNS(${dns_tag[0].caption})`);
+    for (let i = 0; i < inbound_alias.length; i++) {
+      o.value(
+        inbound_tag[i].caption,
+        `${inbound_alias[i].caption}(${inbound_tag[i].caption})`
+      );
+    }
+    for (const rb of reverse_bridges) {
+      const stmp = String(rb.caption);
+      const cap = stmp.split(",");
+      for (const rba of cap) {
+        o.value(rba.substring(0, rba.indexOf("|")), rba);
+      }
+    }
     o = s2.option(form.MultiValue, "protocol", _("Protocol"));
     o.modalonly = true;
     o.value("http");
@@ -114,8 +155,20 @@ return L.view.extend<SectionItem[][]>({
     o = s2.option(form.Value, "attrs", _("Attrs"));
     o.modalonly = true;
 
-    o = s2.option(form.Value, "outbound_tag", _("Outbound tag"));
-
+    o = s2.option(form.ListValue, "outbound_tag", _("Outbound tag"));
+    for (let i = 0; i < outbound_alias.length; i++) {
+      o.value(
+        outbound_tag[i].caption,
+        `${outbound_alias[i].caption}(${outbound_tag[i].caption})`
+      );
+    }
+    for (const rp of reverse_portals) {
+      const stmp = String(rp.caption);
+      const cap = stmp.split(",");
+      for (const rpa of cap) {
+        o.value(rpa.substring(0, rpa.indexOf("|")), rpa);
+      }
+    }
     o = s2.option(form.Value, "balancer_tag", _("Balancer tag"));
     o.modalonly = true;
     o.depends("outbound_tag", "");

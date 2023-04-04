@@ -49,6 +49,11 @@ return L.Class.extend({
             caption: caption,
             value: s[".name"],
           });
+        } else {
+          sections.push({
+            caption: "no_alias",
+            value: s[".name"],
+          });
         }
       });
       return sections;
@@ -79,6 +84,37 @@ return L.Class.extend({
       });
 
       return sections;
+    });
+  },
+
+  getXtlsSecurity: function (): Promise<tlsItem[]> {
+    return uci.load("v2ray").then(function () {
+      const xtls: xtlsItem[] = [];
+
+      uci.sections("v2ray", "v2ray", function (s: uci.SectionObject) {
+        if (s["core"] == "Xray") {
+          if (s["reality"] == "1") {
+            xtls.push({
+              security: ["reality|REALITY"],
+              flow: ["xtls-rprx-vision", "xtls-rprx-vision-udp443"],
+            });
+          } else {
+            xtls.push({
+              security: ["xtls|XTLS"],
+              flow: [
+                "xtls-rprx-direct",
+                "xtls-rprx-direct-udp443",
+                "xtls-rprx-origin",
+                "xtls-rprx-origin-udp443",
+                "xtls-rprx-splice",
+                "xtls-rprx-splice-udp443",
+              ],
+            });
+          }
+        }
+      });
+
+      return xtls;
     });
   },
 });

@@ -846,6 +846,7 @@ return L.view.extend<string[]>({
 
     /** Other Settings **/
     o = s.taboption("other", form.Value, "tag", _("Tag"));
+    o.rmempty = false;
 
     o = s.taboption(
       "other",
@@ -862,8 +863,32 @@ return L.view.extend<string[]>({
       "%s - %s".format(_("Sniffing"), _("Dest override"))
     );
     o.modalonly = true;
+    o.value("fakedns");
     o.value("http");
     o.value("tls");
+    o.value("quic");
+
+    o = s.taboption(
+      "other",
+      form.ListValue,
+      "metadata_only",
+      _("Metadata Only")
+    );
+    o.modalonly = true;
+    o.value("0", _("False"));
+    o.value("1", _("True"));
+
+    o = s.taboption(
+      "other",
+      form.DynamicList,
+      "domains_excluded",
+      _("Domains Excluded")
+    );
+    o.modalonly = true;
+    o.datatype = "hostname";
+
+    o = s.taboption("other", form.Flag, "route_only", _("Route Only"));
+    o.modalonly = true;
 
     o = s.taboption(
       "other",
