@@ -2,7 +2,7 @@ name: Push Package Sources and Build
 on:
   push:
     branches:
-      - master
+      - v2ray-v5-xray-1.8.0
     tags-ignore:
       - '*'
 
