@@ -15,10 +15,15 @@ FILE_V2RAY_DNSMASQ_CACHE=/tmp/$NAME.dnsmasq.cache
 FILE_V2RAY_CHNROUTE=/var/etc/v2ray/chnroute.txt
 FILE_V2RAY_CHNROUTE6=/var/etc/v2ray/chnroute6.txt
 
-NFT_BIN=$(command -v nft)
-dnsmasq_ver=$(dnsmasq --version|head -n 1|awk -F " " '{printf $3}')
+CORE=
+CORE_VER=
+XTLS_REALITY=
 
-NFT_SET=$(expr $dnsmasq_ver \>= $(echo "2.87"))	
+NFT_BIN=$(command -v nft)
+
+NFT_SET=$(expr $(dnsmasq --version|head -n 1|awk -F " " '{printf $3}') \>= "2.87")	
+
+
 
 IPSET_SRC_IGNORE_V4=v2ray_src_ignore_v4
 IPSET_SRC_IGNORE_V6=v2ray_src_ignore_v6
@@ -393,9 +398,8 @@ outbound_section_validate() {
 		's_vmess_user_security:or("auto", "aes-128-gcm", "chacha20-poly1305", "none")' \
 		's_vmess_user_level:uinteger' \
 		'ss_network:or("tcp", "kcp", "grpc", "ws", "h2", "domainsocket", "quic")' \
-		'ss_security:or("none", "tls", "reality")' \
-		'ss_xtls_enabled:bool:0' \
-		's_xtls_flow:or("", "xtls-rprx-vision", "xtls-rprx-vision-udp443")' \
+		'ss_security:or("none", "tls", "xtls", "reality")' \
+		's_xtls_flow:or("","xtls-rprx-direct", "xtls-rprx-direct-udp443", "xtls-rprx-origin", "xtls-rprx-origin-udp443", "xtls-rprx-splice", "xtls-rprx-splice-udp443", "xtls-rprx-vision", "xtls-rprx-vision-udp443")' \
 		'ss_reality_public_key:string' \
 		'ss_reality_server_name:host' \
 		'ss_reality_short_id:string' \
@@ -919,7 +923,7 @@ create_v2ray_ipset() {
 					elements = { 
 					$(
 						if [ -z "$outbound_v4" ] ; then
-							echo "$reserved_v4" | sed '$d' | sed 's/240\.0\.0\.0\/4/240\.0\.0\.0\-255\.255\.255\.255/' 
+							echo "$reserved_v4" | sed '$d' | sed 's/240\.0\.0\.0\/4/240\.0\.0\.0\-255\.255\.255\.255/' | sed '$!s/$/,/'
 						else
 							echo "$reserved_v4" | sed '$d' | sed 's/240\.0\.0\.0\/4/240\.0\.0\.0\-255\.255\.255\.255/' | sed 's/$/,/'
 							echo "$outbound_v4" | sed '$!s/$/,/'
@@ -2181,20 +2185,35 @@ add_outbound_setting() {
 			json_add_string "address" "$s_trojan_address"
 			json_add_int "port" "$s_trojan_port"
 			json_add_string "password" "$s_trojan_password"
-			if [ "$ss_security" = "tls" ] && [ "x$ss_xtls_enabled" = "x1" ] ; then
-				if [ "$ss_network" = "tcp" ] || [ "$ss_network" = "kcp" ] || [ "$ss_network" = "domainsocket" ] ; then 
-					if [ -n "$s_xtls_flow" ] ; then
-						json_add_string "flow" "$s_xtls_flow"
-	                		fi
-				fi
+			if [ -n "$s_xtls_flow" ] ; then
+				case "$ss_security" in 
+					"xtls")
+						if [ "$ss_network" = "tcp" ] || [ "$ss_network" = "kcp" ] || [ "$ss_network" = "domainsocket" ] ; then
+							if [ "$s_xtls_flow" != "xtls-rprx-vision" ] && [ "$s_xtls_flow" != "xtls-rprx-vision-udp443" ] ; then
+								json_add_string "flow" "$s_xtls_flow"
+							fi
+						fi
+						;;
+					"tls")
+						if [ "x$XTLS_REALITY" = "x1" ] ; then
+							if [ "$ss_network" = "tcp" ] || [ "$ss_network" = "kcp" ] || [ "$ss_network" = "domainsocket" ] ; then
+								if [ "$s_xtls_flow" = "xtls-rprx-vision" ] || [ "$s_xtls_flow" = "xtls-rprx-vision-udp443" ] ; then
+									json_add_string "flow" "$s_xtls_flow"
+								fi
+							fi
+						fi
+						;;
+					"reality")
+						if [ "x$XTLS_REALITY" = "x1" ] ; then
+							if [ "$ss_network" = "tcp" ] || [ "$ss_network" = "kcp" ] || [ "$ss_network" = "domainsocket" ] || [ "$ss_network" = "grpc" ] ; then
+								if [ "$s_xtls_flow" = "xtls-rprx-vision" ] || [ "$s_xtls_flow" = "xtls-rprx-vision-udp443" ] ; then
+									json_add_string "flow" "$s_xtls_flow"
+								fi
+							fi
+						fi
+						;;
+				esac
 			fi 
-			if [ "$ss_security" = "reality" ] ; then
-				if [ "$ss_network" = "tcp" ] || [ "$ss_network" = "kcp" ] || [ "$ss_network" = "domainsocket" ] ; then
-					if [ -n "$s_xtls_flow" ] ; then
-						json_add_string "flow" "$s_xtls_flow"
-					fi
-				fi
-			fi
 			json_close_object
 			json_close_array
  			json_close_object
@@ -2209,20 +2228,35 @@ add_outbound_setting() {
 			json_add_array "users"
 			json_add_object ""
 			json_add_string "id" "$s_vless_user_id"
-			if [ "$ss_security" = "tls" ] && [ "x$ss_xtls_enabled" = "x1" ] ; then
-				if [ "$ss_network" = "tcp" ] || [ "$ss_network" = "kcp" ] || [ "$ss_network" = "domainsocket" ] ; then 
-					if [ -n "$s_xtls_flow" ] ; then
-						json_add_string "flow" "$s_xtls_flow"
-	                		fi
-				fi
+			if [ -n "$s_xtls_flow" ] ; then
+				case "$ss_security" in 
+					"xtls")
+						if [ "$ss_network" = "tcp" ] || [ "$ss_network" = "kcp" ] || [ "$ss_network" = "domainsocket" ] ; then
+							if [ "$s_xtls_flow" != "xtls-rprx-vision" ] && [ "$s_xtls_flow" != "xtls-rprx-vision-udp443" ] ; then
+								json_add_string "flow" "$s_xtls_flow"
+							fi
+						fi
+						;;
+					"tls")
+						if [ "x$XTLS_REALITY" = "x1" ] ; then
+							if [ "$ss_network" = "tcp" ] || [ "$ss_network" = "kcp" ] || [ "$ss_network" = "domainsocket" ] ; then
+								if [ "$s_xtls_flow" = "xtls-rprx-vision" ] || [ "$s_xtls_flow" = "xtls-rprx-vision-udp443" ] ; then
+									json_add_string "flow" "$s_xtls_flow"
+								fi
+							fi
+						fi
+						;;
+					"reality")
+						if [ "x$XTLS_REALITY" = "x1" ] ; then
+							if [ "$ss_network" = "tcp" ] || [ "$ss_network" = "kcp" ] || [ "$ss_network" = "domainsocket" ] || [ "$ss_network" = "grpc" ] ; then
+								if [ "$s_xtls_flow" = "xtls-rprx-vision" ] || [ "$s_xtls_flow" = "xtls-rprx-vision-udp443" ] ; then
+									json_add_string "flow" "$s_xtls_flow"
+								fi
+							fi
+						fi
+						;;
+				esac
 			fi 
-			if [ "$ss_security" = "reality" ] ; then
-				if [ "$ss_network" = "tcp" ] || [ "$ss_network" = "kcp" ] || [ "$ss_network" = "domainsocket" ] ; then
-					if [ -n "$s_xtls_flow" ] ; then
-						json_add_string "flow" "$s_xtls_flow"
-					fi
-				fi
-			fi
 			test -n "$s_vless_user_level" && \
 				json_add_int "level" "$s_vless_user_level"
 			json_add_string "encryption" "$s_vless_user_encryption"
@@ -2267,16 +2301,22 @@ add_outbound_setting() {
 
 	#test -n "$ss_security" && \
 	case "${ss_security:-x}" in
-		"tls")
+		"tls" | "xtls")
 			if [ "$ss_network" = "tcp" ] || [ "$ss_network" = "kcp" ] || [ "$ss_network" = "domainsocket" ] ; then
-				if [ "x$ss_xtls_enabled" = "x1" ] ; then 
+				if [ "$ss_security" = "xtls" ] ; then 
 					if [ "$protocol" = "vless" ] || [ "$protocol" = "trojan" ]  ; then
-						json_add_string "security" "x$ss_security"
+						json_add_string "security" "xtls"
 						json_add_object "xtlsSettings"
+					else
+						json_add_string "security" "tls"
+						json_add_object "tlsSettings"
 					fi
+				else
+					json_add_string "security" "tls"
+					json_add_object "tlsSettings"
 				fi
 			else
-				json_add_string "security" "$ss_security"
+				json_add_string "security" "tls"
 				json_add_object "tlsSettings"
 			fi
 				test -n "$ss_tls_server_name" && \
@@ -2308,22 +2348,26 @@ add_outbound_setting() {
 				json_close_object # tlsSettings
 			;;
 		"reality")
-			if [ "$ss_network" = "tcp" ] || [ "$ss_network" = "kcp" ] || [ "$ss_network" = "domainsocket" ] || [ "$ss_network" = "grpc" ] || [ "$ss_network" = "h2" ] ; then
-				json_add_string "security" "$ss_security"
-				json_add_object "realitySettings"
-				json_add_boolean "show" "$ss_reality_show"
-				if [ -n "$ss_reality_fingerprint" ] ; then
-					json_add_string "fingerprint" "$ss_reality_fingerprint"
+			if [ "x$XTLS_REALITY" = "x1" ] ; then
+				if [ "$ss_network" = "tcp" ] || [ "$ss_network" = "kcp" ] || [ "$ss_network" = "domainsocket" ] || [ "$ss_network" = "grpc" ] || [ "$ss_network" = "h2" ] ; then
+					json_add_string "security" "$ss_security"
+					json_add_object "realitySettings"
+					json_add_boolean "show" "$ss_reality_show"
+					if [ -n "$ss_reality_fingerprint" ] ; then
+						json_add_string "fingerprint" "$ss_reality_fingerprint"
+					fi
+					json_add_string "serverName" "$ss_reality_server_name"
+					json_add_string "publicKey" "$ss_reality_public_key"
+					if [ -n "$ss_reality_short_id" ] ; then
+						json_add_string "shortId" "$ss_reality_short_id"
+					fi
+					if [ -n "$ss_reality_spiderx" ] ; then
+						json_add_string "spiderX" "$ss_reality_spiderx"
+					fi
+					json_close_object
+				else
+					json_add_string "security" "none"
 				fi
-				json_add_string "serverName" "$ss_reality_server_name"
-				json_add_string "publicKey" "$ss_reality_public_key"
-				if [ -n "$ss_reality_short_id" ] ; then
-					json_add_string "shortId" "$ss_reality_short_id"
-				fi
-				if [ -n "$ss_reality_spiderx" ] ; then
-					json_add_string "spiderX" "$ss_reality_spiderx"
-				fi
-				json_close_object
 			else
 				json_add_string "security" "none"
 			fi
@@ -2531,7 +2575,7 @@ add_outbound_setting() {
 	json_add_object "sockopt"
 
 	if [ "$protocol" != "blackhole" ] && [ "$protocol" != "freedom" ] && [ "$protocol" != "dns" ]  ; then
-		test -n "ss_sockopt_domain_strategy" && \
+		test -n "$ss_sockopt_domain_strategy" && \
 			json_add_string "domainStrategy" "$ss_sockopt_domain_strategy"
 	fi
 
@@ -2818,6 +2862,7 @@ clear_transparent_proxy() {
 
 start_instance() {
 	local section="$1"
+	local ver_info
 
 	if ! v2ray_section_validate "$section" ; then
 		_err "Invalid config."
@@ -2832,6 +2877,16 @@ start_instance() {
 	if [ -z "$v2ray_file" ] || [ ! -s "$v2ray_file" ] ; then
 		_err "Invalid V2Ray file."
 		return 1
+	fi
+
+	ver_info="$(sh -c "$v2ray_file --version 2>/dev/null | head -n1")"
+	CORE="$(echo $ver_info | awk -F' ' '{printf $1}')"
+	CORE_VER="$(echo $ver_info | awk -F' ' '{printf $2}')"
+
+	if [ "$CORE" = "Xray" ] && [ "$(expr $CORE_VER \>= '1.8.0')" = "1" ] ; then
+		XTLS_REALITY="1"
+	else
+		XTLS_REALITY="0"
 	fi
 
 	test -x "$v2ray_file" || chmod 755 "$v2ray_file"
@@ -2945,7 +3000,12 @@ start_instance() {
 
 	procd_open_instance "$NAME.$section"
 	procd_set_param command "$v2ray_file"
-	procd_append_param command "-c=$temp_config"
+	if [ "$CORE" = "V2Ray" ] && [ "$(expr $CORE_VER \< "5")" = "1" ] ; then
+		procd_append_param command "-c=$temp_config"
+	else
+		procd_append_param command "run"
+		procd_append_param command "-c=$temp_config"
+	fi
 	procd_set_param respawn
 
 	if [ -n "$asset_location" ] && [ -d "$asset_location" ] ; then

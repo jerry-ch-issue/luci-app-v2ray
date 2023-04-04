@@ -6,15 +6,15 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-v2ray
-PKG_VERSION:=2.0.1
+PKG_VERSION:=2.1.0
 PKG_RELEASE:=1
 
 PKG_LICENSE:=MIT
 PKG_MAINTAINER:=Xingwang Liao <kuoruan@gmail.com>
 
-LUCI_TITLE:=LuCI support for Xray 1.8.0
+LUCI_TITLE:=LuCI support for V2Ray & Xray
 LUCI_DEPENDS:=+jshn +ip +ipset +iptables +iptables-mod-tproxy +resolveip \
-	+dnsmasq-full +curl +coreutils-base64
+	+dnsmasq-full
 LUCI_PKGARCH:=all
 
 define Package/$(PKG_NAME)/conffiles
@@ -38,6 +38,7 @@ if [ -z "$${IPKG_INSTROOT}" ] ; then
 fi
 
 chmod 755 "$${IPKG_INSTROOT}/etc/init.d/v2ray" >/dev/null 2>&1
+chmod 755 "$${IPKG_INSTROOT}/usr/share/v2ray/update_lists.sh" >/dev/null 2>&1
 ln -sf "../init.d/v2ray" \
 	"$${IPKG_INSTROOT}/etc/rc.d/S99v2ray" >/dev/null 2>&1
 
