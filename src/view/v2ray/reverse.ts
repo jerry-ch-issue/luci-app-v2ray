@@ -25,7 +25,7 @@ return L.view.extend<string>({
   render: function (core: string) {
     const m = new form.Map(
       "v2ray",
-      "%s - %s".format(_("V2Ray"), _("Reverse")),
+      "%s - %s".format(core, _("Reverse")),
       _("Details: %s").format(
         '<a href="https://www.v2ray.com/en/configuration/reverse.html#reverseobject" target="_blank">ReverseObject</a>'
       )
