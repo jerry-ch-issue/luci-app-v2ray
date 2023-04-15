@@ -255,7 +255,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[]]>({
   ]) {
     const m = new form.Map(
       "v2ray",
-      "%s - %s".format(_("V2Ray"), _("Outbound"))
+      "%s - %s".format(uci.get("v2ray", "main", "core"), _("Outbound"))
     );
 
     const s = m.section(form.GridSection, "outbound");

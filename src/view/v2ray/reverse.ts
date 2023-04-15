@@ -8,11 +8,21 @@
 "use strict";
 
 "require form";
+"require uci";
 // "require view";
 
 // @ts-ignore
-return L.view.extend({
-  render: function () {
+return L.view.extend<string>({
+  load: function () {
+    return uci.load("v2ray").then(function () {
+      let core = uci.get("v2ray", "main", "core");
+      if (!core) {
+        core = "V2Ray";
+      }
+      return core;
+    });
+  },
+  render: function (core: string) {
     const m = new form.Map(
       "v2ray",
       "%s - %s".format(_("V2Ray"), _("Reverse")),

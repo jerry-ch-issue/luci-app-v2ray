@@ -14,12 +14,21 @@
 // "require view";
 
 // @ts-ignore
-return L.view.extend<string[]>({
+return L.view.extend<string[][]>({
   load: function () {
-    return v2ray.getLocalIPs();
+    return Promise.all([
+      v2ray.getLocalIPs(),
+      uci.load("v2ray").then(function () {
+        let core = uci.get("v2ray", "main", "core");
+        if (!core) {
+          core = "V2Ray";
+        }
+        return core;
+      }),
+    ]);
   },
-  render: function (localIPs = []) {
-    const m = new form.Map("v2ray", "%s - %s".format(_("V2Ray"), _("Inbound")));
+  render: function ([localIPs = [], core] = []) {
+    const m = new form.Map("v2ray", "%s - %s".format(core, _("Inbound")));
 
     const s = m.section(form.GridSection, "inbound");
     s.anonymous = true;

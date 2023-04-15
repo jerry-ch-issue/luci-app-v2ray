@@ -9,6 +9,7 @@
 
 "require form";
 "require v2ray";
+"require uci";
 // "require view";
 
 // @ts-ignore
@@ -19,7 +20,7 @@ return L.view.extend<SectionItem[]>({
   render: function (dnsServers = []) {
     const m = new form.Map(
       "v2ray",
-      "%s - %s".format(_("V2Ray"), _("DNS")),
+      "%s - %s".format(uci.get("v2ray", "main", "core"), _("DNS")),
       _("Details: %s").format(
         '<a href="https://xtls.github.io/en/config/dns.html#dnsobject" target="_blank">DnsObject</a>'
       )

@@ -40,7 +40,7 @@ return L.view.extend<SectionItem[][][][][][][][][]>({
   ] = []) {
     const m = new form.Map(
       "v2ray",
-      "%s - %s".format(_("V2Ray"), _("Routing")),
+      "%s - %s".format(uci.get("v2ray", "main", "core"), _("Routing")),
       _("Details: %s").format(
         '<a href="https://xtls.github.io/config/routing.html#routingobject" target="_blank">RoutingObject</a>'
       )

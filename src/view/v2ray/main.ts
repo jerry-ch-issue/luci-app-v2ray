@@ -10,6 +10,7 @@
 "require form";
 "require fs";
 "require ui";
+"require uci";
 "require v2ray";
 // "require view";
 
@@ -51,7 +52,7 @@ return L.view.extend<SectionItem[][]>({
   render: function ([inboundSections = [], outBoundSections = []] = []) {
     const m = new form.Map(
       "v2ray",
-      "%s - %s".format(_("V2ray"), _("Global Settings")),
+      "%s - %s".format(uci.get("v2ray", "main", "core"), _("Global Settings")),
       "<p>%s</p><p>%s</p>".format(
         _("A platform for building proxies to bypass network restrictions."),
         _("For more information, please visit: %s").format(

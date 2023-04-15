@@ -20,7 +20,7 @@ return L.view.extend<SectionItem[]>({
   render: function (policyLevels = []) {
     const m = new form.Map(
       "v2ray",
-      "%s - %s".format(_("V2Ray"), _("Policy")),
+      "%s - %s".format(uci.get("v2ray", "main", "core"), _("Policy")),
       _("Details: %s").format(
         '<a href="https://www.v2ray.com/en/configuration/policy.html#policyobject" target="_blank">PolicyObject</a>'
       )
