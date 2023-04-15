@@ -14,7 +14,7 @@ PKG_MAINTAINER:=#{author}
 
 LUCI_TITLE:=#{description}
 LUCI_DEPENDS:=+jshn +ip +ipset +iptables +iptables-mod-tproxy +resolveip \
-	+dnsmasq-full
+	+dnsmasq-full +curl +coreutils-base64
 LUCI_PKGARCH:=all
 
 define Package/$(PKG_NAME)/conffiles

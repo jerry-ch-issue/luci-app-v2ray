@@ -867,6 +867,7 @@ return L.view.extend<string[]>({
     o.value("http");
     o.value("tls");
     o.value("quic");
+    o.value("fakedns+others");
 
     o = s.taboption(
       "other",
