@@ -17,7 +17,7 @@
 "require view/v2ray/tools/converters as converters";
 
 // @ts-ignore
-return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[]]>({
+return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
   handleImportSave: function (val: string) {
     const links = val.split(/\r?\n/);
 
@@ -232,6 +232,10 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[]]>({
     ]);
   },
   load: function () {
+    let core = uci.get("v2ray", "main", "core");
+    if (!core) {
+      core = "V2Ray";
+    }
     return Promise.all([
       v2ray.getLocalIPs(),
       v2ray.getSections("inbound", "alias"),
@@ -241,6 +245,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[]]>({
       v2ray.getSections("reverse", "bridges"),
       v2ray.getSections("reverse", "portals"),
       v2ray.getXtlsSecurity(),
+      core,
     ]);
   },
   render: function ([
@@ -252,10 +257,11 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[]]>({
     reverse_bridges = [],
     reverse_portals = [],
     xtls_security = [],
-  ]) {
+    core = ""
+  ] = []) {
     const m = new form.Map(
       "v2ray",
-      "%s - %s".format(uci.get("v2ray", "main", "core"), _("Outbound"))
+      "%s - %s".format(core, _("Outbound"))
     );
 
     const s = m.section(form.GridSection, "outbound");

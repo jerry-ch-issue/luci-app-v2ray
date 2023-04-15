@@ -13,14 +13,21 @@
 // "require view";
 
 // @ts-ignore
-return L.view.extend<SectionItem[]>({
+return L.view.extend<SectionItem[], string>({
   load: function () {
-    return v2ray.getSections("dns_server");
+    core = uci.get("v2ray", "main", "core");
+    if (!core) {
+      core = "V2Ray";
+    }
+    return Promise.all([
+      v2ray.getSections("dns_server"),
+      core,
+    ]);
   },
-  render: function (dnsServers = []) {
+  render: function ([dnsServers = [], core = ""] = []) {
     const m = new form.Map(
       "v2ray",
-      "%s - %s".format(uci.get("v2ray", "main", "core"), _("DNS")),
+      "%s - %s".format(core, _("DNS")),
       _("Details: %s").format(
         '<a href="https://xtls.github.io/en/config/dns.html#dnsobject" target="_blank">DnsObject</a>'
       )

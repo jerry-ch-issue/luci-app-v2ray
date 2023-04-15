@@ -13,8 +13,12 @@
 // "require view";
 
 // @ts-ignore
-return L.view.extend<SectionItem[][][][][][][][][]>({
+return L.view.extend<SectionItem[][][][][][][][][], string>({
   load: function () {
+    let core = uci.get("v2ray", "main", "core");
+    if (!core) {
+      core = "V2Ray";
+    }
     return Promise.all([
       v2ray.getSections("routing_rule"),
       v2ray.getSections("routing_balancer", "tag"),
@@ -25,6 +29,7 @@ return L.view.extend<SectionItem[][][][][][][][][]>({
       v2ray.getSections("dns", "tag"),
       v2ray.getSections("reverse", "bridges"),
       v2ray.getSections("reverse", "portals"),
+      core,
     ]);
   },
   render: function ([
@@ -37,10 +42,11 @@ return L.view.extend<SectionItem[][][][][][][][][]>({
     dns_tag = [],
     reverse_bridges = [],
     reverse_portals = [],
+    core = ""
   ] = []) {
     const m = new form.Map(
       "v2ray",
-      "%s - %s".format(uci.get("v2ray", "main", "core"), _("Routing")),
+      "%s - %s".format(core, _("Routing")),
       _("Details: %s").format(
         '<a href="https://xtls.github.io/config/routing.html#routingobject" target="_blank">RoutingObject</a>'
       )

@@ -37,7 +37,7 @@ const apnicDelegatedUrls = {
 };
 
 // @ts-ignore
-return L.view.extend<[SectionItem[], SectionItem[]]>({
+return L.view.extend<[SectionItem[], SectionItem[], string]>({
   handleListUpdate(ev: MouseEvent, section_id: string, listtype: string) {
     const hideModal = function () {
       ui.hideModal();
@@ -124,12 +124,19 @@ return L.view.extend<[SectionItem[], SectionItem[]]>({
     }
   },
   load: function () {
-    return v2ray.getDokodemoDoorPorts();
+    let core = uci.get("v2ray", "main", "core");
+    if (!core) {
+      core = "V2Ray";
+    }
+    return Promise.all([
+      v2ray.getDokodemoDoorPorts(),
+      core,
+    ]);
   },
-  render: function (dokodemoDoorPorts = []) {
+  render: function ([dokodemoDoorPorts = [], core = ""] = []) {
     const m = new form.Map(
       "v2ray",
-      "%s - %s".format(uci.get("v2ray", "main", "core"), _("Transparent Proxy"))
+      "%s - %s".format(core, _("Transparent Proxy"))
     );
 
     const s = m.section(

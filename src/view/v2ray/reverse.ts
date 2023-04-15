@@ -22,7 +22,7 @@ return L.view.extend<string>({
       return core;
     });
   },
-  render: function (core: string) {
+  render: function (core = "") {
     const m = new form.Map(
       "v2ray",
       "%s - %s".format(core, _("Reverse")),

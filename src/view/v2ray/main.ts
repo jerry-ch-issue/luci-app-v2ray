@@ -17,7 +17,7 @@
 "require view/v2ray/include/custom as custom";
 
 // @ts-ignore
-return L.view.extend<SectionItem[][]>({
+return L.view.extend<SectionItem[][], string>({
   handleServiceReload: function (ev: MouseEvent) {
     return fs
       .exec("/etc/init.d/v2ray", ["reload"])
@@ -44,15 +44,20 @@ return L.view.extend<SectionItem[][]>({
       });
   },
   load: function () {
+    let core = uci.get("v2ray", "main", "core");
+    if (!core) {
+      core= "V2Ray";
+    }
     return Promise.all([
       v2ray.getSections("inbound"),
       v2ray.getSections("outbound"),
+      core,
     ]);
   },
-  render: function ([inboundSections = [], outBoundSections = []] = []) {
+  render: function ([inboundSections = [], outBoundSections = [], core = ""] = []) {
     const m = new form.Map(
       "v2ray",
-      "%s - %s".format(uci.get("v2ray", "main", "core"), _("Global Settings")),
+      "%s - %s".format(core, _("Global Settings")),
       "<p>%s</p><p>%s</p>".format(
         _("A platform for building proxies to bypass network restrictions."),
         _("For more information, please visit: %s").format(
