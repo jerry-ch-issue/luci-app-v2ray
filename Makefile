@@ -14,7 +14,7 @@ PKG_MAINTAINER:=Xingwang Liao <kuoruan@gmail.com>
 
 LUCI_TITLE:=LuCI support for V2Ray & Xray
 LUCI_DEPENDS:=+jshn +ip +ipset +iptables +iptables-mod-tproxy +resolveip \
-	+dnsmasq-full
+	+dnsmasq-full +curl +coreutils-base64
 LUCI_PKGARCH:=all
 
 define Package/$(PKG_NAME)/conffiles

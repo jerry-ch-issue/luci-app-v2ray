@@ -1,8 +1,14 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
 msgid ""
-msgstr "Content-Type: text/plain; charset=UTF-8\n"
+msgstr ""
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-21 20:45+0800\n"
-"PO-Revision-Date: 2023-03-21 21:51+0800\n"
+"POT-Creation-Date: 2023-04-15 15:29+0800\n"
+"PO-Revision-Date: 2023-04-15 16:05+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -12,54 +18,89 @@ msgstr "Content-Type: text/plain; charset=UTF-8\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.0.1\n"
 
-#: ../../../src/view/v2ray/dns.ts:22 ../../../src/view/v2ray/about.ts:33
-#: ../../../src/view/v2ray/inbound.ts:22
-#: ../../../src/view/v2ray/outbound.ts:256
-#: ../../../src/view/v2ray/reverse.ts:18 ../../../src/view/v2ray/routing.ts:43
-#: ../../../src/view/v2ray/transparent-proxy.ts:128
-#: ../../../src/view/v2ray/policy.ts:23
+#: about.ts:33 dns.ts:22 inbound.ts:22 outbound.ts:258 policy.ts:23
+#: reverse.ts:18 routing.ts:43 transparent-proxy.ts:132
 msgid "V2Ray"
 msgstr ""
 
-#: ../../../src/view/v2ray/dns.ts:22
+#: about.ts:33
+msgid "About"
+msgstr "关于"
+
+#: about.ts:34
+msgid "LuCI support for V2Ray v5 and Xray 1.8.0."
+msgstr "V2Ray v5 与 Xray 1.8 LuCI 界面支持."
+
+#: about.ts:37
+#, javascript-format
+msgid "Version: %s"
+msgstr "版本: %s"
+
+#: about.ts:41
+#, javascript-format
+msgid "Author: %s"
+msgstr "作者: %s"
+
+#: about.ts:44
+#, javascript-format
+msgid "Source: %s"
+msgstr "源码: %s"
+
+#: about.ts:50
+#, javascript-format
+msgid "Latest: %s"
+msgstr "最新版本: %s"
+
+#: about.ts:56
+#, javascript-format
+msgid "Report Bugs: %s"
+msgstr "报告错误: %s"
+
+#: about.ts:62
+#, javascript-format
+msgid "Donate: %s"
+msgstr "捐助: %s"
+
+#: about.ts:66
+#, javascript-format
+msgid "Current Config File: %s"
+msgstr "当前配置文件: %s"
+
+#: about.ts:73
+msgid "Failed to open file."
+msgstr "打开文件失败."
+
+#: dns.ts:22
 msgid "DNS"
 msgstr ""
 
-#: ../../../src/view/v2ray/dns.ts:23 ../../../src/view/v2ray/reverse.ts:19
-#: ../../../src/view/v2ray/routing.ts:44 ../../../src/view/v2ray/policy.ts:24
+#: dns.ts:23 policy.ts:24 reverse.ts:19 routing.ts:44
 #, javascript-format
 msgid "Details: %s"
 msgstr "查看详情: %s"
 
-#: ../../../src/view/v2ray/dns.ts:34 ../../../src/view/v2ray/inbound.ts:855
-#: ../../../src/view/v2ray/outbound.ts:1146
-#: ../../../src/view/v2ray/outbound.ts:1328 ../../../src/view/v2ray/main.ts:71
-#: ../../../src/view/v2ray/main.ts:160 ../../../src/view/v2ray/main.ts:167
-#: ../../../src/view/v2ray/reverse.ts:28 ../../../src/view/v2ray/routing.ts:54
-#: ../../../src/view/v2ray/policy.ts:34
+#: dns.ts:34 inbound.ts:855 main.ts:71 main.ts:160 main.ts:167 outbound.ts:1145
+#: outbound.ts:1334 policy.ts:34 reverse.ts:28 routing.ts:54
 msgid "Enabled"
-msgstr "Enabled"
+msgstr "启用"
 
-#: ../../../src/view/v2ray/dns.ts:37 ../../../src/view/v2ray/inbound.ts:848
-#: ../../../src/view/v2ray/outbound.ts:1299
-#: ../../../src/view/v2ray/outbound.ts:1306
-#: ../../../src/view/v2ray/routing.ts:184
+#: dns.ts:37 inbound.ts:848 outbound.ts:1298 outbound.ts:1305 routing.ts:184
 msgid "Tag"
 msgstr "标识"
 
-#: ../../../src/view/v2ray/dns.ts:43 ../../../src/view/v2ray/dns.ts:164
+#: dns.ts:43 dns.ts:164
 msgid "Client IP"
 msgstr "客户端公网IP"
 
-#: ../../../src/view/v2ray/dns.ts:45
+#: dns.ts:45
 msgid "Get my public IP address"
 msgstr "获取我的公网IP地址"
 
-#: ../../../src/view/v2ray/dns.ts:53
+#: dns.ts:53
 msgid "Hosts"
 msgstr "静态地址及域名映射"
 
-#: ../../../src/view/v2ray/dns.ts:55
+#: dns.ts:55
 #, javascript-format
 msgid ""
 "Host and domain mapping</br>format: <code>domain|ip1,ip2</code> or "
@@ -68,43 +109,37 @@ msgstr ""
 "静态地址及域名映射</br>格式: <code>domain|ip1,ip2</code> 或 <code>domain-A|"
 "domain-B</code> 例如: </br>%s 或 %s"
 
-#: ../../../src/view/v2ray/dns.ts:62
+#: dns.ts:62
 msgid "Domain Strategy"
 msgstr "解析策略"
 
-#: ../../../src/view/v2ray/dns.ts:67
+#: dns.ts:67
 msgid "Disable DNS Cache"
 msgstr "禁用DNS缓存"
 
-#: ../../../src/view/v2ray/dns.ts:68 ../../../src/view/v2ray/dns.ts:76
-#: ../../../src/view/v2ray/dns.ts:84 ../../../src/view/v2ray/dns.ts:161
-#: ../../../src/view/v2ray/inbound.ts:829
-#: ../../../src/view/v2ray/inbound.ts:878
-#: ../../../src/view/v2ray/outbound.ts:1296
+#: dns.ts:68 dns.ts:76 dns.ts:84 dns.ts:161 inbound.ts:829 inbound.ts:879
+#: outbound.ts:1295
 msgid "False"
 msgstr "否"
 
-#: ../../../src/view/v2ray/dns.ts:69 ../../../src/view/v2ray/dns.ts:77
-#: ../../../src/view/v2ray/dns.ts:85 ../../../src/view/v2ray/dns.ts:162
-#: ../../../src/view/v2ray/inbound.ts:830
-#: ../../../src/view/v2ray/inbound.ts:879
-#: ../../../src/view/v2ray/outbound.ts:1297
+#: dns.ts:69 dns.ts:77 dns.ts:85 dns.ts:162 inbound.ts:830 inbound.ts:880
+#: outbound.ts:1296
 msgid "True"
 msgstr "是"
 
-#: ../../../src/view/v2ray/dns.ts:74
+#: dns.ts:74
 msgid "Disable Fallback Query"
 msgstr "禁用回退查询"
 
-#: ../../../src/view/v2ray/dns.ts:82
+#: dns.ts:82
 msgid "Disable Fallback if got Matches"
-msgstr "符合条件后不进行回退查询"
+msgstr "条件匹配后不进行回退查询"
 
-#: ../../../src/view/v2ray/dns.ts:90
+#: dns.ts:90
 msgid "DNS Servers"
 msgstr "DNS服务器"
 
-#: ../../../src/view/v2ray/dns.ts:92
+#: dns.ts:92
 msgid ""
 "Select DNS servers to use</br><code>Only 1 fakedns configuration can be "
 "enabled at the same time,prioritized by order</code>"
@@ -112,1217 +147,1027 @@ msgstr ""
 "选择使用的 DNS 服务器</br><code>仅能启用一组fakedns服务器配置, 优先使用高顺位"
 "配置</code>"
 
-#: ../../../src/view/v2ray/dns.ts:102
+#: dns.ts:102
 msgid "DNS server"
 msgstr "DNS 服务器"
 
-#: ../../../src/view/v2ray/dns.ts:103
+#: dns.ts:103
 msgid "Add DNS servers here"
 msgstr "在这里添加 DNS 服务器"
 
-#: ../../../src/view/v2ray/dns.ts:110 ../../../src/view/v2ray/inbound.ts:41
-#: ../../../src/view/v2ray/outbound.ts:276
-#: ../../../src/view/v2ray/routing.ts:99
+#: dns.ts:110 inbound.ts:41 outbound.ts:278 routing.ts:99
 msgid "Alias"
 msgstr "别名"
 
-#: ../../../src/view/v2ray/dns.ts:113 ../../../src/view/v2ray/routing.ts:106
+#: dns.ts:113 routing.ts:106
 msgid "Type"
 msgstr "类型"
 
-#: ../../../src/view/v2ray/dns.ts:128 ../../../src/view/v2ray/inbound.ts:67
-#: ../../../src/view/v2ray/outbound.ts:328
-#: ../../../src/view/v2ray/outbound.ts:455
-#: ../../../src/view/v2ray/outbound.ts:573
-#: ../../../src/view/v2ray/outbound.ts:603
-#: ../../../src/view/v2ray/outbound.ts:653
+#: dns.ts:128 inbound.ts:67 outbound.ts:330 outbound.ts:457 outbound.ts:575
+#: outbound.ts:605 outbound.ts:655
 msgid "Address"
 msgstr "地址"
 
-#: ../../../src/view/v2ray/dns.ts:133 ../../../src/view/v2ray/inbound.ts:50
-#: ../../../src/view/v2ray/inbound.ts:78
-#: ../../../src/view/v2ray/outbound.ts:337
-#: ../../../src/view/v2ray/outbound.ts:465
-#: ../../../src/view/v2ray/outbound.ts:583
-#: ../../../src/view/v2ray/outbound.ts:613
-#: ../../../src/view/v2ray/outbound.ts:663
-#: ../../../src/view/v2ray/routing.ts:115
+#: dns.ts:133 inbound.ts:50 inbound.ts:78 outbound.ts:339 outbound.ts:467
+#: outbound.ts:585 outbound.ts:615 outbound.ts:665 routing.ts:115
 msgid "Port"
 msgstr "端口"
 
-#: ../../../src/view/v2ray/dns.ts:144
+#: dns.ts:144
 msgid "Local Mode"
 msgstr "本地模式"
 
-#: ../../../src/view/v2ray/dns.ts:145
+#: dns.ts:145
 msgid "DNS Query through <code>Freedom</code> outbound"
 msgstr "绕过xray路由模块, 直接从<code>Freedom</code>出站连接发出DNS请求"
 
-#: ../../../src/view/v2ray/dns.ts:152
+#: dns.ts:152
 msgid "Domains"
 msgstr "域名"
 
-#: ../../../src/view/v2ray/dns.ts:155
+#: dns.ts:155
 msgid "Expect IPs"
 msgstr "期望 IP"
 
-#: ../../../src/view/v2ray/dns.ts:158
+#: dns.ts:158
 msgid "Skip Fallback"
 msgstr "不回退到此服务器"
 
-#: ../../../src/view/v2ray/about.ts:33
-msgid "About"
-msgstr "关于"
-
-#: ../../../src/view/v2ray/about.ts:34
-msgid "LuCI support for Xray 1.8.0."
-msgstr "Xray 1.8.0 LuCI界面支持."
-
-#: ../../../src/view/v2ray/about.ts:37
-#, javascript-format
-msgid "Version: %s"
-msgstr "版本: %s"
-
-#: ../../../src/view/v2ray/about.ts:41
-#, javascript-format
-msgid "Author: %s"
-msgstr "作者: %s"
-
-#: ../../../src/view/v2ray/about.ts:44
-#, javascript-format
-msgid "Source: %s"
-msgstr "源码: %s"
-
-#: ../../../src/view/v2ray/about.ts:50
-#, javascript-format
-msgid "Latest: %s"
-msgstr "最新版本: %s"
-
-#: ../../../src/view/v2ray/about.ts:56
-#, javascript-format
-msgid "Report Bugs: %s"
-msgstr "报告错误: %s"
-
-#: ../../../src/view/v2ray/about.ts:62
-#, javascript-format
-msgid "Donate: %s"
-msgstr "捐助: %s"
-
-#: ../../../src/view/v2ray/about.ts:66
-#, javascript-format
-msgid "Current Config File: %s"
-msgstr "当前配置文件: %s"
-
-#: ../../../src/view/v2ray/about.ts:73
-msgid "Failed to open file."
-msgstr "打开文件失败."
-
-#: ../../../src/view/v2ray/inbound.ts:22 ../../../src/view/v2ray/inbound.ts:30
+#: inbound.ts:22 inbound.ts:30
 msgid "Inbound"
-msgstr "入站连接"
+msgstr ""
 
-#: ../../../src/view/v2ray/inbound.ts:30
-#: ../../../src/view/v2ray/outbound.ts:265
+#: inbound.ts:30 outbound.ts:267
 msgid "Add"
 msgstr "添加"
 
-#: ../../../src/view/v2ray/inbound.ts:34
-#: ../../../src/view/v2ray/outbound.ts:269
+#: inbound.ts:34 outbound.ts:271
 msgid "General Settings"
 msgstr "常规设置"
 
-#: ../../../src/view/v2ray/inbound.ts:35
-#: ../../../src/view/v2ray/outbound.ts:270
+#: inbound.ts:35 outbound.ts:272
 msgid "Stream Settings"
 msgstr "传输方式配置"
 
-#: ../../../src/view/v2ray/inbound.ts:36
-#: ../../../src/view/v2ray/outbound.ts:271
+#: inbound.ts:36 outbound.ts:273
 msgid "Other Settings"
 msgstr "其它配置"
 
-#: ../../../src/view/v2ray/inbound.ts:44
+#: inbound.ts:44
 msgid "Listen"
 msgstr "监听地址"
 
-#: ../../../src/view/v2ray/inbound.ts:54
-#: ../../../src/view/v2ray/outbound.ts:285
-#: ../../../src/view/v2ray/routing.ts:149
+#: inbound.ts:54 outbound.ts:287 routing.ts:149
 msgid "Protocol"
 msgstr "协议"
 
-#: ../../../src/view/v2ray/inbound.ts:68
+#: inbound.ts:68
 msgid "Address of the destination server."
 msgstr "将流量转发到此地址."
 
-#: ../../../src/view/v2ray/inbound.ts:79
+#: inbound.ts:79
 msgid "Port of the destination server."
 msgstr "将流量转发到目标地址的指定端口."
 
-#: ../../../src/view/v2ray/inbound.ts:89 ../../../src/view/v2ray/inbound.ts:279
-#: ../../../src/view/v2ray/inbound.ts:438
-#: ../../../src/view/v2ray/outbound.ts:316
-#: ../../../src/view/v2ray/outbound.ts:713
-#: ../../../src/view/v2ray/routing.ts:119
+#: inbound.ts:89 inbound.ts:279 inbound.ts:438 outbound.ts:318 outbound.ts:715
+#: routing.ts:119
 msgid "Network"
 msgstr "网络"
 
-#: ../../../src/view/v2ray/inbound.ts:91 ../../../src/view/v2ray/inbound.ts:118
-#: ../../../src/view/v2ray/inbound.ts:838
+#: inbound.ts:91 inbound.ts:118 inbound.ts:838
 msgid ""
 "If transparent proxy enabled on current inbound, this option will be ignored."
 msgstr "如果在当前入站连接上启用透明代理，此选项会被忽略."
 
-#: ../../../src/view/v2ray/inbound.ts:104
-#: ../../../src/view/v2ray/inbound.ts:168
+#: inbound.ts:104 inbound.ts:168
 msgid "Timeout"
 msgstr "超时时间"
 
-#: ../../../src/view/v2ray/inbound.ts:105
-#: ../../../src/view/v2ray/inbound.ts:169
+#: inbound.ts:105 inbound.ts:169
 msgid "Time limit for inbound data(seconds)"
 msgstr "入站数据的时间限制（秒）"
 
-#: ../../../src/view/v2ray/inbound.ts:116
+#: inbound.ts:116
 msgid "Follow redirect"
 msgstr "自动转发"
 
-#: ../../../src/view/v2ray/inbound.ts:128
-#: ../../../src/view/v2ray/inbound.ts:180
-#: ../../../src/view/v2ray/inbound.ts:211
-#: ../../../src/view/v2ray/inbound.ts:260
-#: ../../../src/view/v2ray/inbound.ts:350
-#: ../../../src/view/v2ray/outbound.ts:371
-#: ../../../src/view/v2ray/outbound.ts:503
-#: ../../../src/view/v2ray/outbound.ts:562
-#: ../../../src/view/v2ray/outbound.ts:706
+#: inbound.ts:128 inbound.ts:180 inbound.ts:211 inbound.ts:260 inbound.ts:350
+#: outbound.ts:373 outbound.ts:505 outbound.ts:564 outbound.ts:708
 msgid "User level"
 msgstr "用户等级"
 
-#: ../../../src/view/v2ray/inbound.ts:129
-#: ../../../src/view/v2ray/inbound.ts:181
-#: ../../../src/view/v2ray/inbound.ts:212
-#: ../../../src/view/v2ray/inbound.ts:351
+#: inbound.ts:129 inbound.ts:181 inbound.ts:212 inbound.ts:351
 msgid "All connections share this level"
 msgstr "所有连接都会使用这个用户等级"
 
-#: ../../../src/view/v2ray/inbound.ts:140
-#: ../../../src/view/v2ray/inbound.ts:305
+#: inbound.ts:140 inbound.ts:305
 msgid "Account user"
 msgstr "账号用户名"
 
-#: ../../../src/view/v2ray/inbound.ts:149
-#: ../../../src/view/v2ray/inbound.ts:314
+#: inbound.ts:149 inbound.ts:314
 msgid "Account password"
 msgstr "账号密码"
 
-#: ../../../src/view/v2ray/inbound.ts:159
+#: inbound.ts:159
 msgid "Allow transparent"
 msgstr "转发所有HTTP请求"
 
-#: ../../../src/view/v2ray/inbound.ts:192
+#: inbound.ts:192
 msgid "User email"
 msgstr "用户邮箱地址"
 
-#: ../../../src/view/v2ray/inbound.ts:201
+#: inbound.ts:201
 msgid "User secret"
 msgstr "用户密钥"
 
-#: ../../../src/view/v2ray/inbound.ts:223
-#: ../../../src/view/v2ray/outbound.ts:446
+#: inbound.ts:223 outbound.ts:448
 msgid "Email"
 msgstr "邮箱地址"
 
-#: ../../../src/view/v2ray/inbound.ts:232
-#: ../../../src/view/v2ray/outbound.ts:475
+#: inbound.ts:232 outbound.ts:477
 msgid "Method"
 msgstr "加密方式"
 
-#: ../../../src/view/v2ray/inbound.ts:250
-#: ../../../src/view/v2ray/inbound.ts:298
-#: ../../../src/view/v2ray/outbound.ts:411
-#: ../../../src/view/v2ray/outbound.ts:493
-#: ../../../src/view/v2ray/outbound.ts:552
-#: ../../../src/view/v2ray/outbound.ts:593
+#: inbound.ts:250 inbound.ts:298 outbound.ts:413 outbound.ts:495
+#: outbound.ts:554 outbound.ts:595
 msgid "Password"
 msgstr "密码"
 
-#: ../../../src/view/v2ray/inbound.ts:270
+#: inbound.ts:270
 msgid "One Time Auth (OTA)"
 msgstr "一次性认证"
 
-#: ../../../src/view/v2ray/inbound.ts:292
+#: inbound.ts:292
 msgid "Auth"
 msgstr "认证方式"
 
-#: ../../../src/view/v2ray/inbound.ts:297
+#: inbound.ts:297
 msgid "No Auth"
 msgstr "无认证"
 
-#: ../../../src/view/v2ray/inbound.ts:324
+#: inbound.ts:324
 msgid "UDP"
 msgstr ""
 
-#: ../../../src/view/v2ray/inbound.ts:333
-#: ../../../src/view/v2ray/routing.ts:112
+#: inbound.ts:333 routing.ts:112
 msgid "IP"
 msgstr ""
 
-#: ../../../src/view/v2ray/inbound.ts:335
+#: inbound.ts:335
 msgid ""
 "When UDP is enabled, V2Ray needs to know the IP address of current host."
 msgstr "当 UDP 启用时，XRay 需要知道当前服务器的 IP 地址."
 
-#: ../../../src/view/v2ray/inbound.ts:362
+#: inbound.ts:362
 msgid "Client ID"
 msgstr "用户 ID"
 
-#: ../../../src/view/v2ray/inbound.ts:371
+#: inbound.ts:371
 msgid "Client alter ID"
 msgstr "用户 alter ID"
 
-#: ../../../src/view/v2ray/inbound.ts:381
+#: inbound.ts:381
 msgid "Client email"
 msgstr "用户邮箱地址"
 
-#: ../../../src/view/v2ray/inbound.ts:390
+#: inbound.ts:390
 msgid "Client User level"
 msgstr "用户等级"
 
-#: ../../../src/view/v2ray/inbound.ts:400
+#: inbound.ts:400
 msgid "Default alter ID"
 msgstr "默认 Alter ID"
 
-#: ../../../src/view/v2ray/inbound.ts:410
+#: inbound.ts:410
 msgid "Default user level"
 msgstr "默认用户等级"
 
-#: ../../../src/view/v2ray/inbound.ts:420
+#: inbound.ts:420
 msgid "Detour to"
 msgstr "转发到"
 
-#: ../../../src/view/v2ray/inbound.ts:422
+#: inbound.ts:422
 msgid ""
 "Optional feature to suggest client to take a detour. If specified, this "
 "inbound will instruct the outbound to use another inbound."
 msgstr "建议客户端自动绕路，指定后将指示出站连接使用另一个入站连接."
 
-#: ../../../src/view/v2ray/inbound.ts:432
+#: inbound.ts:432
 msgid "Disable insecure encryption"
 msgstr "禁止不安全加密方式"
 
-#: ../../../src/view/v2ray/inbound.ts:447
-#: ../../../src/view/v2ray/inbound.ts:785
-#: ../../../src/view/v2ray/outbound.ts:692
-#: ../../../src/view/v2ray/outbound.ts:723
-#: ../../../src/view/v2ray/outbound.ts:1220
+#: inbound.ts:447 inbound.ts:785 outbound.ts:694 outbound.ts:725
+#: outbound.ts:1219
 msgid "Security"
 msgstr "传输层加密"
 
-#: ../../../src/view/v2ray/inbound.ts:450
-#: ../../../src/view/v2ray/inbound.ts:542
-#: ../../../src/view/v2ray/inbound.ts:721
-#: ../../../src/view/v2ray/inbound.ts:790
-#: ../../../src/view/v2ray/inbound.ts:813
-#: ../../../src/view/v2ray/outbound.ts:308
-#: ../../../src/view/v2ray/outbound.ts:426
-#: ../../../src/view/v2ray/outbound.ts:700
-#: ../../../src/view/v2ray/outbound.ts:725
-#: ../../../src/view/v2ray/outbound.ts:911
-#: ../../../src/view/v2ray/outbound.ts:1085
-#: ../../../src/view/v2ray/outbound.ts:1225
-#: ../../../src/view/v2ray/outbound.ts:1248
-#: ../../../src/view/v2ray/outbound.ts:1309 ../../../src/view/v2ray/main.ts:121
-#: ../../../src/view/v2ray/main.ts:134
-#: ../../../src/view/v2ray/transparent-proxy.ts:145
+#: inbound.ts:450 inbound.ts:542 inbound.ts:721 inbound.ts:790 inbound.ts:813
+#: main.ts:121 main.ts:134 outbound.ts:310 outbound.ts:428 outbound.ts:702
+#: outbound.ts:728 outbound.ts:910 outbound.ts:1084 outbound.ts:1224
+#: outbound.ts:1247 outbound.ts:1308 transparent-proxy.ts:149
 msgid "None"
 msgstr "无"
 
-#: ../../../src/view/v2ray/inbound.ts:458
-#: ../../../src/view/v2ray/outbound.ts:756
+#: inbound.ts:458 outbound.ts:756
 msgid "Server name"
 msgstr "服务器名称"
 
-#: ../../../src/view/v2ray/inbound.ts:478
-#: ../../../src/view/v2ray/outbound.ts:776
+#: inbound.ts:478 outbound.ts:773
 msgid "Allow insecure"
 msgstr "允许不安全连接"
 
-#: ../../../src/view/v2ray/inbound.ts:487
-#: ../../../src/view/v2ray/outbound.ts:785
+#: inbound.ts:487 outbound.ts:783
 msgid "Allow insecure ciphers"
 msgstr "允许不安全的加密方式"
 
-#: ../../../src/view/v2ray/inbound.ts:496
-#: ../../../src/view/v2ray/outbound.ts:794
+#: inbound.ts:496 outbound.ts:793
 msgid "Disable system root"
 msgstr "禁用系统自带的 CA 证书"
 
-#: ../../../src/view/v2ray/inbound.ts:505
-#: ../../../src/view/v2ray/outbound.ts:803
+#: inbound.ts:505 outbound.ts:803
 msgid "Certificate usage"
 msgstr "证书用途"
 
-#: ../../../src/view/v2ray/inbound.ts:518
-#: ../../../src/view/v2ray/outbound.ts:816
+#: inbound.ts:518 outbound.ts:817
 msgid "Certificate file"
 msgstr "证书文件路径"
 
-#: ../../../src/view/v2ray/inbound.ts:527
-#: ../../../src/view/v2ray/outbound.ts:825
+#: inbound.ts:527 outbound.ts:823
 msgid "Key file"
 msgstr "密钥文件路径"
 
-#: ../../../src/view/v2ray/inbound.ts:537
-#: ../../../src/view/v2ray/inbound.ts:716
-#: ../../../src/view/v2ray/inbound.ts:808
-#: ../../../src/view/v2ray/outbound.ts:906
-#: ../../../src/view/v2ray/outbound.ts:1080
-#: ../../../src/view/v2ray/outbound.ts:1243
+#: inbound.ts:537 inbound.ts:716 inbound.ts:808 outbound.ts:905
+#: outbound.ts:1079 outbound.ts:1242
 msgid "Header type"
 msgstr "头部伪装类型"
 
-#: ../../../src/view/v2ray/inbound.ts:549
-#: ../../../src/view/v2ray/outbound.ts:918
+#: inbound.ts:549 outbound.ts:917
 msgid "HTTP request version"
 msgstr "HTTP 请求版本"
 
-#: ../../../src/view/v2ray/inbound.ts:559
-#: ../../../src/view/v2ray/outbound.ts:927
+#: inbound.ts:559 outbound.ts:926
 msgid "HTTP request method"
 msgstr "HTTP 请求方式"
 
-#: ../../../src/view/v2ray/inbound.ts:577
-#: ../../../src/view/v2ray/outbound.ts:944
+#: inbound.ts:577 outbound.ts:943
 msgid "Request path"
 msgstr "请求路径"
 
-#: ../../../src/view/v2ray/inbound.ts:586
-#: ../../../src/view/v2ray/outbound.ts:953
+#: inbound.ts:586 outbound.ts:952
 msgid "Request headers"
 msgstr "请求头"
 
-#: ../../../src/view/v2ray/inbound.ts:588
-#: ../../../src/view/v2ray/inbound.ts:630
-#: ../../../src/view/v2ray/inbound.ts:744
-#: ../../../src/view/v2ray/outbound.ts:955
-#: ../../../src/view/v2ray/outbound.ts:994
-#: ../../../src/view/v2ray/outbound.ts:1108
+#: inbound.ts:588 inbound.ts:630 inbound.ts:744 outbound.ts:954 outbound.ts:993
+#: outbound.ts:1107
 #, javascript-format
 msgid "A list of HTTP headers, format: <code>header=value</code>. eg: %s"
-msgstr "HTTP Header 列表，格式：header=value. 例如：Host=www.bing.com"
+msgstr "HTTP Header 列表，格式：header=value. 例如: %s"
 
-#: ../../../src/view/v2ray/inbound.ts:598
-#: ../../../src/view/v2ray/outbound.ts:965
+#: inbound.ts:598 outbound.ts:964
 msgid "HTTP response version"
 msgstr "HTTP 响应版本"
 
-#: ../../../src/view/v2ray/inbound.ts:608
-#: ../../../src/view/v2ray/outbound.ts:974
+#: inbound.ts:608 outbound.ts:973
 msgid "HTTP response status"
 msgstr "HTTP 响应状态"
 
-#: ../../../src/view/v2ray/inbound.ts:618
-#: ../../../src/view/v2ray/outbound.ts:983
+#: inbound.ts:618 outbound.ts:982
 msgid "HTTP response reason"
 msgstr "HTTP 响应说明"
 
-#: ../../../src/view/v2ray/inbound.ts:628
-#: ../../../src/view/v2ray/outbound.ts:992
+#: inbound.ts:628 outbound.ts:991
 msgid "Response headers"
 msgstr "响应头"
 
-#: ../../../src/view/v2ray/inbound.ts:641
-#: ../../../src/view/v2ray/outbound.ts:1005
+#: inbound.ts:641 outbound.ts:1004
 msgid "Maximum transmission unit (MTU)"
 msgstr "最大传输单元 (MTU)"
 
-#: ../../../src/view/v2ray/inbound.ts:652
-#: ../../../src/view/v2ray/outbound.ts:1016
+#: inbound.ts:652 outbound.ts:1015
 msgid "Transmission time interval (TTI)"
 msgstr "传输时间间隔（TTI)"
 
-#: ../../../src/view/v2ray/inbound.ts:663
-#: ../../../src/view/v2ray/outbound.ts:1027
+#: inbound.ts:663 outbound.ts:1026
 msgid "Uplink capacity"
 msgstr "上行链路容量"
 
-#: ../../../src/view/v2ray/inbound.ts:674
-#: ../../../src/view/v2ray/outbound.ts:1038
+#: inbound.ts:674 outbound.ts:1037
 msgid "Downlink capacity"
 msgstr "下行链路容量"
 
-#: ../../../src/view/v2ray/inbound.ts:685
-#: ../../../src/view/v2ray/outbound.ts:1049
+#: inbound.ts:685 outbound.ts:1048
 msgid "Congestion enabled"
 msgstr "启用拥塞控制"
 
-#: ../../../src/view/v2ray/inbound.ts:694
-#: ../../../src/view/v2ray/outbound.ts:1058
+#: inbound.ts:694 outbound.ts:1057
 msgid "Read buffer size"
 msgstr "读取缓冲区大小"
 
-#: ../../../src/view/v2ray/inbound.ts:705
-#: ../../../src/view/v2ray/outbound.ts:1069
+#: inbound.ts:705 outbound.ts:1068
 msgid "Write buffer size"
 msgstr "写入缓冲区大小"
 
-#: ../../../src/view/v2ray/inbound.ts:724
-#: ../../../src/view/v2ray/inbound.ts:816
-#: ../../../src/view/v2ray/outbound.ts:1088
-#: ../../../src/view/v2ray/outbound.ts:1251
+#: inbound.ts:724 inbound.ts:816 outbound.ts:1087 outbound.ts:1250
 msgid "Wechat Video"
 msgstr "微信视频通话"
 
-#: ../../../src/view/v2ray/inbound.ts:733
-#: ../../../src/view/v2ray/inbound.ts:764
-#: ../../../src/view/v2ray/inbound.ts:775
-#: ../../../src/view/v2ray/outbound.ts:1097
-#: ../../../src/view/v2ray/outbound.ts:1199
-#: ../../../src/view/v2ray/outbound.ts:1210
+#: inbound.ts:733 inbound.ts:764 inbound.ts:775 outbound.ts:1096
+#: outbound.ts:1198 outbound.ts:1209
 msgid "Path"
 msgstr "路径"
 
-#: ../../../src/view/v2ray/inbound.ts:742
-#: ../../../src/view/v2ray/outbound.ts:1106
+#: inbound.ts:742 outbound.ts:1105
 msgid "Headers"
 msgstr "HTTP 头"
 
-#: ../../../src/view/v2ray/inbound.ts:755
-#: ../../../src/view/v2ray/outbound.ts:1190
+#: inbound.ts:755 outbound.ts:1189
 msgid "Host"
 msgstr "主机"
 
-#: ../../../src/view/v2ray/inbound.ts:798
-#: ../../../src/view/v2ray/outbound.ts:1233
+#: inbound.ts:798 outbound.ts:1232
 msgid "Key"
 msgstr "密钥"
 
-#: ../../../src/view/v2ray/inbound.ts:825
-#: ../../../src/view/v2ray/inbound.ts:836
-#: ../../../src/view/v2ray/outbound.ts:1260
-#: ../../../src/view/v2ray/outbound.ts:1272
-#: ../../../src/view/v2ray/outbound.ts:1292
+#: inbound.ts:825 inbound.ts:836 outbound.ts:1259 outbound.ts:1271
+#: outbound.ts:1291
 msgid "Sockopt"
 msgstr "连接选项"
 
-#: ../../../src/view/v2ray/inbound.ts:825
-#: ../../../src/view/v2ray/outbound.ts:1292
+#: inbound.ts:825 outbound.ts:1291
 msgid "TCP fast open"
 msgstr "TCP 快速打开"
 
-#: ../../../src/view/v2ray/inbound.ts:836
+#: inbound.ts:836
 msgid "TProxy"
 msgstr "透明代理方式"
 
-#: ../../../src/view/v2ray/inbound.ts:845
+#: inbound.ts:845
 msgid "Off"
 msgstr "关闭"
 
-#: ../../../src/view/v2ray/inbound.ts:855
-#: ../../../src/view/v2ray/inbound.ts:863
+#: inbound.ts:855 inbound.ts:863
 msgid "Sniffing"
 msgstr "流量探测"
 
-#: ../../../src/view/v2ray/inbound.ts:863
+#: inbound.ts:863
 msgid "Dest override"
 msgstr "重置指定的流量类型"
 
-#: ../../../src/view/v2ray/inbound.ts:875
+#: inbound.ts:876
 msgid "Metadata Only"
 msgstr "仅使用元数据进行探测"
 
-#: ../../../src/view/v2ray/inbound.ts:885
+#: inbound.ts:886
 msgid "Domains Excluded"
 msgstr "排除域名"
 
-#: ../../../src/view/v2ray/inbound.ts:890
+#: inbound.ts:891
 msgid "Route Only"
 msgstr "仅用于路由"
 
-#: ../../../src/view/v2ray/inbound.ts:897
-#: ../../../src/view/v2ray/inbound.ts:908
-#: ../../../src/view/v2ray/inbound.ts:917
+#: inbound.ts:898 inbound.ts:909 inbound.ts:918
 msgid "Allocate"
 msgstr "端口分配"
 
-#: ../../../src/view/v2ray/inbound.ts:897
+#: inbound.ts:898
 msgid "Strategy"
 msgstr "端口分配策略"
 
-#: ../../../src/view/v2ray/inbound.ts:908
+#: inbound.ts:909
 msgid "Refresh"
 msgstr "随机端口刷新间隔"
 
-#: ../../../src/view/v2ray/inbound.ts:917
-#: ../../../src/view/v2ray/outbound.ts:1346
+#: inbound.ts:918 outbound.ts:1352
 msgid "Concurrency"
 msgstr "随机端口数量"
 
-#: ../../../src/view/v2ray/outbound.ts:130
-#: ../../../src/view/v2ray/outbound.ts:153
+#: main.ts:30
+#, javascript-format
+msgid "Reload service failed with code %d"
+msgstr "重载服务失败,错误代码 %d"
+
+#: main.ts:54
+msgid "V2ray"
+msgstr ""
+
+#: main.ts:54
+msgid "Global Settings"
+msgstr "全局设置"
+
+#: main.ts:56
+msgid "A platform for building proxies to bypass network restrictions."
+msgstr "一个用于构建网络代理的平台."
+
+#: main.ts:57
+#, javascript-format
+msgid "For more information, please visit: %s"
+msgstr "更多信息，请访问: %s"
+
+#: main.ts:77
+msgid "Reload Service"
+msgstr "重载服务"
+
+#: main.ts:78
+msgid "This will restart service when config file changes."
+msgstr "如果配置文件发生变化，此操作会重启服务."
+
+#: main.ts:81
+msgid "Reload"
+msgstr "重新加载"
+
+#: main.ts:87
+msgid "V2Ray file"
+msgstr "Core 可执行文件"
+
+#: main.ts:88
+msgid "Set the V2Ray executable file path."
+msgstr "配置 Core 程序路径."
+
+#: main.ts:97
+msgid "V2Ray asset location"
+msgstr "资源文件路径"
+
+#: main.ts:99
+msgid ""
+"Directory where geoip.dat and geosite.dat files are, default: same directory "
+"as V2Ray file."
+msgstr "geoip.dat 和 geosite.dat 目录路径,默认：Core 文件所在目录."
+
+#: main.ts:108
+msgid "Memory percentage"
+msgstr "内存百分比"
+
+#: main.ts:109
+msgid "The maximum percentage of memory used by V2Ray."
+msgstr "Core 可使用的最大内存百分比."
+
+#: main.ts:117
+msgid "Config file"
+msgstr "配置文件"
+
+#: main.ts:118
+msgid "Use custom config file."
+msgstr "使用自定义配置文件."
+
+#: main.ts:123
+msgid "Access log file"
+msgstr "访问日志文件"
+
+#: main.ts:128
+msgid "Log level"
+msgstr "日志等级"
+
+#: main.ts:130
+msgid "Debug"
+msgstr "调试"
+
+#: main.ts:131 outbound.ts:833
+msgid "Info"
+msgstr "信息"
+
+#: main.ts:132
+msgid "Warning"
+msgstr "警告"
+
+#: main.ts:133
+msgid "Error"
+msgstr "错误"
+
+#: main.ts:137
+msgid "Error log file"
+msgstr "错误日志文件"
+
+#: main.ts:145
+msgid "Inbounds enabled"
+msgstr "启用的入站连接"
+
+#: main.ts:151
+msgid "Outbounds enabled"
+msgstr "启用的出站连接"
+
+#: main.ts:160
+msgid "Stats"
+msgstr "统计信息"
+
+#: main.ts:167 main.ts:174
+msgid "Transport"
+msgstr "底层传输"
+
+#: main.ts:174
+msgid "Settings"
+msgstr "设置"
+
+#: main.ts:175
+msgid "<code>transport</code> field in top level configuration, JSON string"
+msgstr "配置文件中的 </code>transport</code> 项，JSON 字符串"
+
+#: outbound.ts:130 outbound.ts:153
 msgid "Outbound Import"
 msgstr "导入出站连接"
 
-#: ../../../src/view/v2ray/outbound.ts:131
+#: outbound.ts:131
 #, javascript-format
 msgid "Imported %d links."
 msgstr "已导入 %d 个配置."
 
-#: ../../../src/view/v2ray/outbound.ts:147
-#: ../../../src/view/v2ray/outbound.ts:164
-#: ../../../src/view/v2ray/transparent-proxy.ts:64
-#: ../../../src/view/v2ray/transparent-proxy.ts:98
+#: outbound.ts:147 outbound.ts:164 transparent-proxy.ts:64
+#: transparent-proxy.ts:74 transparent-proxy.ts:100 transparent-proxy.ts:110
 msgid "OK"
 msgstr "确认"
 
-#: ../../../src/view/v2ray/outbound.ts:154
+#: outbound.ts:154
 msgid "No links imported."
 msgstr "无链接导入."
 
-#: ../../../src/view/v2ray/outbound.ts:173
+#: outbound.ts:173
 msgid "You can add multiple links at once, one link per line."
 msgstr "可同时导入多个链接，每行一个链接."
 
-#: ../../../src/view/v2ray/outbound.ts:176
+#: outbound.ts:176
 msgid "Empty field."
 msgstr "内容为空."
 
-#: ../../../src/view/v2ray/outbound.ts:203
+#: outbound.ts:203
 msgid "Dismiss"
 msgstr "关闭"
 
-#: ../../../src/view/v2ray/outbound.ts:229
+#: outbound.ts:229
 msgid "Save"
 msgstr "保存"
 
-#: ../../../src/view/v2ray/outbound.ts:256
-#: ../../../src/view/v2ray/outbound.ts:265
+#: outbound.ts:258 outbound.ts:267
 msgid "Outbound"
 msgstr "出站连接"
 
-#: ../../../src/view/v2ray/outbound.ts:279
+#: outbound.ts:281
 msgid "Send through"
 msgstr "使用 IP 地址发出"
 
-#: ../../../src/view/v2ray/outbound.ts:303
+#: outbound.ts:305
 msgid "Response type"
 msgstr "响应类型"
 
-#: ../../../src/view/v2ray/outbound.ts:348
-#: ../../../src/view/v2ray/outbound.ts:1272
+#: outbound.ts:350 outbound.ts:1271
 msgid "Domain strategy"
 msgstr "域名策略"
 
-#: ../../../src/view/v2ray/outbound.ts:362
+#: outbound.ts:364
 msgid "Redirect"
 msgstr "发送到指定地址"
 
-#: ../../../src/view/v2ray/outbound.ts:382
-#: ../../../src/view/v2ray/outbound.ts:523
+#: outbound.ts:384 outbound.ts:525
 msgid "Server address"
 msgstr "服务器地址"
 
-#: ../../../src/view/v2ray/outbound.ts:392
-#: ../../../src/view/v2ray/outbound.ts:533
+#: outbound.ts:394 outbound.ts:535
 msgid "Server port"
 msgstr "服务器端口"
 
-#: ../../../src/view/v2ray/outbound.ts:402
-#: ../../../src/view/v2ray/outbound.ts:543
-#: ../../../src/view/v2ray/routing.ts:131
+#: outbound.ts:404 outbound.ts:545 routing.ts:131
 msgid "User"
-msgstr "入站连接标识"
+msgstr "用户"
 
-#: ../../../src/view/v2ray/outbound.ts:422
-#: ../../../src/view/v2ray/routing.ts:134
+#: outbound.ts:424 routing.ts:134
 msgid "Inbound Tag"
 msgstr "入站连接标识"
 
-#: ../../../src/view/v2ray/outbound.ts:513
+#: outbound.ts:515
 msgid "OTA"
 msgstr ""
 
-#: ../../../src/view/v2ray/outbound.ts:623
-#: ../../../src/view/v2ray/outbound.ts:673
+#: outbound.ts:625 outbound.ts:675
 msgid "User ID"
 msgstr "用户ID"
 
-#: ../../../src/view/v2ray/outbound.ts:632
+#: outbound.ts:634
 msgid "User Level"
 msgstr "用户等级"
 
-#: ../../../src/view/v2ray/outbound.ts:642
+#: outbound.ts:644
 msgid "Encryption"
 msgstr "加密方式"
 
-#: ../../../src/view/v2ray/outbound.ts:682
+#: outbound.ts:684
 msgid "Alter ID"
 msgstr ""
 
-#: ../../../src/view/v2ray/outbound.ts:697
+#: outbound.ts:699
 msgid "Auto"
 msgstr "自动"
 
-#: ../../../src/view/v2ray/outbound.ts:733
-msgid "Enable"
-msgstr "启用"
-
-#: ../../../src/view/v2ray/outbound.ts:735
-msgid ""
-"xTLS <span style=\"text-decoration:underline;color: #ec8717;\">Only</span> "
-"works under <span style=\"text-decoration:underline;color: #ec8717;\">"
-"\"Trojan/VLESS\"</span> protocols through <span style=\"text-decoration:"
-"underline;color: #ec8717;\">\"TCP/mKCP/DomainSocket\"</span> transportations"
-msgstr ""
-"xTLS <span style=\"text-decoration:underline;color: #ec8717;\">仅在 <span "
-"style=\"text-decoration:underline;color: #ec8717;\">\"Trojan/VLESS\"</span> "
-"协议使用<span style=\"text-decoration:underline;color: #ec8717;\">\"TCP/mKCP/"
-"DomainSocket\"</span> 传输方式下生效"
-
-#: ../../../src/view/v2ray/outbound.ts:747
-msgid "none"
-msgstr "无"
-
-#: ../../../src/view/v2ray/outbound.ts:835 ../../../src/view/v2ray/main.ts:131
-msgid "Info"
-msgstr "信息"
-
-#: ../../../src/view/v2ray/outbound.ts:836
+#: outbound.ts:834
 msgid "Show REALITY Debug Info in LOGs"
 msgstr "在日志中记录REALITY调试信息"
 
-#: ../../../src/view/v2ray/outbound.ts:840
+#: outbound.ts:838
 msgid "Show"
 msgstr "启用"
 
-#: ../../../src/view/v2ray/outbound.ts:841
+#: outbound.ts:839
 msgid "Hide"
 msgstr "关闭"
 
-#: ../../../src/view/v2ray/outbound.ts:847
+#: outbound.ts:845
 msgid "fingerprint"
 msgstr "指纹"
 
-#: ../../../src/view/v2ray/outbound.ts:868
+#: outbound.ts:867
 msgid "Server Name"
 msgstr "服务器名称"
 
-#: ../../../src/view/v2ray/outbound.ts:879
+#: outbound.ts:878
 msgid "Public Key"
 msgstr "公钥"
 
-#: ../../../src/view/v2ray/outbound.ts:885
+#: outbound.ts:884
 msgid "Short ID"
 msgstr "短ID"
 
-#: ../../../src/view/v2ray/outbound.ts:895
+#: outbound.ts:894
 msgid "Spider Parameters"
 msgstr "爬虫参数"
 
-#: ../../../src/view/v2ray/outbound.ts:1120
+#: outbound.ts:1119
 msgid "Service"
 msgstr "服务"
 
-#: ../../../src/view/v2ray/outbound.ts:1120
+#: outbound.ts:1119
 msgid "Name"
 msgstr "名称"
 
-#: ../../../src/view/v2ray/outbound.ts:1130
+#: outbound.ts:1129
 msgid "Mode"
 msgstr "模式"
 
-#: ../../../src/view/v2ray/outbound.ts:1141
+#: outbound.ts:1140
 msgid "Health Check"
 msgstr "健康度检测"
 
-#: ../../../src/view/v2ray/outbound.ts:1145
+#: outbound.ts:1144
 msgid "Disabled"
 msgstr "禁用"
 
-#: ../../../src/view/v2ray/outbound.ts:1152
+#: outbound.ts:1151
 msgid "Idle Timeout"
 msgstr "空闲超时时间"
 
-#: ../../../src/view/v2ray/outbound.ts:1153
+#: outbound.ts:1152
 msgid "No less than 10 seconds"
 msgstr "不少于10秒"
 
-#: ../../../src/view/v2ray/outbound.ts:1165
+#: outbound.ts:1164
 msgid "Health Check timeout"
 msgstr "健康度检测超时时间"
 
-#: ../../../src/view/v2ray/outbound.ts:1176
+#: outbound.ts:1175
 msgid "Initial Windows Size"
 msgstr "初始窗口大小"
 
-#: ../../../src/view/v2ray/outbound.ts:1178
+#: outbound.ts:1177
 msgid ""
 "While connecting through Cloudflare CDN</br> set Initial Windows Size "
-"greater than <code>35536</code> to disable Dynamic Window mechanism"
+"greater than <code>65536</code> to disable Dynamic Window mechanism"
 msgstr ""
 "使用通过Cloudflare CDN建立连接时，</br>将 初始窗口大小值设置为大于 "
-"<code>35536/code> 以禁用 Dynamic Window机制"
+"<code>65536/code> 以禁用 Dynamic Window机制"
 
-#: ../../../src/view/v2ray/outbound.ts:1260
+#: outbound.ts:1259
 msgid "Mark"
 msgstr "标记"
 
-#: ../../../src/view/v2ray/outbound.ts:1262
+#: outbound.ts:1261
 msgid ""
 "If transparent proxy is enabled, this option is ignored and will be set to "
 "255."
 msgstr "如果启用了透明代理，此选项会被忽略，并自动设置为255."
 
-#: ../../../src/view/v2ray/outbound.ts:1306
+#: outbound.ts:1305
 msgid "Proxy settings"
 msgstr "前置代理设置"
 
-#: ../../../src/view/v2ray/outbound.ts:1328
-#: ../../../src/view/v2ray/outbound.ts:1346
+#: outbound.ts:1334 outbound.ts:1352
 msgid "Mux"
 msgstr ""
 
-#: ../../../src/view/v2ray/outbound.ts:1366
-#: ../../../src/view/v2ray/outbound.ts:1369
+#: outbound.ts:1372 outbound.ts:1375
 msgid "Import"
 msgstr "导入"
 
-#: ../../../src/view/v2ray/main.ts:30
-#, javascript-format
-msgid "Reload service failed with code %d"
-msgstr "重载服务失败,错误代码 %d"
+#: policy.ts:23
+msgid "Policy"
+msgstr "策略"
 
-#: ../../../src/view/v2ray/main.ts:54
-msgid "V2ray"
-msgstr ""
+#: policy.ts:40
+msgid "Levels"
+msgstr "等级"
 
-#: ../../../src/view/v2ray/main.ts:54
-msgid "Global Settings"
-msgstr "全局设置"
+#: policy.ts:41
+msgid "Select policy levels"
+msgstr "选择策略等级"
 
-#: ../../../src/view/v2ray/main.ts:56
-msgid "A platform for building proxies to bypass network restrictions."
-msgstr "一个用于构建网络代理的平台."
+#: policy.ts:50 policy.ts:56
+msgid "System"
+msgstr "系统"
 
-#: ../../../src/view/v2ray/main.ts:57
-#, javascript-format
-msgid "For more information, please visit: %s"
-msgstr "更多信息，请访问: %s"
+#: policy.ts:50
+msgid "Stats inbound uplink"
+msgstr "入站上行流量统计"
 
-#: ../../../src/view/v2ray/main.ts:77
-msgid "Reload Service"
-msgstr "重载服务"
+#: policy.ts:56
+msgid "Stats inbound downlink"
+msgstr "入站下行流量统计"
 
-#: ../../../src/view/v2ray/main.ts:78
-msgid "This will restart service when config file changes."
-msgstr "如果配置文件发生变化，此操作会重启服务."
+#: policy.ts:62
+msgid "Policy Level"
+msgstr "策略等级"
 
-#: ../../../src/view/v2ray/main.ts:81
-msgid "Reload"
-msgstr "重新加载"
+#: policy.ts:63
+msgid "Add policy levels here"
+msgstr "Add policy levels here"
 
-#: ../../../src/view/v2ray/main.ts:87
-msgid "V2Ray file"
-msgstr "XRay 可执行文件"
+#: policy.ts:70
+msgid "Level"
+msgstr "等级"
 
-#: ../../../src/view/v2ray/main.ts:88
-msgid "Set the V2Ray executable file path."
-msgstr "配置 XRay 程序路径."
+#: policy.ts:74
+msgid "Handshake"
+msgstr "握手时间限制"
 
-#: ../../../src/view/v2ray/main.ts:97
-msgid "V2Ray asset location"
-msgstr "XRay 资源文件路径"
+#: policy.ts:78
+msgid "Connection idle"
+msgstr "连接空闲时间"
 
-#: ../../../src/view/v2ray/main.ts:99
-msgid ""
-"Directory where geoip.dat and geosite.dat files are, default: same directory "
-"as V2Ray file."
-msgstr "存放 geoip.dat 和 geosite.dat ,默认：XRay 文件所在目录"
+#: policy.ts:82
+msgid "Uplink only"
+msgstr "上行连接关闭等待时间"
 
-#: ../../../src/view/v2ray/main.ts:108
-msgid "Memory percentage"
-msgstr "内存百分比"
+#: policy.ts:87
+msgid "Downlink only"
+msgstr "下上连接关闭等待时间"
 
-#: ../../../src/view/v2ray/main.ts:109
-msgid "The maximum percentage of memory used by V2Ray."
-msgstr "XRay 可使用的最大内存百分比."
+#: policy.ts:92
+msgid "Stats user uplink"
+msgstr "用户上行流量统计"
 
-#: ../../../src/view/v2ray/main.ts:117
-msgid "Config file"
-msgstr "配置文件"
+#: policy.ts:95
+msgid "Stats user downlink"
+msgstr "用户下行流量统计"
 
-#: ../../../src/view/v2ray/main.ts:118
-msgid "Use custom config file."
-msgstr "使用自定义配置文件."
+#: policy.ts:98
+msgid "Buffer size"
+msgstr "缓存大小"
 
-#: ../../../src/view/v2ray/main.ts:123
-msgid "Access log file"
-msgstr "访问日志文件"
-
-#: ../../../src/view/v2ray/main.ts:128
-msgid "Log level"
-msgstr "日志等级"
-
-#: ../../../src/view/v2ray/main.ts:130
-msgid "Debug"
-msgstr "调试"
-
-#: ../../../src/view/v2ray/main.ts:132
-msgid "Warning"
-msgstr "警告"
-
-#: ../../../src/view/v2ray/main.ts:133
-msgid "Error"
-msgstr "错误"
-
-#: ../../../src/view/v2ray/main.ts:137
-msgid "Error log file"
-msgstr "错误日志文件"
-
-#: ../../../src/view/v2ray/main.ts:145
-msgid "Inbounds enabled"
-msgstr "启用的入站连接"
-
-#: ../../../src/view/v2ray/main.ts:151
-msgid "Outbounds enabled"
-msgstr "启用的出站连接"
-
-#: ../../../src/view/v2ray/main.ts:160
-msgid "Stats"
-msgstr "统计信息"
-
-#: ../../../src/view/v2ray/main.ts:167 ../../../src/view/v2ray/main.ts:174
-msgid "Transport"
-msgstr "底层传输"
-
-#: ../../../src/view/v2ray/main.ts:174
-msgid "Settings"
-msgstr "设置"
-
-#: ../../../src/view/v2ray/main.ts:175
-msgid "<code>transport</code> field in top level configuration, JSON string"
-msgstr "配置文件中的 </code>transport</code> 项，JSON 字符串"
-
-#: ../../../src/view/v2ray/reverse.ts:18
+#: reverse.ts:18
 msgid "Reverse"
 msgstr "反向代理"
 
-#: ../../../src/view/v2ray/reverse.ts:34
+#: reverse.ts:34
 msgid "Bridges"
 msgstr ""
 
-#: ../../../src/view/v2ray/reverse.ts:35
+#: reverse.ts:35
 #, javascript-format
 msgid "A list of bridges, format: <code>tag|domain</code>. eg: %s"
 msgstr "Bridge 列表,格式: <code>tag|domain</code>.例如：%s"
 
-#: ../../../src/view/v2ray/reverse.ts:43
+#: reverse.ts:43
 msgid "Portals"
 msgstr ""
 
-#: ../../../src/view/v2ray/reverse.ts:44
+#: reverse.ts:44
 #, javascript-format
 msgid "A list of portals, format: <code>tag|domain</code>. eg: %s"
 msgstr "Portal 列表,格式: <code>tag|domain</code>.例如：%s"
 
-#: ../../../src/view/v2ray/routing.ts:43
+#: routing.ts:43
 msgid "Routing"
 msgstr "路由"
 
-#: ../../../src/view/v2ray/routing.ts:58
+#: routing.ts:58
 msgid "Domain resolution strategy"
 msgstr "域名解析策略"
 
-#: ../../../src/view/v2ray/routing.ts:64 ../../../src/view/v2ray/routing.ts:102
+#: routing.ts:64 routing.ts:102
 msgid "Domain Matcher"
 msgstr "域名匹配器"
 
-#: ../../../src/view/v2ray/routing.ts:71
+#: routing.ts:71
 msgid "Rules"
 msgstr "规则"
 
-#: ../../../src/view/v2ray/routing.ts:72
+#: routing.ts:72
 msgid "Select routing rules to use"
 msgstr "选择使用的路由规则"
 
-#: ../../../src/view/v2ray/routing.ts:81
+#: routing.ts:81
 msgid "Balancers"
 msgstr "负载均衡器"
 
-#: ../../../src/view/v2ray/routing.ts:82
+#: routing.ts:82
 msgid "Select routing balancers to use"
 msgstr "选择使用的负载均衡器"
 
-#: ../../../src/view/v2ray/routing.ts:91
+#: routing.ts:91
 msgid "Routing Rule"
 msgstr "路由规则"
 
-#: ../../../src/view/v2ray/routing.ts:92
+#: routing.ts:92
 msgid "Add routing rules here"
 msgstr "在这里添加路由规则"
 
-#: ../../../src/view/v2ray/routing.ts:109
+#: routing.ts:109
 msgid "Domain"
 msgstr "域名"
 
-#: ../../../src/view/v2ray/routing.ts:123
+#: routing.ts:123
 msgid "Source"
 msgstr "源IP地址"
 
-#: ../../../src/view/v2ray/routing.ts:127
+#: routing.ts:127
 msgid "Source Port"
 msgstr "源端口"
 
-#: ../../../src/view/v2ray/routing.ts:155
+#: routing.ts:155
 msgid "Attrs"
 msgstr ""
 
-#: ../../../src/view/v2ray/routing.ts:158
+#: routing.ts:158
 msgid "Outbound tag"
 msgstr "出站连接标识"
 
-#: ../../../src/view/v2ray/routing.ts:172
+#: routing.ts:172
 msgid "Balancer tag"
 msgstr "负载均衡器标识"
 
-#: ../../../src/view/v2ray/routing.ts:179
+#: routing.ts:179
 msgid "Add routing balancers here"
 msgstr "在这里添加负载均衡器"
 
-#: ../../../src/view/v2ray/routing.ts:179
+#: routing.ts:179
 msgid "Routing Balancer"
 msgstr "负载均衡器"
 
-#: ../../../src/view/v2ray/routing.ts:187
+#: routing.ts:187
 msgid "Selector"
 msgstr "标识匹配前缀"
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:59
-#: ../../../src/view/v2ray/transparent-proxy.ts:93
+#: transparent-proxy.ts:59 transparent-proxy.ts:95
 msgid "List Update"
 msgstr "列表更新"
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:60
+#: transparent-proxy.ts:60
 msgid "GFWList updated."
 msgstr "GFW List 已更新."
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:68
-#: ../../../src/view/v2ray/transparent-proxy.ts:102
+#: transparent-proxy.ts:68 transparent-proxy.ts:104
 msgid "Update Failed"
 msgstr "更新失败"
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:94
+#: transparent-proxy.ts:96
 msgid "China Route Lists updated."
-msgstr "中国CIDR列表已更新."
+msgstr "中国IP列表已更新."
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:118
+#: transparent-proxy.ts:122
 msgid "Unexpected error."
 msgstr "未知错误."
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:128
+#: transparent-proxy.ts:132
 msgid "Transparent Proxy"
 msgstr "透明代理"
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:142
+#: transparent-proxy.ts:146
 msgid "Redirect port"
 msgstr "转发端口"
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:143
+#: transparent-proxy.ts:147
 msgid "Enable transparent proxy on Dokodemo-door port."
 msgstr "在 Dokodemo-door 端口上启用透明代理."
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:154
+#: transparent-proxy.ts:158
 msgid "LAN interfaces"
 msgstr "LAN 接口"
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:155
+#: transparent-proxy.ts:159
 msgid "Enable proxy on selected interfaces."
 msgstr "在选中的接口上启用代理."
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:167
+#: transparent-proxy.ts:171
 msgid "Use TProxy"
 msgstr "使用 TProxy 方式"
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:168
+#: transparent-proxy.ts:172
 msgid "Setup redirect rules with TProxy."
 msgstr "使用 TProxy 来设置转发规则."
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:174
+#: transparent-proxy.ts:178
 msgid "Only privileged ports"
 msgstr "仅转发特权端口"
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:175
+#: transparent-proxy.ts:179
 msgid "Only redirect traffic on ports below 1024."
 msgstr "仅转发端口小于 1024 的流量."
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:181
+#: transparent-proxy.ts:185
 msgid "Redirect UDP"
 msgstr "转发 UDP"
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:182
+#: transparent-proxy.ts:186
 msgid "Redirect UDP traffic to V2Ray."
-msgstr "转发 UDP 流量到 XRay."
+msgstr "转发 UDP 流量到 Core."
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:188
+#: transparent-proxy.ts:192
 msgid "Redirect DNS"
-msgstr "转发 DNS"
+msgstr "转发 DNS请求"
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:189
+#: transparent-proxy.ts:193
 msgid "Redirect DNS traffic to V2Ray."
-msgstr "转发 DNS 流量到 XRay."
+msgstr "转发 DNS 请求到 Core."
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:197
+#: transparent-proxy.ts:201
 msgid "Proxy mode"
 msgstr "代理模式"
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:199
+#: transparent-proxy.ts:203
 msgid ""
 "If enabled, iptables rules will be added to pre-filter traffic and then sent "
 "to V2Ray."
 msgstr ""
 "如果启用，将会添加 iptables/nftables 规则来预先过滤流量，再发送给 XRay 处理."
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:202
+#: transparent-proxy.ts:206
 msgid "Default"
 msgstr "默认"
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:203
+#: transparent-proxy.ts:207
 msgid "CN Direct"
 msgstr "直连中国IP"
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:204
+#: transparent-proxy.ts:208
 msgid "CN Proxy"
 msgstr "代理中国IP"
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:205
+#: transparent-proxy.ts:209
 msgid "GFWList Proxy"
 msgstr "代理GFW List"
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:210
+#: transparent-proxy.ts:214
 msgid "APNIC delegated mirror"
 msgstr "APNIC 分配列表镜像"
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:217
+#: transparent-proxy.ts:221
 msgid "CHNRoute"
 msgstr ""
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:219
-#: ../../../src/view/v2ray/transparent-proxy.ts:231
+#: transparent-proxy.ts:223 transparent-proxy.ts:235
 msgid "Update"
-msgstr ""
+msgstr "更新"
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:223
+#: transparent-proxy.ts:227
 msgid "GFWList mirror"
 msgstr "GFW List 镜像"
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:229
+#: transparent-proxy.ts:233
 msgid "GFWList"
 msgstr ""
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:238
+#: transparent-proxy.ts:242
 msgid "Extra proxy list"
 msgstr "额外的代理列表"
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:240
-#: ../../../src/view/v2ray/transparent-proxy.ts:253
+#: transparent-proxy.ts:244 transparent-proxy.ts:257
 #, javascript-format
 msgid "One address per line. Allow types: DOMAIN, IP, CIDR. eg: %s, %s, %s"
 msgstr "每行一个地址，支持的类型：域名、IP、CIDR. 例如：%s、%s、%s"
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:251
+#: transparent-proxy.ts:255
 msgid "Extra direct list"
 msgstr "额外的直连列表"
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:264
+#: transparent-proxy.ts:268
 msgid "Proxy list DNS"
 msgstr "代理列表 DNS"
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:266
+#: transparent-proxy.ts:270
 #, javascript-format
 msgid ""
 "DNS used for domains in proxy list, format: <code>ip#port</code>. eg: %s"
 msgstr "代理列表中域名使用的 DNS，格式：<code>ip#port</code>. 例如：%s"
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:273
+#: transparent-proxy.ts:277
 msgid "Direct list DNS"
 msgstr "直连列表 DNS"
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:275
+#: transparent-proxy.ts:279
 #, javascript-format
 msgid ""
 "DNS used for domains in direct list, format: <code>ip#port</code>. eg: %s"
 msgstr "直连列表中域名使用的 DNS，格式：<code>ip#port</code>. 例如：%s"
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:282
+#: transparent-proxy.ts:286
 msgid "Local devices direct outbound list"
 msgstr "本地设备直接连出列表"
 
-#: ../../../src/view/v2ray/transparent-proxy.ts:283
+#: transparent-proxy.ts:287
 #, javascript-format
 msgid "One address per line. Allow types: IP, CIDR. eg: %s, %s"
 msgstr "每行一个地址，支持的类型：IP、CIDR. 例如: %s, %s"
-
-#: ../../../src/view/v2ray/policy.ts:23
-msgid "Policy"
-msgstr "策略"
-
-#: ../../../src/view/v2ray/policy.ts:40
-msgid "Levels"
-msgstr "等级"
-
-#: ../../../src/view/v2ray/policy.ts:41
-msgid "Select policy levels"
-msgstr "选择策略等级"
-
-#: ../../../src/view/v2ray/policy.ts:50 ../../../src/view/v2ray/policy.ts:56
-msgid "System"
-msgstr "系统"
-
-#: ../../../src/view/v2ray/policy.ts:50
-msgid "Stats inbound uplink"
-msgstr "入站上行流量统计"
-
-#: ../../../src/view/v2ray/policy.ts:56
-msgid "Stats inbound downlink"
-msgstr "入站下行流量统计"
-
-#: ../../../src/view/v2ray/policy.ts:62
-msgid "Policy Level"
-msgstr "策略等级"
-
-#: ../../../src/view/v2ray/policy.ts:63
-msgid "Add policy levels here"
-msgstr "在这里添加策略等级"
-
-#: ../../../src/view/v2ray/policy.ts:70
-msgid "Level"
-msgstr "等级"
-
-#: ../../../src/view/v2ray/policy.ts:74
-msgid "Handshake"
-msgstr "握手时间限制"
-
-#: ../../../src/view/v2ray/policy.ts:78
-msgid "Connection idle"
-msgstr "连接空闲时间"
-
-#: ../../../src/view/v2ray/policy.ts:82
-msgid "Uplink only"
-msgstr "上行连接关闭等待时间"
-
-#: ../../../src/view/v2ray/policy.ts:87
-msgid "Downlink only"
-msgstr "下上连接关闭等待时间"
-
-#: ../../../src/view/v2ray/policy.ts:92
-msgid "Stats user uplink"
-msgstr "用户上行流量统计"
-
-#: ../../../src/view/v2ray/policy.ts:95
-msgid "Stats user downlink"
-msgstr "用户下行流量统计"
-
-#: ../../../src/view/v2ray/policy.ts:98
-msgid "Buffer size"
-msgstr "缓存大小"

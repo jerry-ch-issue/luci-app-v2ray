@@ -345,7 +345,7 @@ inbound_section_validate() {
 		'ss_sockopt_tproxy:or("redirect", "tproxy", "off")' \
 		'tag:string' \
 		'sniffing_enabled:bool:0' \
-		'sniffing_dest_override:list(or("fakedns", "http", "tls"))' \
+		'sniffing_dest_override:list(or("fakedns", "http", "tls", "quic", "fakedns+others"))' \
 		'metadata_only:bool:0' \
 		'domains_excluded:list(hostname)' \
 		'metadata_only:bool:0' \
