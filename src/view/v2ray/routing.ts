@@ -27,7 +27,7 @@ return L.view.extend<SectionItem[][][][][][][][][], string>({
         v2ray.getSections("inbound", "tag"),
         v2ray.getSections("outbound", "alias"),
         v2ray.getSections("outbound", "tag"),
-         v2ray.getSections("dns", "tag"),
+        v2ray.getSections("dns", "tag"),
         v2ray.getSections("reverse", "bridges"),
         v2ray.getSections("reverse", "portals"),
         core,
