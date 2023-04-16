@@ -128,9 +128,7 @@ return L.view.extend<[SectionItem[], SectionItem[], string]>({
     if (!core) {
       core = "V2Ray";
     }
-    return Promise.all([
-      v2ray.getDokodemoDoorPorts(), core
-    ]);
+    return Promise.all([v2ray.getDokodemoDoorPorts(), core]);
   },
   render: function ([dokodemoDoorPorts = [], core = ""] = []) {
     const m = new form.Map(

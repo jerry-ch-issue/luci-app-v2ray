@@ -19,9 +19,7 @@ return L.view.extend<SectionItem[], string>({
     if (!core) {
       core = "V2Ray";
     }
-    return Promise.all([
-      v2ray.getSections("dns_server"), core
-    ]);
+    return Promise.all([v2ray.getSections("dns_server"), core]);
   },
   render: function ([dnsServers = [], core = ""] = []) {
     const m = new form.Map(

@@ -20,9 +20,7 @@ return L.view.extend<string[], string>({
     if (!core) {
       core = "V2Ray";
     }
-    return Promise.all([
-      v2ray.getLocalIPs(), core
-    ]);
+    return Promise.all([v2ray.getLocalIPs(), core]);
   },
   render: function ([localIPs = [], core = ""] = []) {
     const m = new form.Map("v2ray", "%s - %s".format(core, _("Inbound")));

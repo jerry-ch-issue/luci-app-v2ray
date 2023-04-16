@@ -19,9 +19,7 @@ return L.view.extend<SectionItem[], string>({
     if (!core) {
       core = "V2Ray";
     }
-    return Promise.all([
-      v2ray.getSections("policy_level", "level"), core
-    ]);
+    return Promise.all([v2ray.getSections("policy_level", "level"), core]);
   },
   render: function ([policyLevels = [], core = ""] = []) {
     const m = new form.Map(
