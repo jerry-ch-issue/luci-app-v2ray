@@ -24,7 +24,7 @@ return L.view.extend<[string, string, string]>({
       if (!configFile) {
         configFile = "/var/etc/v2ray/v2ray.main.json";
       }
-    return Promise.all([
+      return Promise.all([
         Promise.resolve(configFile),
         L.resolveDefault(fs.read(configFile), ""),
         core,

@@ -21,8 +21,7 @@ return L.view.extend<string[], string>({
       core = "V2Ray";
     }
     return Promise.all([
-      v2ray.getLocalIPs(),
-      core,
+      v2ray.getLocalIPs(), core
     ]);
   },
   render: function ([localIPs = [], core = ""] = []) {

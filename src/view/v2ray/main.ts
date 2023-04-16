@@ -46,7 +46,7 @@ return L.view.extend<SectionItem[][], string>({
   load: function () {
     let core = uci.get("v2ray", "main", "core");
     if (!core) {
-      core= "V2Ray";
+      core = "V2Ray";
     }
     return Promise.all([
       v2ray.getSections("inbound"),
@@ -54,7 +54,11 @@ return L.view.extend<SectionItem[][], string>({
       core,
     ]);
   },
-  render: function ([inboundSections = [], outBoundSections = [], core = ""] = []) {
+  render: function ([
+    inboundSections = [],
+    outBoundSections = [],
+    core = "",
+  ] = []) {
     const m = new form.Map(
       "v2ray",
       "%s - %s".format(core, _("Global Settings")),

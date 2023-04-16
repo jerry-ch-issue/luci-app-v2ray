@@ -257,7 +257,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     reverse_bridges = [],
     reverse_portals = [],
     xtls_security = [],
-    core = ""
+    core = "",
   ] = []) {
     const m = new form.Map(
       "v2ray",
