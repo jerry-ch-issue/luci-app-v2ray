@@ -2864,6 +2864,16 @@ start_instance() {
 	local section="$1"
 	local ver_info
 
+	ver_info="$(sh -c "$v2ray_file --version 2>/dev/null | head -n1")"
+	if [ -z "$ver_info" ] ; then
+		ver_info="$(sh -c "$v2ray_file version 2>/dev/null | head -n1")"
+	fi
+	
+	CORE="$(echo $ver_info | awk -F' ' '{printf $1}')"
+	CORE_VER="$(echo $ver_info | awk -F' ' '{printf $2}')"
+	uci set v2ray.main.core=$CORE
+	uci commit
+
 	if ! v2ray_section_validate "$section" ; then
 		_err "Invalid config."
 		return 1
@@ -2878,15 +2888,6 @@ start_instance() {
 		_err "Invalid V2Ray file."
 		return 1
 	fi
-
-	ver_info="$(sh -c "$v2ray_file --version 2>/dev/null | head -n1")"
-	if [ -z "$ver_info" ] ; then
-		ver_info="$(sh -c "$v2ray_file version 2>/dev/null | head -n1")"
-	fi
-	CORE="$(echo $ver_info | awk -F' ' '{printf $1}')"
-	CORE_VER="$(echo $ver_info | awk -F' ' '{printf $2}')"
-	uci set v2ray.main.core=$CORE
-	uci commit
 
 	if [ "$CORE" = "Xray" ] && [ "$(expr $CORE_VER \>= '1.8.0')" = "1" ] ; then
 		XTLS_REALITY="1"
