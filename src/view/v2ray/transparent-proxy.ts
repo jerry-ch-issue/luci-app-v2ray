@@ -129,8 +129,7 @@ return L.view.extend<[SectionItem[], SectionItem[], string]>({
       core = "V2Ray";
     }
     return Promise.all([
-      v2ray.getDokodemoDoorPorts(),
-      core,
+      v2ray.getDokodemoDoorPorts(), core
     ]);
   },
   render: function ([dokodemoDoorPorts = [], core = ""] = []) {

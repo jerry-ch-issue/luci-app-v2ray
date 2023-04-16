@@ -259,10 +259,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     xtls_security = [],
     core = "",
   ] = []) {
-    const m = new form.Map(
-      "v2ray",
-      "%s - %s".format(core, _("Outbound"))
-    );
+    const m = new form.Map("v2ray", "%s - %s".format(core, _("Outbound")));
 
     const s = m.section(form.GridSection, "outbound");
     s.anonymous = false;

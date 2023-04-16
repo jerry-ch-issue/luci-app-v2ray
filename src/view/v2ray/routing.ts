@@ -42,7 +42,7 @@ return L.view.extend<SectionItem[][][][][][][][][], string>({
     dns_tag = [],
     reverse_bridges = [],
     reverse_portals = [],
-    core = ""
+    core = "",
   ] = []) {
     const m = new form.Map(
       "v2ray",
