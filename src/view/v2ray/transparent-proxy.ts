@@ -124,11 +124,13 @@ return L.view.extend<[SectionItem[], SectionItem[], string]>({
     }
   },
   load: function () {
-    let core = uci.get("v2ray", "main", "core");
-    if (!core) {
-      core = "V2Ray";
-    }
-    return Promise.all([v2ray.getDokodemoDoorPorts(), core]);
+    return uci.load("v2ray").then(function () {
+      let core = uci.get("v2ray", "main", "core");
+      if (!core) {
+        core = "V2Ray";
+      }
+      return Promise.all([v2ray.getDokodemoDoorPorts(), core]);
+    });
   },
   render: function ([dokodemoDoorPorts = [], core = ""] = []) {
     const m = new form.Map(
