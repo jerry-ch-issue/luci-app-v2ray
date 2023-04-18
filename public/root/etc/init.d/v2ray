@@ -2863,25 +2863,10 @@ clear_transparent_proxy() {
 start_instance() {
 	local section="$1"
 	local ver_info
-
-	ver_info="$(sh -c "$v2ray_file --version 2>/dev/null | head -n1")"
-	if [ -z "$ver_info" ] ; then
-		ver_info="$(sh -c "$v2ray_file version 2>/dev/null | head -n1")"
-	fi
 	
-	CORE="$(echo $ver_info | awk -F' ' '{printf $1}')"
-	CORE_VER="$(echo $ver_info | awk -F' ' '{printf $2}')"
-	uci set v2ray.main.core=$CORE
-	uci commit
-
 	if ! v2ray_section_validate "$section" ; then
 		_err "Invalid config."
 		return 1
-	fi
-
-	if [ "x$enabled" != "x1" ] ; then
-		_info "Service disabled: $section"
-		return 0
 	fi
 
 	if [ -z "$v2ray_file" ] || [ ! -s "$v2ray_file" ] ; then
@@ -2889,13 +2874,27 @@ start_instance() {
 		return 1
 	fi
 
+	test -x "$v2ray_file" || chmod 755 "$v2ray_file"
+
+	ver_info="$(sh -c "$v2ray_file --version 2>/dev/null | head -n1")"
+	if [ -z "$ver_info" ] ; then
+		ver_info="$(sh -c "$v2ray_file version 2>/dev/null | head -n1")"
+	fi
+	CORE="$(echo $ver_info | awk -F' ' '{printf $1}')"
+	CORE_VER="$(echo $ver_info | awk -F' ' '{printf $2}')"
+	uci set v2ray.main.core=$CORE
+	uci commit
+
+	if [ "x$enabled" != "x1" ] ; then
+		_info "Service disabled: $section"
+		return 0
+	fi
+	
 	if [ "$CORE" = "Xray" ] && [ "$(expr $CORE_VER \>= '1.8.0')" = "1" ] ; then
 		XTLS_REALITY="1"
 	else
 		XTLS_REALITY="0"
 	fi
-
-	test -x "$v2ray_file" || chmod 755 "$v2ray_file"
 
 	local temp_config
 
