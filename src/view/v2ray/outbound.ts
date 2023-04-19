@@ -1358,7 +1358,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     );
     o.modalonly = true;
     o.depends("mux_enabled", "1");
-    o.datatype = and(min(-1), max(1024));
+    o.datatype = "and(min(-1), max(1024), integer)";
     o.placeholder = "8";
 
     o = s.taboption(
@@ -1368,8 +1368,8 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       _("xudp Concurrency")
     );
     o.modalonly = true;
-    o.depends({mux_enabled: "1", reality_check: "1"});
-    o.datatype = and(min(-1), max(1024));
+    o.depends({ mux_enabled: "1", reality_check: "1" });
+    o.datatype = "and(min(-1), max(1024), integer)";
     o.placeholder = "8";
 
     o = s.taboption(
@@ -1379,11 +1379,10 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       _("Proxy UDP443")
     );
     o.modalonly = true;
-    o.depends({mux_enabled: "1", reality_check: "1"});
+    o.depends({ mux_enabled: "1", reality_check: "1" });
     o.value("reject", _("Reject"));
     o.value("allow", _("Allow"));
     o.value("skip", _("Skip"));
-
 
     const self = this;
     return m.render().then(function (node: Node) {
