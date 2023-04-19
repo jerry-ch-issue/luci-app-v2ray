@@ -275,7 +275,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
 
     s.tab("general", _("General Settings"));
     s.tab("stream", _("Stream Settings"));
-    s.tab("other", _("Other Settings"));
+    s.tab("mux", _("Mux Settings"));
 
     let o;
 
@@ -1333,7 +1333,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.modalonly = true;
 
     o = s.taboption(
-      "other",
+      "mux",
       form.Flag,
       "mux_enabled",
       "%s - %s".format(_("Mux"), _("Enabled"))
@@ -1351,15 +1351,39 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.disabled = "0";
 
     o = s.taboption(
-      "other",
+      "mux",
       form.Value,
       "mux_concurrency",
-      "%s - %s".format(_("Mux"), _("Concurrency"))
+      _("Mux Concurrency")
     );
     o.modalonly = true;
     o.depends("mux_enabled", "1");
-    o.datatype = "uinteger";
+    o.datatype = and(min(-1), max(1024));
     o.placeholder = "8";
+
+    o = s.taboption(
+      "mux",
+      form.Value,
+      "xudp_concurrency",
+      _("xudp Concurrency")
+    );
+    o.modalonly = true;
+    o.depends({mux_enabled: "1", reality_check: "1"});
+    o.datatype = and(min(-1), max(1024));
+    o.placeholder = "8";
+
+    o = s.taboption(
+      "mux",
+      form.ListValue,
+      "xudp_proxy_udp443",
+      _("Proxy UDP443")
+    );
+    o.modalonly = true;
+    o.depends({mux_enabled: "1", reality_check: "1"});
+    o.value("reject", _("Reject"));
+    o.value("allow", _("Allow"));
+    o.value("skip", _("Skip"));
+
 
     const self = this;
     return m.render().then(function (node: Node) {

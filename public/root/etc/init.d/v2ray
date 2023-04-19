@@ -451,7 +451,9 @@ outbound_section_validate() {
 		'stream_settings:string' \
 		'proxy_settings_tag:string' \
 		'mux_enabled:bool:0' \
-		'mux_concurrency:uinteger:8'
+		'mux_concurrency:and(integer, min(-1), max(1024)):8' \
+		'xudp_concurrency:and(integer, min(-1), max(1024)):8' \
+		'xudp_proxy_udp443:or("allow", "reject", "skip")'
 }
 
 add_v2ray_redirect_rules() {
@@ -2607,6 +2609,11 @@ add_outbound_setting() {
 		json_add_object "mux"
 		json_add_boolean "enabled" "1"
 		json_add_int "concurrency" "$mux_concurrency"
+		if [ "$XTLS_REALITY" = "1" ] ; then
+			test -n "xudp_concurrency" && \
+				json_add_int "xudpConcurrency" "$xudp_concurrency"
+			json_add_string "xudpProxyUDP443" "$xudp_proxy_udp443"
+		fi
 		json_close_object # mux
 	fi
 
