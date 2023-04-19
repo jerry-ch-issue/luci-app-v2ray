@@ -1350,23 +1350,13 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.enabled = "1";
     o.disabled = "0";
 
-    o = s.taboption(
-      "mux",
-      form.Value,
-      "mux_concurrency",
-      _("Mux Concurrency")
-    );
+    o = s.taboption("mux", form.Value, "mux_concurrency", _("Mux Concurrency"));
     o.modalonly = true;
     o.depends("mux_enabled", "1");
     o.datatype = "and(min(-1), max(1024), integer)";
     o.placeholder = "8";
 
-    o = s.taboption(
-      "mux",
-      form.Value,
-      "xudp_concurrency",
-      _("xudp Concurrency")
-    );
+    o = s.taboption("mux", form.Value, "xudp_concurrency", _("xudp Concurrency"));
     o.modalonly = true;
     o.depends({ mux_enabled: "1", reality_check: "1" });
     o.datatype = "and(min(-1), max(1024), integer)";
