@@ -210,8 +210,26 @@ msgid "Stream Settings"
 msgstr "传输方式配置"
 
 #: inbound.ts:36 outbound.ts:273
-msgid "Other Settings"
-msgstr "其它配置"
+msgid "Mux Settings"
+msgstr "多路复用配置"
+
+msgid "Mux Concurrency"
+msgstr "TCP并发连接数"
+
+msgid "xudp Concurrency"
+msgstr "xudp并发连接数"
+
+msgid "Proxy UDP443"
+msgstr "代理UDP443流量"
+
+msgid "Reject"
+msgstr "拒绝"
+
+msgid "Allow"
+msgstr "允许"
+
+msgid "Skip"
+msgstr "忽略"
 
 #: inbound.ts:44
 msgid "Listen"
