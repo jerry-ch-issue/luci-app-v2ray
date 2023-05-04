@@ -744,6 +744,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o = s.taboption("stream", form.ListValue, "s_xtls_flow", "Flow");
     o.modalonly = true;
     o.rmempty = false;
+    o.optional = true;
     o.depends("ss_security", "xtls");
     o.depends("reality_check", "1");
     o.value("", "None");
@@ -1392,10 +1393,10 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
           "button",
           {
             class: "cbi-button cbi-button-neutral",
-            title: _("Import"),
+            title: _("Import (Vmess Only)"),
             click: L.bind(self.handleImportClick, self),
           },
-          _("Import")
+          _("Import (Vmess Only)")
         )
       );
 
