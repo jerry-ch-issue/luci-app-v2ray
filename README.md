@@ -2,7 +2,7 @@
 
 Luci support for V2Ray V5 / Xray
 
-**This branch the LuCI for OpenWrt 22.03 and later with firewall4 based on [luci-app-v2ray by kuoruan](https://github.com/kuoruan/luci-app-v2ray/tree/master) .**
+**This branch is the LuCI for OpenWrt 22.03 and later with firewall4 based on [luci-app-v2ray by kuoruan](https://github.com/kuoruan/luci-app-v2ray/tree/master) .**
 
 ## Install
 
