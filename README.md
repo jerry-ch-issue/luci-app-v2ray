@@ -1,8 +1,8 @@
 # luci-app-v2ray
 
-Luci support for V2Ray
+Luci support for V2Ray V5 / Xray
 
-**This branch is new LuCI for OpenWrt 19.07 and later.**
+**This branch the LuCI for OpenWrt 22.03 and later with firewall4 base on [luci-app-v2ray by kuoruan](https://github.com/kuoruan/luci-app-v2ray/tree/master) .**
 
 **For legacy version: [Branch legacy](https://github.com/kuoruan/luci-app-v2ray/tree/legacy)**
 
@@ -10,39 +10,8 @@ Luci support for V2Ray
 
 ## Install
 
-### Install via OPKG (recommend)
+### Since the key of the opkg repository from kuoruan is no longer available, you will have to instal the ipk files manually
 
-1. Add new opkg key:
-
-```sh
-wget -O kuoruan-public.key http://openwrt.kuoruan.net/packages/public.key
-opkg-key add kuoruan-public.key
-```
-
-2. Add opkg repository from kuoruan:
-
-```sh
-echo "src/gz kuoruan_universal http://openwrt.kuoruan.net/packages/releases/all" \
-  >> /etc/opkg/customfeeds.conf
-opkg update
-```
-
-3. Install package:
-
-```sh
-opkg install luci-app-v2ray
-opkg install luci-i18n-v2ray-zh-cn
-```
-
-We also support HTTPS protocol.
-
-4. Upgrade package:
-
-```sh
-opkg update
-opkg upgrade luci-app-v2ray
-opkg upgrade luci-i18n-v2ray-zh-cn
-```
 
 ### Manual install
 
@@ -60,11 +29,11 @@ Dependencies:
 
 - jshn
 - ip (ip-tiny or ip-full)
-- ipset
-- iptables
-- iptables-mod-tproxy
+- nftables-json
+- kmod-nft-tproxy
+- kmod-nft-socket
 - resolveip
-- dnsmasq-full (dnsmasq ipset is required)
+- dnsmasq-full v2.87 or later (gfwlist mode needs nft set support)
 
 For translations, please install ```luci-i18n-v2ray-*```.
 
@@ -72,7 +41,9 @@ For translations, please install ```luci-i18n-v2ray-*```.
 
 ## Configure
 
-1. Download V2Ray file from V2Ray release [link](https://github.com/v2ray/v2ray-core/releases) or V2Ray ipk release [link](https://github.com/kuoruan/openwrt-v2ray/releases).
+1. Download Core file from V2Ray/Xray release
+> [V2Ray](https://github.com/v2fly/v2ray-core/releases)
+> [Xray](https://github.com/xtls/xray-core/releases).
 
 2. Upload V2Ray file to your router, or install the ipk file.
 
