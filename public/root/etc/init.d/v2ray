@@ -476,10 +476,10 @@ add_v2ray_iptables_redirect_rules() {
 		ipset_src_direct="$IPSET_SRC_DIRECT_V4"
 		ipset_dst_direct="$IPSET_DST_DIRECT_V4"
 		loip="127.0.0.1"
-	else
+	elif [ "$inet_family" = "6" ] ; then
 		iptables_restore="ip6tables-restore"
 		fakends_pool="fc00::/18"
-		ipset_src_direct=""
+		ipset_src_direct=
 		ipset_dst_direct="$IPSET_DST_DIRECT_V6"
 		loip="::1"
 	fi
@@ -513,7 +513,7 @@ add_v2ray_iptables_redirect_rules() {
 		EOF
 		if [ -n "$addition" ] ; then
 			
-			ip -${inet_family} rule add fwmark 1 lookup 100
+			ip -${inet_family} rule add fwmark 1 table 100
 			ip -${inet_family} route add local default dev lo table 100 2>/dev/null
 		
 			$iptables_restore --noflush<<-EOF 2>/dev/null
@@ -745,22 +745,22 @@ add_v2ray_iptables_tproxy_rules() {
 	local loip=
 	test -n "$port" || return
 
-	if [ "$inet_family" = "4" ] then
+	if [ "$inet_family" = "4" ] ; then
 		loip="127.0.0.1"
 		iptables_restore="iptables-restore"
 		fakedns_pool="192.18.0.0/15"
 		ipset_dst_direct="$IPSET_DST_DIRECT_V4"
 		ipset_src_direct="$IPSET_SRC_DIRECT_V4"
-	else
+	elif [ "$inet_family" = "6" ] ; then
 		loip="::1"
 		iptables_restore="ip6tables-restore"
 		fakedns_pool="fc00::/18"
 		ipset_dst_direct="$IPSET_DST_DIRECT_V6"
-		ipset_src_direct=""
+		ipset_src_direct=
 	fi
 
 	# https://www.kernel.org/doc/Documentation/networking/tproxy.txt
-	ip -${inet_family} rule add fwmark 1 lookup 100
+	ip -${inet_family} rule add fwmark 1 table 100
 	ip -${inet_family} route add local default dev lo table 100 2>/dev/null
 
 	$iptables_restore --noflush <<-EOF 2>/dev/null
@@ -846,11 +846,11 @@ add_v2ray_nftables_tproxy_rules() {
 	
 	test -n "$port" || return
 
-	ip rule add fwmark 1 lookup 100
-	ip route add local 0.0.0.0/0 dev lo lookup 100
+	ip rule add fwmark 1 table 100
+	ip route add local default dev lo table 100
 	if [ "x$TRANSPARENT_PROXY_IPV6" = "x1" ] ; then
-		ip -6 rule add fwmark 1 lookup 100
-		ip -6 route add local ::/0 dev lo lookup 100
+		ip -6 rule add fwmark 1 table 100
+		ip -6 route add local default dev lo table 100
 	fi
 
 	$NFT_BIN -f -<<-EOF

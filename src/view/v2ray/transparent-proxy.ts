@@ -178,13 +178,7 @@ return L.view.extend<[SectionItem[], SectionItem[], string]>({
       _("Setup redirect rules with TProxy.")
     );
 
-    o = s.option(
-      form.Flag,
-      "ipv6_tproxy",
-      _("Proxy IPv6"),
-      _("Proxy IPv6 traffic(NAT66).")
-    );
-
+    o = s.option(form.Flag, "ipv6_tproxy", _("Proxy IPv6"));
     o = s.option(
       form.Flag,
       "only_privileged_ports",
