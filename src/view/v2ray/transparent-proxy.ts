@@ -180,6 +180,13 @@ return L.view.extend<[SectionItem[], SectionItem[], string]>({
 
     o = s.option(
       form.Flag,
+      "ipv6_tproxy",
+      _("Proxy IPv6"),
+      _("Proxy IPv6 traffic(NAT66).")
+    );
+
+    o = s.option(
+      form.Flag,
       "only_privileged_ports",
       _("Only privileged ports"),
       _("Only redirect traffic on ports below 1024.")
