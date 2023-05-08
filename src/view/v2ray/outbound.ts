@@ -794,7 +794,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.modalonly = true;
     o.datatype = "uinteger";
     o.optional = true;
-    
+
     o = s.taboption("general", form.Value, "s_wireguard_mtu", _("MTU"));
     o.depends("protocol", "wireguard");
     o.rmempty = true;
