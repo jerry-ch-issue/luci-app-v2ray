@@ -301,6 +301,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.value("trojan", "Trojan");
     o.value("vless", "VLESS");
     o.value("vmess", "VMess");
+    o.value("wireguard", "WireGuard");
 
     // Settings Blackhole
     o = s.taboption(
@@ -716,8 +717,133 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.depends("protocol", "vmess");
     o.datatype = "uinteger";
 
+    // Settings WireGuard
+
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_wireguard_secret_key",
+      _("Private Key")
+    );
+    o.depends("protocol", "wireguard");
+    o.modalonly = true;
+    o.rmempty = false;
+
+    o = s.taboption(
+      "general",
+      form.DynamicList,
+      "s_wireguard_address",
+      _("Address")
+    );
+    o.depends("protocol", "wireguard");
+    o.modalonly = true;
+    o.optional = true;
+    o.datatype = "or(ipaddr, cidr)";
+
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_wireguard_endpoint",
+      _("Endpoint")
+    );
+    o.depends("protocol", "wireguard");
+    o.rmempty = false;
+    o.modalonly = true;
+
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_wireguard_public_key",
+      _("Public Key")
+    );
+    o.depends("protocol", "wireguard");
+    o.rmempty = false;
+    o.modalonly = true;
+
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_wireguard_preshared_key",
+      _("Pre-Shared Key")
+    );
+    o.depends("protocol", "wireguard");
+    o.rmempty = true;
+    o.modalonly = true;
+    o.optional = true;
+
+    o = s.taboption(
+      "general",
+      form.DynamicList,
+      "s_wireguard_allowed_ips",
+      _("Allowed IPs")
+    );
+    o.depends("protocol", "wireguard");
+    o.rmempty = true;
+    o.modalonly = true;
+    o.datatype = "or(ipaddr, cidr)";
+    o.optional = true;
+
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_wireguard_keep_alive",
+      _("Keep Alive")
+    );
+    o.depends("protocol", "wireguard");
+    o.rmempty = true;
+    o.modalonly = true;
+    o.datatype = "uinteger";
+    o.optional = true;
+    
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_wireguard_mtu",
+      _("MTU")
+    );
+    o.depends("protocol", "wireguard");
+    o.rmempty = true;
+    o.modalonly = true;
+    o.datatype = "and(uinteger, max(1420))";
+    o.optional = true;
+
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_wireguard_reserved_a",
+      _("Reserved")
+    );
+    o.depends("protocol", "wireguard");
+    o.modalonly = true;
+    o.optional = true;
+    o.rmempty = true;
+    o.datatype = "and(uinteger, max(255))";
+
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_wireguard_reserved_b",
+      _(" ")
+    );
+    o.depends({s_wireguard_reserved_a: /^[0-9]{1,3}$/ });
+    o.modalonly = true;
+    o.rmempty = false;
+    o.datatype = "and(uinteger, max(255))";
+
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_wireguard_reserved_c",
+      _(" ")
+    );
+    o.depends({ s_wireguard_reserved_a : /^[0-9]{1,3}$/ });
+    o.modalonly = true;
+    o.rmempty = false;
+    o.datatype = "and(uinteger, max(255))";
+
     /** Stream Settings **/
     o = s.taboption("stream", form.ListValue, "ss_network", _("Network"));
+    o.depends({ protocol : "wireguard", "!reverse" : true });
     o.value("");
     o.value("grpc", "gRPC");
     o.value("tcp", "TCP");
@@ -728,6 +854,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.value("quic", "QUIC");
 
     o = s.taboption("stream", form.ListValue, "ss_security", _("Security"));
+    o.depends({ protocol: "wireguard", "!reverse" : true });
     o.modalonly = true;
     o.rmempty = false;
     o.value("none", _("None"));
@@ -1267,6 +1394,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
         "If transparent proxy is enabled, this option is ignored and will be set to 255."
       )
     );
+    o.depends({ protocol : "wireguard", "!reverse" : true });
     o.modalonly = true;
     o.placeholder = "255";
 
@@ -1296,6 +1424,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       "ss_sockopt_tcp_fast_open",
       "%s - %s".format(_("Sockopt"), _("TCP fast open"))
     );
+    o.depends({ protocol : "wireguard", "!reverse" : true });
     o.modalonly = true;
     o.value("");
     o.value("0", _("False"));
@@ -1327,6 +1456,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     }
 
     o = s.taboption("stream", form.DummyValue, "reality_check");
+    o.depends({ protocol : "wireguard", "!reverse" : true });
     o.hidden = true;
     o.uciconfig = "v2ray";
     o.ucisection = "main";
