@@ -795,12 +795,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.datatype = "uinteger";
     o.optional = true;
     
-    o = s.taboption(
-      "general",
-      form.Value,
-      "s_wireguard_mtu",
-      _("MTU")
-    );
+    o = s.taboption("general", form.Value, "s_wireguard_mtu", _("MTU"));
     o.depends("protocol", "wireguard");
     o.rmempty = true;
     o.modalonly = true;
@@ -819,31 +814,21 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.rmempty = true;
     o.datatype = "and(uinteger, max(255))";
 
-    o = s.taboption(
-      "general",
-      form.Value,
-      "s_wireguard_reserved_b",
-      _(" ")
-    );
-    o.depends({s_wireguard_reserved_a: /^[0-9]{1,3}$/ });
+    o = s.taboption("general", form.Value, "s_wireguard_reserved_b", " ");
+    o.depends({ s_wireguard_reserved_a: /^[0-9]{1,3}$/ });
     o.modalonly = true;
     o.rmempty = false;
     o.datatype = "and(uinteger, max(255))";
 
-    o = s.taboption(
-      "general",
-      form.Value,
-      "s_wireguard_reserved_c",
-      _(" ")
-    );
-    o.depends({ s_wireguard_reserved_a : /^[0-9]{1,3}$/ });
+    o = s.taboption("general", form.Value, "s_wireguard_reserved_c", " ");
+    o.depends({ s_wireguard_reserved_a: /^[0-9]{1,3}$/ });
     o.modalonly = true;
     o.rmempty = false;
     o.datatype = "and(uinteger, max(255))";
 
     /** Stream Settings **/
     o = s.taboption("stream", form.ListValue, "ss_network", _("Network"));
-    o.depends({ protocol : "wireguard", "!reverse" : true });
+    o.depends({ protocol: "wireguard", "!reverse": true });
     o.value("");
     o.value("grpc", "gRPC");
     o.value("tcp", "TCP");
@@ -854,7 +839,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.value("quic", "QUIC");
 
     o = s.taboption("stream", form.ListValue, "ss_security", _("Security"));
-    o.depends({ protocol: "wireguard", "!reverse" : true });
+    o.depends({ protocol: "wireguard", "!reverse": true });
     o.modalonly = true;
     o.rmempty = false;
     o.value("none", _("None"));
@@ -1394,7 +1379,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
         "If transparent proxy is enabled, this option is ignored and will be set to 255."
       )
     );
-    o.depends({ protocol : "wireguard", "!reverse" : true });
+    o.depends({ protocol: "wireguard", "!reverse": true });
     o.modalonly = true;
     o.placeholder = "255";
 
@@ -1424,7 +1409,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       "ss_sockopt_tcp_fast_open",
       "%s - %s".format(_("Sockopt"), _("TCP fast open"))
     );
-    o.depends({ protocol : "wireguard", "!reverse" : true });
+    o.depends({ protocol: "wireguard", "!reverse": true });
     o.modalonly = true;
     o.value("");
     o.value("0", _("False"));
@@ -1456,7 +1441,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     }
 
     o = s.taboption("stream", form.DummyValue, "reality_check");
-    o.depends({ protocol : "wireguard", "!reverse" : true });
+    o.depends({ protocol: "wireguard", "!reverse": true });
     o.hidden = true;
     o.uciconfig = "v2ray";
     o.ucisection = "main";
