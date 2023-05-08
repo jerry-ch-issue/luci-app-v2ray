@@ -398,6 +398,17 @@ outbound_section_validate() {
 		's_vmess_user_alter_id:and(uinteger, max(65535))' \
 		's_vmess_user_security:or("auto", "aes-128-gcm", "chacha20-poly1305", "none")' \
 		's_vmess_user_level:uinteger' \
+		's_wireguard_secret_key:string' \
+		's_wireguard_address:or(ipaddr, cidr)' \
+		's_wireguard_public_key:string' \
+		's_wireguard_preshared_key:string' \
+		's_wireguard_allowed_ips:or(ipaddr, cidr)' \
+		's_wireguard_keep_alive:uinteger' \
+		's_wireguard_endpoint:string' \
+		's_wireguard_mtu:and(uinteger, max(1420))' \
+		's_wireguard_reserved_a:and(uinteger, max(255))' \
+		's_wireguard_reserved_b:and(uinteger, max(255))' \
+		's_wireguard_reserved_c:and(uinteger, max(255))' \
 		'ss_network:or("tcp", "kcp", "grpc", "ws", "h2", "domainsocket", "quic")' \
 		'ss_security:or("none", "tls", "xtls", "reality")' \
 		's_xtls_flow:or("","xtls-rprx-direct", "xtls-rprx-direct-udp443", "xtls-rprx-origin", "xtls-rprx-origin-udp443", "xtls-rprx-splice", "xtls-rprx-splice-udp443", "xtls-rprx-vision", "xtls-rprx-vision-udp443")' \
@@ -2155,6 +2166,8 @@ add_outbound_setting() {
 	fi
 
 	json_add_object ""
+	
+	test -n "$tag" && json_add_string "tag" "$tag"
 
 	test -n "$send_through" && \
 		json_add_string "sendThrough" "$send_through"
@@ -2406,8 +2419,47 @@ add_outbound_setting() {
 			json_close_array # vnext
 			json_close_object # settings
 			;;
+		"wireguard")
+			json_add_object "settings"
+			json_add_string "secretKey" "$s_wireguard_secret_key"
+			if [ -n "$s_wireguard_address ] ; then
+				json_add_array "address"
+				local tun_addr
+				for tun_addr in $s_wireguard_address ; do
+					json_add_string "" "$tun_addr"
+				done
+				json_close_array
+			fi
+			json_add_array "peers"
+			json_add_object
+			json_add_string "publicKey" "$s_wireguard_public_key"
+			test -n $s_wireguard_preshared_key && \
+				json_add_string "preSharedKey" "$s_wireguard_preshared_key"
+			if [ -n "$s_wireguard_allowed_ips" ] ; then
+				json_add_array "allowedIPs"
+				local a_ips
+				for a_ips in $s_wireguard_allowed_ips ; do
+					json_add_string "" "$a_ips"
+				done
+				json_close_array
+			test -n $s_wireguard_keep_alive && \
+				json_add_int "keepAlive" "$s_wireguard_keep_alive"
+			json_add_string "endpoint"  "$s_wireguard_endpoint"
+			json_close_object
+			json_close_array
+			test -n "$s_wireguard_mtu" && \
+				json_add_int "mtu" "$s_wireguard_mtu"
+			if [ -n "$s_wireguard_reserved_a" ] && [ -n "$s_wireguard_reserved_b" ] && [ -n "$s_wireguard_reserved_c" ] ; then
+				json_add_array "reserved"
+				json_add_int "" "$s_wireguard_reserved_a"
+				json_add_int "" "$s_wireguard_reserved_b"
+				json_add_int "" "$s_wireguard_reserved_c"
+				json_close_array
+			fi
+			json_close_object
+			;;
 	esac
-
+	if [ "$protocol" != "wireguard" ] ; then
 	json_add_object "streamSettings"
 	test -n "$ss_network" && \
 		json_add_string "network" "$ss_network"
@@ -2707,15 +2759,6 @@ add_outbound_setting() {
 
 	json_close_object # streamSettings
 
-	test -n "$tag" && \
-		json_add_string "tag" "$tag"
-
-	if [ -n "$proxy_settings_tag" ] ; then
-		json_add_object "proxySettings"
-		json_add_string "tag" "$proxy_settings_tag"
-		json_close_object # proxySettings
-	fi
-
 	if [ "x$mux_enabled" = "x1" ] ; then
 		json_add_object "mux"
 		json_add_boolean "enabled" "1"
@@ -2727,7 +2770,12 @@ add_outbound_setting() {
 		fi
 		json_close_object # mux
 	fi
-
+	fi
+	if [ -n "$proxy_settings_tag" ] ; then
+		json_add_object "proxySettings"
+		json_add_string "tag" "$proxy_settings_tag"
+		json_close_object # proxySettings
+	fi
 	json_close_object
 }
 
@@ -3217,7 +3265,3 @@ stop_service() {
 service_triggers() {
 	procd_add_reload_trigger "$NAME"
 }
-
-
-
-
