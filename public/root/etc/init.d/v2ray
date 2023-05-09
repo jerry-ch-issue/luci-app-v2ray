@@ -2425,7 +2425,7 @@ add_outbound_setting() {
 			if [ -n "$s_wireguard_address ] ; then
 				json_add_array "address"
 				local tun_addr
-				for tun_addr in $s_wireguard_address ; do
+				for tun_addr in $s_wireguard_address" ; do
 					json_add_string "" "$tun_addr"
 				done
 				json_close_array
@@ -2442,6 +2442,7 @@ add_outbound_setting() {
 					json_add_string "" "$a_ips"
 				done
 				json_close_array
+			fi
 			test -n $s_wireguard_keep_alive && \
 				json_add_int "keepAlive" "$s_wireguard_keep_alive"
 			json_add_string "endpoint"  "$s_wireguard_endpoint"
