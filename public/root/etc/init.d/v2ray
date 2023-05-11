@@ -2422,7 +2422,7 @@ add_outbound_setting() {
 		"wireguard")
 			json_add_object "settings"
 			json_add_string "secretKey" "$s_wireguard_secret_key"
-			if [ -n "$s_wireguard_address ] ; then
+			if [ -n "$s_wireguard_address" ] ; then
 				json_add_array "address"
 				local tun_addr
 				for tun_addr in $s_wireguard_address" ; do
