@@ -1,8 +1,6 @@
 name: Package Build and Release
 on:
   push:
-    branches:
-      - 'firewall4'
     tags: 
       - '*-firewall4'
 env:
