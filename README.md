@@ -3,7 +3,7 @@
 Luci support for V2Ray V5 / Xray
 
 **This branch is the LuCI for OpenWrt 22.03 and later with firewall4 based on [luci-app-v2ray by kuoruan](https://github.com/kuoruan/luci-app-v2ray/tree/master) .**
-**The gfwlist update script is base on the [gfwlist2dnsmasq by cokebar](https://github.com/cokebar/gfwlist2dnsmasq)**
+**The gfwlist update script is based on [gfwlist2dnsmasq by cokebar](https://github.com/cokebar/gfwlist2dnsmasq)**
 
 ## Install
 
