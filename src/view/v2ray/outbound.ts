@@ -385,7 +385,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.depends("protocol", "freedom");
     o.rmempty = true;
     o.disabled = "0";
-    o.enabled = "1"
+    o.enabled = "1";
 
     o = s.taboption(
       "general",
@@ -906,55 +906,55 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       protocol: "vless",
       network: "tcp",
       reality_check: "0",
-      ss_security: "xtls"
+      ss_security: "xtls",
     });
     o.depends({
       protocol: "vless",
       network: "kcp",
       reality_check: "0",
-      ss_security: "xtls"
+      ss_security: "xtls",
     });
     o.depends({
       protocol: "vless",
       network: "domainsocket",
       reality_check: "0",
-      ss_security: "xtls"
+      ss_security: "xtls",
     });
     o.depends({
       protocol: "vless",
       network: "tcp",
       reality_check: "1",
-      ss_security: "tls"
+      ss_security: "tls",
     });
     o.depends({
       protocol: "vless",
       network: "kcp",
       reality_check: "1",
-      ss_security: "tls"
+      ss_security: "tls",
     });
     o.depends({
       protocol: "vless",
       network: "domainsocket",
       reality_check: "1",
-      ss_security: "tls"
+      ss_security: "tls",
     });
     o.depends({
       protocol: "vless",
       network: "tcp",
       reality_check: "1",
-      ss_security: "reality"
+      ss_security: "reality",
     });
     o.depends({
       protocol: "vless",
       network: "kcp",
       reality_check: "1",
-      ss_security: "reality"
+      ss_security: "reality",
     });
     o.depends({
       protocol: "vless",
       network: "domainsocket",
       reality_check: "1",
-      ss_security: "reality"
+      ss_security: "reality",
     });
     o.value("", "None");
     for (const xs of xtls_security) {
