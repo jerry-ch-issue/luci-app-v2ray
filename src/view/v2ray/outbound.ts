@@ -283,6 +283,9 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o = s.taboption("general", form.Value, "alias", _("Alias"));
     o.rmempty = false;
 
+    o = s.taboption("general", form.Value, "tag", _("Tag"));
+    o.rmempty = false;
+
     o = s.taboption("general", form.Value, "send_through", _("Send through"));
     o.datatype = "ipaddr";
     for (const IP of localIPs) {
@@ -371,6 +374,48 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     );
     o.modalonly = true;
     o.depends("protocol", "freedom");
+
+    o = s.taboption(
+      "general",
+      form.Flag,
+      "s_freedom_fragment_enabled",
+      "%s - %s".format(_("Fragmentize"), _("Enabled"))
+    );
+    o.modalonly = true;
+    o.depends("protocol", "freedom");
+    o.rmempty = true;
+    o.disabled = "0";
+    o.enabled = "1"
+
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_freedom_fragment_length",
+      "%s - %s".format(_("Fragment"), _("Length"))
+    );
+    o.modalonly = true;
+    o.rmempty = true;
+    o.depends("s_freedom_fragment_enableed", "1");
+
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_freedom_fragment_interval",
+      "%s - %s".format(_("Fragment"), _("Interval"))
+    );
+    o.modalonly = true;
+    o.rmempty = true;
+    o.depends("s_freedom_fragment_enableed", "1");
+
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_freedom_fragment_packets",
+      "%s - %s".format(_("Fragment"), _("Packets"))
+    );
+    o.modalonly = true;
+    o.rmempty = true;
+    o.depends("s_freedom_fragment_enableed", "1");
 
     o = s.taboption(
       "general",
@@ -855,10 +900,62 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
 
     o = s.taboption("stream", form.ListValue, "s_xtls_flow", "Flow");
     o.modalonly = true;
-    o.rmempty = false;
+    o.rmempty = true;
     o.optional = true;
-    o.depends("ss_security", "xtls");
-    o.depends("reality_check", "1");
+    o.depends({
+      protocol: "vless",
+      network: "tcp",
+      reality_check: "0",
+      ss_security: "xtls"
+    });
+    o.depends({
+      protocol: "vless",
+      network: "kcp",
+      reality_check: "0",
+      ss_security: "xtls"
+    });
+    o.depends({
+      protocol: "vless",
+      network: "domainsocket",
+      reality_check: "0",
+      ss_security: "xtls"
+    });
+    o.depends({
+      protocol: "vless",
+      network: "tcp",
+      reality_check: "1",
+      ss_security: "tls"
+    });
+    o.depends({
+      protocol: "vless",
+      network: "kcp",
+      reality_check: "1",
+      ss_security: "tls"
+    });
+    o.depends({
+      protocol: "vless",
+      network: "domainsocket",
+      reality_check: "1",
+      ss_security: "tls"
+    });
+    o.depends({
+      protocol: "vless",
+      network: "tcp",
+      reality_check: "1",
+      ss_security: "reality"
+    });
+    o.depends({
+      protocol: "vless",
+      network: "kcp",
+      reality_check: "1",
+      ss_security: "reality"
+    });
+    o.depends({
+      protocol: "vless",
+      network: "domainsocket",
+      reality_check: "1",
+      ss_security: "reality"
+    });
     o.value("", "None");
     for (const xs of xtls_security) {
       for (const xf of xs.flow) {
@@ -1415,8 +1512,39 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.value("0", _("False"));
     o.value("1", _("True"));
 
-    o = s.taboption("general", form.Value, "tag", _("Tag"));
-    o.rmempty = false;
+    o = s.taboption(
+      "stream",
+      form.ListValue,
+      "ss_sockopt_tcp_no_Delay",
+      "%s - %s".format(_("Sockopt"), _("TCP No Delay"))
+    );
+    o.depends("s_freedom_fragment_enabled", "1");
+    o.modalonly = true;
+    o.rmempty = true;
+    o.value("0", _("False"));
+    o.value("1", _("True"));
+
+    o = s.taboption(
+      "stream",
+      form.ListValue,
+      "ss_sockopt_dialer_proxy",
+      _("Dialer Proxy")
+    );
+    o.modalonly = true;
+    o.value("", _("None"));
+    for (let i = 0; i < outbound_alias.length; i++) {
+      o.value(
+        outbound_tag[i].caption,
+        `${outbound_alias[i].caption}(${outbound_tag[i].caption})`
+      );
+    }
+    for (const rp of reverse_portals) {
+      const stmp = String(rp.caption);
+      const cap = stmp.split(",");
+      for (const rpa of cap) {
+        o.value(rpa.substring(0, rpa.indexOf("|")), rpa);
+      }
+    }
 
     o = s.taboption(
       "general",

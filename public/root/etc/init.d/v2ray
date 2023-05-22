@@ -366,6 +366,9 @@ outbound_section_validate() {
 		's_dns_port:port' \
 		's_freedom_domain_strategy:or("AsIs", "UseIP", "UseIPv4", "UseIPv6")' \
 		's_freedom_redirect:string' \
+		's_freedom_fragment_length:string' \
+		's_freedom_fragment_interval:string' \
+		's_freedom_fragment_packets:string' \
 		's_freedom_user_level:uinteger' \
 		's_http_server_address:host' \
 		's_http_server_port:port' \
@@ -458,6 +461,8 @@ outbound_section_validate() {
 		'ss_quic_key:string' \
 		'ss_quic_header_type:or("none", "srtp", "utp", "wechat-video", "dtls", "wireguard")' \
 		'ss_sockopt_mark:uinteger' \
+		'ss_sockopt_tcp_no_dellay:bool:0' \
+		'ss_sockopt_dialer_proxy:string' \
 		'ss_sockopt_domain_strategy:or("", "AsIs", "UseIP", "UseIPv4", "UseIPv6")' \
 		'ss_sockopt_tcp_fast_open:or("0", "1")' \
 		'stream_settings:string' \
@@ -2225,6 +2230,14 @@ add_outbound_setting() {
 				json_add_string "domainStrategy" "$s_freedom_domain_strategy"
 			test -n "$s_freedom_redirect" && \
 				json_add_string "redirect" "$s_freedom_redirect"
+			if [ -n "$s_freedom_fragment_length" ] && [ -n "$s_freedom_fragment_interval" ] && [ -n "$s_freedom_fragment_packets" ] ; then
+				json_add_object "fragment"
+				json_add_string "length" "$s_freedom_fragment_length"
+				json_add_string "interval" "$s_freedom_fragment_interval"
+				json_add_string  "packets" "$s_freedom_fragment_packets"
+				json_close_obbject
+			fi
+
 			test -n "$s_freedom_user_level" && \
 				json_add_int "userLevel" "$s_freedom_user_level"
 
@@ -2762,6 +2775,14 @@ add_outbound_setting() {
 			json_add_string "domainStrategy" "$ss_sockopt_domain_strategy"
 	fi
 
+	if [ "$protocol" = "freedom" ] ; then
+		if [ -n "$s_freedom_fragment_length" ] && [ -n "$s_freedom_fragment_interval" ] && [ -n "$s_freedom_fragment_packets" ] ; then
+			json_add_boolean "tcpNoDelay" "$ss_sockopt_tcp_no_delay"
+		fi
+	fi
+
+	test -n "$ss_sockopt_dialer_proxy" && \
+		json_add_string "dialerProxy" "$ss_sockopt_dialer_proxy"
 
 	if [ -n "$TRANSPARENT_PROXY_PORT" ] ; then
 		json_add_int "mark" "255"
