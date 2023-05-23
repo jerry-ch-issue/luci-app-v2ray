@@ -1561,7 +1561,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.modalonly = true;
     o.value("", "Default");
     for (let i = 0; i < tcp_congestion.length; i++) {
-        o.value(tcp_congestion[i]);
+      o.value(tcp_congestion[i]);
     }
 
     o = s.taboption(
