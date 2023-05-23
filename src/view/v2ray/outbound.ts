@@ -241,7 +241,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       const tcp_congestion: string[] = fs
         .read("/proc/sys/net/ipv4/tcp_available_congestion_control")
         .then((result) => {
-          return result.replace(/\n/g,"").split(" ");
+          return result.replace(/\n/g, "").split(" ");
         });
       return Promise.all([
         v2ray.getLocalIPs(),
