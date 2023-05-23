@@ -238,7 +238,9 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       if (!core) {
         core = "V2Ray";
       }
-      let tcp_congestion = fs.read("/proc/sys/net/ipv4/tcp_available_congestion_control");
+      const tcp_congestion = fs.read(
+        "/proc/sys/net/ipv4/tcp_available_congestion_control"
+      );
       return Promise.all([
         v2ray.getLocalIPs(),
         v2ray.getSections("inbound", "alias"),
@@ -263,6 +265,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     reverse_portals = [],
     xtls_security = [],
     core = "",
+    tcp_congestion = [],
   ] = []) {
     const m = new form.Map("v2ray", "%s - %s".format(core, _("Outbound")));
 
@@ -1558,7 +1561,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.modalonly = true;
     o.value("", "Default");
     for (let i = 0; i < tcp_congestion.length; i++) {
-        o.value(tcpcngestion[i]);
+        o.value(tcp_congestion[i]);
     }
 
     o = s.taboption(
