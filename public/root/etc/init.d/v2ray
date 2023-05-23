@@ -462,6 +462,7 @@ outbound_section_validate() {
 		'ss_quic_header_type:or("none", "srtp", "utp", "wechat-video", "dtls", "wireguard")' \
 		'ss_sockopt_mark:uinteger' \
 		'ss_sockopt_tcp_no_dellay:bool:0' \
+		'ss_sockopt_tcp_congestion:string' \
 		'ss_sockopt_dialer_proxy:string' \
 		'ss_sockopt_domain_strategy:or("", "AsIs", "UseIP", "UseIPv4", "UseIPv6")' \
 		'ss_sockopt_tcp_fast_open:or("0", "1")' \
@@ -2783,6 +2784,9 @@ add_outbound_setting() {
 
 	test -n "$ss_sockopt_dialer_proxy" && \
 		json_add_string "dialerProxy" "$ss_sockopt_dialer_proxy"
+
+	test -n "$ss_sockopt_tcp_congestion" && \
+		json_add_string "tcpcongestion" "$ss_sockopt_tcp_congestion"
 
 	if [ -n "$TRANSPARENT_PROXY_PORT" ] ; then
 		json_add_int "mark" "255"

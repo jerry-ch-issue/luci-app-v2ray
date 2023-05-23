@@ -12,6 +12,7 @@
 "require v2ray";
 // "require view";
 "require ui";
+"require fs";
 
 "require view/v2ray/include/custom as custom";
 "require view/v2ray/tools/converters as converters";
@@ -237,6 +238,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       if (!core) {
         core = "V2Ray";
       }
+      let tcp_congestion = fs.read("/proc/sys/net/ipv4/tcp_available_congestion_control");
       return Promise.all([
         v2ray.getLocalIPs(),
         v2ray.getSections("inbound", "alias"),
@@ -247,6 +249,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
         v2ray.getSections("reverse", "portals"),
         v2ray.getXtlsSecurity(),
         core,
+        tcp_congestion,
       ]);
     });
   },
@@ -1544,6 +1547,18 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       for (const rpa of cap) {
         o.value(rpa.substring(0, rpa.indexOf("|")), rpa);
       }
+    }
+
+    o = s.taboption(
+      "stream",
+      form.ListValue,
+      "ss_sockopt_tcp_congestion",
+      "%s - %s".format("TCP", _("Congestion Control"))
+    );
+    o.modalonly = true;
+    o.value("", "Default");
+    for (let i = 0; i < tcp_congestion.length; i++) {
+        o.value(tcpcngestion[i]);
     }
 
     o = s.taboption(
