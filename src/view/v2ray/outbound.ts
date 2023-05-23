@@ -238,7 +238,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       if (!core) {
         core = "V2Ray";
       }
-      const tcp_congestion = fs.read(
+      let tcp_congestion: Promise<string[]> = fs.read(
         "/proc/sys/net/ipv4/tcp_available_congestion_control"
       );
       return Promise.all([
