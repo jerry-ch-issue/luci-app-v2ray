@@ -238,9 +238,11 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       if (!core) {
         core = "V2Ray";
       }
-      let tcp_congestion: Promise<string[]> = fs.read(
+      let tcp_congestion: string[] = fs.read(
         "/proc/sys/net/ipv4/tcp_available_congestion_control"
-      );
+      ).then((result)=>{
+        return result.split(" ")
+      });
       return Promise.all([
         v2ray.getLocalIPs(),
         v2ray.getSections("inbound", "alias"),
