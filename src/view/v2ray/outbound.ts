@@ -239,7 +239,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
         core = "V2Ray";
       }
       const tcp_congestion: string[] = fs
-      .read("/proc/sys/net/ipv4/tcp_available_congestion_control")
+        .read("/proc/sys/net/ipv4/tcp_available_congestion_control")
         .then((result) => {
           return result.split(" ");
         });
