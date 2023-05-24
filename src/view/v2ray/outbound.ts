@@ -403,7 +403,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     );
     o.modalonly = true;
     o.rmempty = true;
-    o.depends("s_freedom_fragment_enableed", "1");
+    o.depends("s_freedom_fragment_enabled", "1");
 
     o = s.taboption(
       "general",
@@ -413,7 +413,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     );
     o.modalonly = true;
     o.rmempty = true;
-    o.depends("s_freedom_fragment_enableed", "1");
+    o.depends("s_freedom_fragment_enabled", "1");
 
     o = s.taboption(
       "general",
@@ -423,7 +423,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     );
     o.modalonly = true;
     o.rmempty = true;
-    o.depends("s_freedom_fragment_enableed", "1");
+    o.depends("s_freedom_fragment_enabled", "1");
 
     o = s.taboption(
       "general",
