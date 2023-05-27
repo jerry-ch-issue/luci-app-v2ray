@@ -1540,6 +1540,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     );
     o.modalonly = true;
     o.value("", _("None"));
+    o.depends({ protocol: "wireguard", "!reverse": true });
     for (let i = 0; i < outbound_alias.length; i++) {
       o.value(
         outbound_tag[i].caption,
@@ -1562,6 +1563,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     );
     o.modalonly = true;
     o.value("", "Default");
+    o.depends({ protocol: "wireguard", "!reverse": true });
     for (let i = 0; i < tcp_congestion.length; i++) {
       o.value(tcp_congestion[i]);
     }
