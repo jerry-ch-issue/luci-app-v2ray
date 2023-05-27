@@ -59,5 +59,5 @@ Package files is in branch [luci2-fw4](https://github.com/wordsworthless/luci-ap
 Download with Git:
 
 ```sh
-git clone -b luci2-fw4 https://github.com/kuoruan/luci-app-v2ray.git luci-app-v2ray
+git clone -b luci2-fw4 https://github.com/wordsworthless/luci-app-v2ray.git luci-app-v2ray
 ```
