@@ -2236,7 +2236,7 @@ add_outbound_setting() {
 				json_add_string "length" "$s_freedom_fragment_length"
 				json_add_string "interval" "$s_freedom_fragment_interval"
 				json_add_string  "packets" "$s_freedom_fragment_packets"
-				json_close_obbject
+				json_close_object
 			fi
 
 			test -n "$s_freedom_user_level" && \
