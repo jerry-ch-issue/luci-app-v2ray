@@ -19,7 +19,7 @@ msgstr ""
 
 #: htdocs/luci-static/resources/view/v2ray/about.js:7
 msgid "About"
-msgstr ""
+msgstr "关于"
 
 #: htdocs/luci-static/resources/view/v2ray/about.js:7
 msgid "LuCI support for V2Ray and Xray."
@@ -338,8 +338,8 @@ msgid "IP"
 msgstr ""
 
 #: htdocs/luci-static/resources/view/v2ray/inbound.js:7
-msgid "When UDP is enabled, %s needs to know the IP address of current host."
-msgstr "当 UDP 启用时，%s 需要知道当前服务器的 IP 地址."
+msgid "IP address of current host"
+msgstr "当前socks代理主机的IP地址"
 
 #: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Client ID"
@@ -822,7 +822,7 @@ msgstr "路由"
 
 #: htdocs/luci-static/resources/view/v2ray/routing.js:7
 msgid "Domain Matching Strategy"
-msgstr "域名解析策略"
+msgstr "域名匹配策略"
 
 #: htdocs/luci-static/resources/view/v2ray/routing.js:7
 msgid "Domain Matcher"

@@ -337,11 +337,7 @@ return L.view.extend<string[], string>({
       form.Value,
       "s_socks_ip",
       "%s - %s".format("Socks", _("IP")),
-      _(
-        "When UDP is enabled, %s needs to know the IP address of current host.".format(
-          core
-        )
-      )
+      _("IP address of current host")
     );
     o.modalonly = true;
     o.depends("s_socks_udp", "1");
