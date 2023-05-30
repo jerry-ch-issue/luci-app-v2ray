@@ -338,8 +338,9 @@ return L.view.extend<string[], string>({
       "s_socks_ip",
       "%s - %s".format("Socks", _("IP")),
       _(
-        "When UDP is enabled, %s needs to know the IP address of current host."
-        .format(core)
+        "When UDP is enabled, %s needs to know the IP address of current host.".format(
+          core
+        )
       )
     );
     o.modalonly = true;
