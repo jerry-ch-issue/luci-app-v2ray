@@ -1264,7 +1264,7 @@ msgid ""
 "greater than <code>65536</code> to disable Dynamic Window mechanism"
 msgstr ""
 "使用通过Cloudflare CDN建立连接时，</br>将 初始窗口大小值设置为大于 "
-"<code>65536/code> 以禁用 Dynamic Window机制"
+"<code>65536</code> 以禁用 Dynamic Window机制"
 
 #: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Mark"
