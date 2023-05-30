@@ -7,100 +7,106 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-15 15:29+0800\n"
-"PO-Revision-Date: 2023-04-15 16:05+0800\n"
+"POT-Creation-Date: 2023-05-30 11:16+0800\n"
+"PO-Revision-Date: 2023-05-30 11:34+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: zh_CN\n"
+"Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.0.1\n"
 
-#: about.ts:33 dns.ts:22 inbound.ts:22 outbound.ts:258 policy.ts:23
-#: reverse.ts:18 routing.ts:43 transparent-proxy.ts:132
-msgid "V2Ray"
+#: htdocs/luci-static/resources/view/v2ray/about.js:7
+msgid "About"
 msgstr ""
 
-#: about.ts:33
-msgid "About"
-msgstr "关于"
+#: htdocs/luci-static/resources/view/v2ray/about.js:7
+msgid "LuCI support for V2Ray and Xray."
+msgstr "V2Ray 与 XRay LuCI 配置界面."
 
-#: about.ts:34
-msgid "LuCI support for V2Ray v5 and Xray 1.8.0."
-msgstr "V2Ray v5 与 Xray 1.8 LuCI 界面支持."
-
-#: about.ts:37
-#, javascript-format
+#: htdocs/luci-static/resources/view/v2ray/about.js:7
+#: htdocs/luci-static/resources/view/v2ray/include/custom.js:7
+#, javascript-format, lua-format
 msgid "Version: %s"
 msgstr "版本: %s"
 
-#: about.ts:41
+#: htdocs/luci-static/resources/view/v2ray/about.js:7
 #, javascript-format
 msgid "Author: %s"
 msgstr "作者: %s"
 
-#: about.ts:44
+#: htdocs/luci-static/resources/view/v2ray/about.js:7
 #, javascript-format
 msgid "Source: %s"
 msgstr "源码: %s"
 
-#: about.ts:50
+#: htdocs/luci-static/resources/view/v2ray/about.js:7
 #, javascript-format
 msgid "Latest: %s"
 msgstr "最新版本: %s"
 
-#: about.ts:56
+#: htdocs/luci-static/resources/view/v2ray/about.js:7
 #, javascript-format
 msgid "Report Bugs: %s"
 msgstr "报告错误: %s"
 
-#: about.ts:62
+#: htdocs/luci-static/resources/view/v2ray/about.js:7
 #, javascript-format
 msgid "Donate: %s"
 msgstr "捐助: %s"
 
-#: about.ts:66
+#: htdocs/luci-static/resources/view/v2ray/about.js:7
 #, javascript-format
 msgid "Current Config File: %s"
 msgstr "当前配置文件: %s"
 
-#: about.ts:73
+#: htdocs/luci-static/resources/view/v2ray/about.js:7
 msgid "Failed to open file."
 msgstr "打开文件失败."
 
-#: dns.ts:22
+#: htdocs/luci-static/resources/view/v2ray/dns.js:7
 msgid "DNS"
 msgstr ""
 
-#: dns.ts:23 policy.ts:24 reverse.ts:19 routing.ts:44
+#: htdocs/luci-static/resources/view/v2ray/dns.js:7
+#: htdocs/luci-static/resources/view/v2ray/policy.js:7
+#: htdocs/luci-static/resources/view/v2ray/reverse.js:7
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
 #, javascript-format
 msgid "Details: %s"
 msgstr "查看详情: %s"
 
-#: dns.ts:34 inbound.ts:855 main.ts:71 main.ts:160 main.ts:167 outbound.ts:1145
-#: outbound.ts:1334 policy.ts:34 reverse.ts:28 routing.ts:54
+#: htdocs/luci-static/resources/view/v2ray/dns.js:7
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
+#: htdocs/luci-static/resources/view/v2ray/policy.js:7
+#: htdocs/luci-static/resources/view/v2ray/reverse.js:7
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Enabled"
 msgstr "启用"
 
-#: dns.ts:37 inbound.ts:848 outbound.ts:1298 outbound.ts:1305 routing.ts:184
+#: htdocs/luci-static/resources/view/v2ray/dns.js:7
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Tag"
 msgstr "标识"
 
-#: dns.ts:43 dns.ts:164
+#: htdocs/luci-static/resources/view/v2ray/dns.js:7
 msgid "Client IP"
 msgstr "客户端公网IP"
 
-#: dns.ts:45
+#: htdocs/luci-static/resources/view/v2ray/dns.js:7
 msgid "Get my public IP address"
 msgstr "获取我的公网IP地址"
 
-#: dns.ts:53
+#: htdocs/luci-static/resources/view/v2ray/dns.js:7
 msgid "Hosts"
 msgstr "静态地址及域名映射"
 
-#: dns.ts:55
+#: htdocs/luci-static/resources/view/v2ray/dns.js:7
 #, javascript-format
 msgid ""
 "Host and domain mapping</br>format: <code>domain|ip1,ip2</code> or "
@@ -109,37 +115,39 @@ msgstr ""
 "静态地址及域名映射</br>格式: <code>domain|ip1,ip2</code> 或 <code>domain-A|"
 "domain-B</code> 例如: </br>%s 或 %s"
 
-#: dns.ts:62
+#: htdocs/luci-static/resources/view/v2ray/dns.js:7
 msgid "Domain Strategy"
 msgstr "解析策略"
 
-#: dns.ts:67
+#: htdocs/luci-static/resources/view/v2ray/dns.js:7
 msgid "Disable DNS Cache"
 msgstr "禁用DNS缓存"
 
-#: dns.ts:68 dns.ts:76 dns.ts:84 dns.ts:161 inbound.ts:829 inbound.ts:879
-#: outbound.ts:1295
+#: htdocs/luci-static/resources/view/v2ray/dns.js:7
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "False"
 msgstr "否"
 
-#: dns.ts:69 dns.ts:77 dns.ts:85 dns.ts:162 inbound.ts:830 inbound.ts:880
-#: outbound.ts:1296
+#: htdocs/luci-static/resources/view/v2ray/dns.js:7
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "True"
 msgstr "是"
 
-#: dns.ts:74
+#: htdocs/luci-static/resources/view/v2ray/dns.js:7
 msgid "Disable Fallback Query"
 msgstr "禁用回退查询"
 
-#: dns.ts:82
+#: htdocs/luci-static/resources/view/v2ray/dns.js:7
 msgid "Disable Fallback if got Matches"
 msgstr "条件匹配后不进行回退查询"
 
-#: dns.ts:90
+#: htdocs/luci-static/resources/view/v2ray/dns.js:7
 msgid "DNS Servers"
 msgstr "DNS服务器"
 
-#: dns.ts:92
+#: htdocs/luci-static/resources/view/v2ray/dns.js:7
 msgid ""
 "Select DNS servers to use</br><code>Only 1 fakedns configuration can be "
 "enabled at the same time,prioritized by order</code>"
@@ -147,701 +155,1111 @@ msgstr ""
 "选择使用的 DNS 服务器</br><code>仅能启用一组fakedns服务器配置, 优先使用高顺位"
 "配置</code>"
 
-#: dns.ts:102
+#: htdocs/luci-static/resources/view/v2ray/dns.js:7
 msgid "DNS server"
 msgstr "DNS 服务器"
 
-#: dns.ts:103
+#: htdocs/luci-static/resources/view/v2ray/dns.js:7
 msgid "Add DNS servers here"
 msgstr "在这里添加 DNS 服务器"
 
-#: dns.ts:110 inbound.ts:41 outbound.ts:278 routing.ts:99
+#: htdocs/luci-static/resources/view/v2ray/dns.js:7
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Alias"
 msgstr "别名"
 
-#: dns.ts:113 routing.ts:106
+#: htdocs/luci-static/resources/view/v2ray/dns.js:7
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
 msgid "Type"
 msgstr "类型"
 
-#: dns.ts:128 inbound.ts:67 outbound.ts:330 outbound.ts:457 outbound.ts:575
-#: outbound.ts:605 outbound.ts:655
+#: htdocs/luci-static/resources/view/v2ray/dns.js:7
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Address"
 msgstr "地址"
 
-#: dns.ts:133 inbound.ts:50 inbound.ts:78 outbound.ts:339 outbound.ts:467
-#: outbound.ts:585 outbound.ts:615 outbound.ts:665 routing.ts:115
+#: htdocs/luci-static/resources/view/v2ray/dns.js:7
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Port"
 msgstr "端口"
 
-#: dns.ts:144
+#: htdocs/luci-static/resources/view/v2ray/dns.js:7
 msgid "Local Mode"
-msgstr "本地模式"
+msgstr "本地查询模式"
 
-#: dns.ts:145
+#: htdocs/luci-static/resources/view/v2ray/dns.js:7
 msgid "DNS Query through <code>Freedom</code> outbound"
 msgstr "绕过xray路由模块, 直接从<code>Freedom</code>出站连接发出DNS请求"
 
-#: dns.ts:152
+#: htdocs/luci-static/resources/view/v2ray/dns.js:7
 msgid "Domains"
 msgstr "域名"
 
-#: dns.ts:155
+#: htdocs/luci-static/resources/view/v2ray/dns.js:7
 msgid "Expect IPs"
 msgstr "期望 IP"
 
-#: dns.ts:158
+#: htdocs/luci-static/resources/view/v2ray/dns.js:7
 msgid "Skip Fallback"
 msgstr "不回退到此服务器"
 
-#: inbound.ts:22 inbound.ts:30
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Inbound"
-msgstr ""
+msgstr "入站连接"
 
-#: inbound.ts:30 outbound.ts:267
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Add"
 msgstr "添加"
 
-#: inbound.ts:34 outbound.ts:271
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "General Settings"
 msgstr "常规设置"
 
-#: inbound.ts:35 outbound.ts:272
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Stream Settings"
 msgstr "传输方式配置"
 
-#: inbound.ts:36 outbound.ts:273
-msgid "Mux Settings"
-msgstr "多路复用配置"
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+msgid "Other Settings"
+msgstr "其它设置"
 
-msgid "Mux Concurrency"
-msgstr "TCP并发连接数"
-
-msgid "xudp Concurrency"
-msgstr "xudp并发连接数"
-
-msgid "Proxy UDP443"
-msgstr "代理UDP443流量"
-
-msgid "Reject"
-msgstr "拒绝"
-
-msgid "Allow"
-msgstr "允许"
-
-msgid "Skip"
-msgstr "忽略"
-
-#: inbound.ts:44
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Listen"
 msgstr "监听地址"
 
-#: inbound.ts:54 outbound.ts:287 routing.ts:149
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Protocol"
 msgstr "协议"
 
-#: inbound.ts:68
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Address of the destination server."
 msgstr "将流量转发到此地址."
 
-#: inbound.ts:79
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Port of the destination server."
 msgstr "将流量转发到目标地址的指定端口."
 
-#: inbound.ts:89 inbound.ts:279 inbound.ts:438 outbound.ts:318 outbound.ts:715
-#: routing.ts:119
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Network"
 msgstr "网络"
 
-#: inbound.ts:91 inbound.ts:118 inbound.ts:838
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid ""
 "If transparent proxy enabled on current inbound, this option will be ignored."
 msgstr "如果在当前入站连接上启用透明代理，此选项会被忽略."
 
-#: inbound.ts:104 inbound.ts:168
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Timeout"
 msgstr "超时时间"
 
-#: inbound.ts:105 inbound.ts:169
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Time limit for inbound data(seconds)"
 msgstr "入站数据的时间限制（秒）"
 
-#: inbound.ts:116
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Follow redirect"
 msgstr "自动转发"
 
-#: inbound.ts:128 inbound.ts:180 inbound.ts:211 inbound.ts:260 inbound.ts:350
-#: outbound.ts:373 outbound.ts:505 outbound.ts:564 outbound.ts:708
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "User level"
 msgstr "用户等级"
 
-#: inbound.ts:129 inbound.ts:181 inbound.ts:212 inbound.ts:351
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "All connections share this level"
 msgstr "所有连接都会使用这个用户等级"
 
-#: inbound.ts:140 inbound.ts:305
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Account user"
 msgstr "账号用户名"
 
-#: inbound.ts:149 inbound.ts:314
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Account password"
 msgstr "账号密码"
 
-#: inbound.ts:159
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Allow transparent"
 msgstr "转发所有HTTP请求"
 
-#: inbound.ts:192
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "User email"
 msgstr "用户邮箱地址"
 
-#: inbound.ts:201
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "User secret"
 msgstr "用户密钥"
 
-#: inbound.ts:223 outbound.ts:448
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Email"
 msgstr "邮箱地址"
 
-#: inbound.ts:232 outbound.ts:477
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Method"
 msgstr "加密方式"
 
-#: inbound.ts:250 inbound.ts:298 outbound.ts:413 outbound.ts:495
-#: outbound.ts:554 outbound.ts:595
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Password"
 msgstr "密码"
 
-#: inbound.ts:270
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "One Time Auth (OTA)"
 msgstr "一次性认证"
 
-#: inbound.ts:292
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Auth"
 msgstr "认证方式"
 
-#: inbound.ts:297
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "No Auth"
 msgstr "无认证"
 
-#: inbound.ts:324
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "UDP"
 msgstr ""
 
-#: inbound.ts:333 routing.ts:112
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
 msgid "IP"
 msgstr ""
 
-#: inbound.ts:335
-msgid ""
-"When UDP is enabled, V2Ray needs to know the IP address of current host."
-msgstr "当 UDP 启用时，XRay 需要知道当前服务器的 IP 地址."
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+msgid "When UDP is enabled, %s needs to know the IP address of current host."
+msgstr "当 UDP 启用时，%s 需要知道当前服务器的 IP 地址."
 
-#: inbound.ts:362
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Client ID"
 msgstr "用户 ID"
 
-#: inbound.ts:371
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Client alter ID"
 msgstr "用户 alter ID"
 
-#: inbound.ts:381
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Client email"
 msgstr "用户邮箱地址"
 
-#: inbound.ts:390
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Client User level"
 msgstr "用户等级"
 
-#: inbound.ts:400
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Default alter ID"
 msgstr "默认 Alter ID"
 
-#: inbound.ts:410
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Default user level"
 msgstr "默认用户等级"
 
-#: inbound.ts:420
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Detour to"
 msgstr "转发到"
 
-#: inbound.ts:422
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid ""
 "Optional feature to suggest client to take a detour. If specified, this "
 "inbound will instruct the outbound to use another inbound."
 msgstr "建议客户端自动绕路，指定后将指示出站连接使用另一个入站连接."
 
-#: inbound.ts:432
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Disable insecure encryption"
 msgstr "禁止不安全加密方式"
 
-#: inbound.ts:447 inbound.ts:785 outbound.ts:694 outbound.ts:725
-#: outbound.ts:1219
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Security"
 msgstr "传输层加密"
 
-#: inbound.ts:450 inbound.ts:542 inbound.ts:721 inbound.ts:790 inbound.ts:813
-#: main.ts:121 main.ts:134 outbound.ts:310 outbound.ts:428 outbound.ts:702
-#: outbound.ts:728 outbound.ts:910 outbound.ts:1084 outbound.ts:1224
-#: outbound.ts:1247 outbound.ts:1308 transparent-proxy.ts:149
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "None"
 msgstr "无"
 
-#: inbound.ts:458 outbound.ts:756
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Server name"
 msgstr "服务器名称"
 
-#: inbound.ts:478 outbound.ts:773
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Allow insecure"
 msgstr "允许不安全连接"
 
-#: inbound.ts:487 outbound.ts:783
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Allow insecure ciphers"
-msgstr "允许不安全的加密方式"
+msgstr "允许不安全的加密套件"
 
-#: inbound.ts:496 outbound.ts:793
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Disable system root"
 msgstr "禁用系统自带的 CA 证书"
 
-#: inbound.ts:505 outbound.ts:803
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Certificate usage"
 msgstr "证书用途"
 
-#: inbound.ts:518 outbound.ts:817
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Certificate file"
 msgstr "证书文件路径"
 
-#: inbound.ts:527 outbound.ts:823
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Key file"
 msgstr "密钥文件路径"
 
-#: inbound.ts:537 inbound.ts:716 inbound.ts:808 outbound.ts:905
-#: outbound.ts:1079 outbound.ts:1242
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Header type"
 msgstr "头部伪装类型"
 
-#: inbound.ts:549 outbound.ts:917
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "HTTP request version"
 msgstr "HTTP 请求版本"
 
-#: inbound.ts:559 outbound.ts:926
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "HTTP request method"
 msgstr "HTTP 请求方式"
 
-#: inbound.ts:577 outbound.ts:943
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Request path"
 msgstr "请求路径"
 
-#: inbound.ts:586 outbound.ts:952
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Request headers"
 msgstr "请求头"
 
-#: inbound.ts:588 inbound.ts:630 inbound.ts:744 outbound.ts:954 outbound.ts:993
-#: outbound.ts:1107
-#, javascript-format
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+#, javascript-format, lua-format
 msgid "A list of HTTP headers, format: <code>header=value</code>. eg: %s"
-msgstr "HTTP Header 列表，格式：header=value. 例如: %s"
+msgstr "HTTP Header 列表，格式：<code>header=value</code>. 例如: %s"
 
-#: inbound.ts:598 outbound.ts:964
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "HTTP response version"
 msgstr "HTTP 响应版本"
 
-#: inbound.ts:608 outbound.ts:973
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "HTTP response status"
 msgstr "HTTP 响应状态"
 
-#: inbound.ts:618 outbound.ts:982
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "HTTP response reason"
 msgstr "HTTP 响应说明"
 
-#: inbound.ts:628 outbound.ts:991
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Response headers"
 msgstr "响应头"
 
-#: inbound.ts:641 outbound.ts:1004
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Maximum transmission unit (MTU)"
 msgstr "最大传输单元 (MTU)"
 
-#: inbound.ts:652 outbound.ts:1015
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Transmission time interval (TTI)"
 msgstr "传输时间间隔（TTI)"
 
-#: inbound.ts:663 outbound.ts:1026
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Uplink capacity"
 msgstr "上行链路容量"
 
-#: inbound.ts:674 outbound.ts:1037
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Downlink capacity"
 msgstr "下行链路容量"
 
-#: inbound.ts:685 outbound.ts:1048
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Congestion enabled"
 msgstr "启用拥塞控制"
 
-#: inbound.ts:694 outbound.ts:1057
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Read buffer size"
 msgstr "读取缓冲区大小"
 
-#: inbound.ts:705 outbound.ts:1068
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Write buffer size"
 msgstr "写入缓冲区大小"
 
-#: inbound.ts:724 inbound.ts:816 outbound.ts:1087 outbound.ts:1250
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Wechat Video"
 msgstr "微信视频通话"
 
-#: inbound.ts:733 inbound.ts:764 inbound.ts:775 outbound.ts:1096
-#: outbound.ts:1198 outbound.ts:1209
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Path"
 msgstr "路径"
 
-#: inbound.ts:742 outbound.ts:1105
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Headers"
 msgstr "HTTP 头"
 
-#: inbound.ts:755 outbound.ts:1189
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Host"
 msgstr "主机"
 
-#: inbound.ts:798 outbound.ts:1232
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Key"
 msgstr "密钥"
 
-#: inbound.ts:825 inbound.ts:836 outbound.ts:1259 outbound.ts:1271
-#: outbound.ts:1291
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Sockopt"
 msgstr "连接选项"
 
-#: inbound.ts:825 outbound.ts:1291
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "TCP fast open"
 msgstr "TCP 快速打开"
 
-#: inbound.ts:836
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "TProxy"
 msgstr "透明代理方式"
 
-#: inbound.ts:845
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Off"
 msgstr "关闭"
 
-#: inbound.ts:855 inbound.ts:863
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Sniffing"
 msgstr "流量探测"
 
-#: inbound.ts:863
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Dest override"
 msgstr "重置指定的流量类型"
 
-#: inbound.ts:876
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Metadata Only"
 msgstr "仅使用元数据进行探测"
 
-#: inbound.ts:886
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Domains Excluded"
 msgstr "排除域名"
 
-#: inbound.ts:891
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Route Only"
 msgstr "仅用于路由"
 
-#: inbound.ts:898 inbound.ts:909 inbound.ts:918
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Allocate"
 msgstr "端口分配"
 
-#: inbound.ts:898
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Strategy"
 msgstr "端口分配策略"
 
-#: inbound.ts:909
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Refresh"
 msgstr "随机端口刷新间隔"
 
-#: inbound.ts:918 outbound.ts:1352
+#: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 msgid "Concurrency"
 msgstr "随机端口数量"
 
-#: main.ts:30
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
 #, javascript-format
 msgid "Reload service failed with code %d"
 msgstr "重载服务失败,错误代码 %d"
 
-#: main.ts:54
-msgid "V2ray"
-msgstr ""
-
-#: main.ts:54
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
 msgid "Global Settings"
 msgstr "全局设置"
 
-#: main.ts:56
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
 msgid "A platform for building proxies to bypass network restrictions."
 msgstr "一个用于构建网络代理的平台."
 
-#: main.ts:57
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
 #, javascript-format
 msgid "For more information, please visit: %s"
 msgstr "更多信息，请访问: %s"
 
-#: main.ts:77
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
 msgid "Reload Service"
 msgstr "重载服务"
 
-#: main.ts:78
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
 msgid "This will restart service when config file changes."
 msgstr "如果配置文件发生变化，此操作会重启服务."
 
-#: main.ts:81
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
 msgid "Reload"
 msgstr "重新加载"
 
-#: main.ts:87
-msgid "V2Ray file"
-msgstr "Core 可执行文件"
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
+msgid "Core file"
+msgstr "内核文件"
 
-#: main.ts:88
-msgid "Set the V2Ray executable file path."
-msgstr "配置 Core 程序路径."
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
+msgid "Set the location of the Core binary."
+msgstr "配置内核路径."
 
-#: main.ts:97
-msgid "V2Ray asset location"
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
+msgid "Assets location"
 msgstr "资源文件路径"
 
-#: main.ts:99
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
 msgid ""
 "Directory where geoip.dat and geosite.dat files are, default: same directory "
-"as V2Ray file."
-msgstr "geoip.dat 和 geosite.dat 目录路径,默认：Core 文件所在目录."
+"as core binary."
+msgstr "geoip.dat 和 geosite.dat 目录路径,默认：内核文件所在目录."
 
-#: main.ts:108
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
 msgid "Memory percentage"
 msgstr "内存百分比"
 
-#: main.ts:109
-msgid "The maximum percentage of memory used by V2Ray."
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
+msgid "The maximum percentage of memory used by core."
 msgstr "Core 可使用的最大内存百分比."
 
-#: main.ts:117
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
 msgid "Config file"
 msgstr "配置文件"
 
-#: main.ts:118
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
 msgid "Use custom config file."
 msgstr "使用自定义配置文件."
 
-#: main.ts:123
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
 msgid "Access log file"
 msgstr "访问日志文件"
 
-#: main.ts:128
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
 msgid "Log level"
 msgstr "日志等级"
 
-#: main.ts:130
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
 msgid "Debug"
 msgstr "调试"
 
-#: main.ts:131 outbound.ts:833
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Info"
 msgstr "信息"
 
-#: main.ts:132
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
 msgid "Warning"
 msgstr "警告"
 
-#: main.ts:133
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
 msgid "Error"
 msgstr "错误"
 
-#: main.ts:137
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
 msgid "Error log file"
 msgstr "错误日志文件"
 
-#: main.ts:145
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
 msgid "Inbounds enabled"
 msgstr "启用的入站连接"
 
-#: main.ts:151
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
 msgid "Outbounds enabled"
 msgstr "启用的出站连接"
 
-#: main.ts:160
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
 msgid "Stats"
 msgstr "统计信息"
 
-#: main.ts:167 main.ts:174
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
 msgid "Transport"
 msgstr "底层传输"
 
-#: main.ts:174
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
 msgid "Settings"
 msgstr "设置"
 
-#: main.ts:175
+#: htdocs/luci-static/resources/view/v2ray/main.js:7
 msgid "<code>transport</code> field in top level configuration, JSON string"
 msgstr "配置文件中的 </code>transport</code> 项，JSON 字符串"
 
-#: outbound.ts:130 outbound.ts:153
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Outbound Import"
 msgstr "导入出站连接"
 
-#: outbound.ts:131
-#, javascript-format
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+#, javascript-format, lua-format
 msgid "Imported %d links."
 msgstr "已导入 %d 个配置."
 
-#: outbound.ts:147 outbound.ts:164 transparent-proxy.ts:64
-#: transparent-proxy.ts:74 transparent-proxy.ts:100 transparent-proxy.ts:110
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
 msgid "OK"
 msgstr "确认"
 
-#: outbound.ts:154
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "No links imported."
 msgstr "无链接导入."
 
-#: outbound.ts:173
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "You can add multiple links at once, one link per line."
 msgstr "可同时导入多个链接，每行一个链接."
 
-#: outbound.ts:176
-msgid "Empty field."
-msgstr "内容为空."
+#: htdocs/luci-static/resources/view/v2ray/policy.js:7
+msgid "Policy"
+msgstr "策略"
 
-#: outbound.ts:203
-msgid "Dismiss"
-msgstr "关闭"
+#: htdocs/luci-static/resources/view/v2ray/policy.js:7
+msgid "Levels"
+msgstr "等级"
 
-#: outbound.ts:229
-msgid "Save"
-msgstr "保存"
+#: htdocs/luci-static/resources/view/v2ray/policy.js:7
+msgid "Select policy levels"
+msgstr "选择策略等级"
 
-#: outbound.ts:258 outbound.ts:267
-msgid "Outbound"
-msgstr "出站连接"
+#: htdocs/luci-static/resources/view/v2ray/policy.js:7
+msgid "System"
+msgstr "系统"
 
-#: outbound.ts:281
-msgid "Send through"
-msgstr "使用 IP 地址发出"
+#: htdocs/luci-static/resources/view/v2ray/policy.js:7
+msgid "Stats inbound uplink"
+msgstr "入站上行流量统计"
 
-#: outbound.ts:305
-msgid "Response type"
-msgstr "响应类型"
+#: htdocs/luci-static/resources/view/v2ray/policy.js:7
+msgid "Stats inbound downlink"
+msgstr "入站下行流量统计"
 
-#: outbound.ts:350 outbound.ts:1271
-msgid "Domain strategy"
-msgstr "域名策略"
+#: htdocs/luci-static/resources/view/v2ray/policy.js:7
+msgid "Policy Level"
+msgstr "策略等级"
 
-#: outbound.ts:364
-msgid "Redirect"
-msgstr "发送到指定地址"
+#: htdocs/luci-static/resources/view/v2ray/policy.js:7
+msgid "Add policy levels here"
+msgstr "在此添加策略等级"
 
-#: outbound.ts:384 outbound.ts:525
-msgid "Server address"
-msgstr "服务器地址"
+#: htdocs/luci-static/resources/view/v2ray/policy.js:7
+msgid "Level"
+msgstr "等级"
 
-#: outbound.ts:394 outbound.ts:535
-msgid "Server port"
-msgstr "服务器端口"
+#: htdocs/luci-static/resources/view/v2ray/policy.js:7
+msgid "Handshake"
+msgstr "握手时间限制"
 
-#: outbound.ts:404 outbound.ts:545 routing.ts:131
+#: htdocs/luci-static/resources/view/v2ray/policy.js:7
+msgid "Connection idle"
+msgstr "连接空闲时间"
+
+#: htdocs/luci-static/resources/view/v2ray/policy.js:7
+msgid "Uplink only"
+msgstr "上行连接关闭等待时间"
+
+#: htdocs/luci-static/resources/view/v2ray/policy.js:7
+msgid "Downlink only"
+msgstr "下上连接关闭等待时间"
+
+#: htdocs/luci-static/resources/view/v2ray/policy.js:7
+msgid "Stats user uplink"
+msgstr "用户上行流量统计"
+
+#: htdocs/luci-static/resources/view/v2ray/policy.js:7
+msgid "Stats user downlink"
+msgstr "用户下行流量统计"
+
+#: htdocs/luci-static/resources/view/v2ray/policy.js:7
+msgid "Buffer size"
+msgstr "缓存大小"
+
+#: htdocs/luci-static/resources/view/v2ray/reverse.js:7
+msgid "Reverse"
+msgstr "反向代理"
+
+#: htdocs/luci-static/resources/view/v2ray/reverse.js:7
+msgid "Bridges"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/v2ray/reverse.js:7
+#, javascript-format
+msgid "A list of bridges, format: <code>tag|domain</code>. eg: %s"
+msgstr "Bridge 列表,格式: <code>tag|domain</code>.例如：%s"
+
+#: htdocs/luci-static/resources/view/v2ray/reverse.js:7
+msgid "Portals"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/v2ray/reverse.js:7
+#, javascript-format
+msgid "A list of portals, format: <code>tag|domain</code>. eg: %s"
+msgstr "Portal 列表,格式: <code>tag|domain</code>.例如：%s"
+
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
+msgid "Routing"
+msgstr "路由"
+
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
+msgid "Domain resolution strategy"
+msgstr "域名解析策略"
+
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
+msgid "Domain Matcher"
+msgstr "域名匹配器"
+
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
+msgid "Rules"
+msgstr "规则"
+
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
+msgid "Select routing rules to use"
+msgstr "选择使用的路由规则"
+
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
+msgid "Balancers"
+msgstr "负载均衡器"
+
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
+msgid "Select routing balancers to use"
+msgstr "选择使用的负载均衡器"
+
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
+msgid "Routing Rule"
+msgstr "路由规则"
+
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
+msgid "Add routing rules here"
+msgstr "在这里添加路由规则"
+
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
+msgid "Domain"
+msgstr "域名"
+
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
+msgid "Source"
+msgstr "源IP地址"
+
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
+msgid "Source Port"
+msgstr "源端口"
+
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "User"
 msgstr "用户"
 
-#: outbound.ts:424 routing.ts:134
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Inbound Tag"
 msgstr "入站连接标识"
 
-#: outbound.ts:515
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
+msgid "Attrs"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
+msgid "Outbound tag"
+msgstr "出站连接标识"
+
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
+msgid "Balancer tag"
+msgstr "负载均衡器标识"
+
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
+msgid "Add routing balancers here"
+msgstr "在这里添加负载均衡器"
+
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
+msgid "Routing Balancer"
+msgstr "负载均衡器"
+
+#: htdocs/luci-static/resources/view/v2ray/routing.js:7
+msgid "Selector"
+msgstr "标识匹配前缀"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "List Update"
+msgstr "列表更新"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "GFWList updated."
+msgstr "GFW List 已更新."
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Update Failed"
+msgstr "更新失败"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "China Route Lists updated."
+msgstr "中国IP列表已更新."
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Unexpected error."
+msgstr "未知错误."
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Transparent Proxy"
+msgstr "透明代理"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Redirect port"
+msgstr "转发端口"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Enable transparent proxy on Dokodemo-door port."
+msgstr "在 Dokodemo-door 端口上启用透明代理."
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "LAN interfaces"
+msgstr "LAN 接口"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Enable proxy on selected interfaces."
+msgstr "在选中的接口上启用代理."
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Use TProxy"
+msgstr "使用 TProxy 方式"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Setup redirect rules with TProxy."
+msgstr "使用 TProxy 来设置转发规则."
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Proxy IPv6"
+msgstr "代理IPv6流量"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Only privileged ports"
+msgstr "仅转发特权端口"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Only redirect traffic on ports below 1024."
+msgstr "仅转发端口小于 1024 的流量."
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Redirect UDP"
+msgstr "转发 UDP"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Redirect UDP traffic to"
+msgstr "转发 UDP 流量到"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Redirect DNS"
+msgstr "转发 DNS请求"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Redirect DNS queries to"
+msgstr "转发 DNS 请求到"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Proxy mode"
+msgstr "代理模式"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid ""
+"If enabled, firewall rules will be added to pre-filter traffic and then sent "
+"to"
+msgstr "如果启用，将会添加防火墙规则来预先过滤流量，再发送到"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Default"
+msgstr "默认"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "CN Direct"
+msgstr "直连中国IP"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "CN Proxy"
+msgstr "代理中国IP"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "GFWList Proxy"
+msgstr "代理GFW List"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "APNIC delegated mirror"
+msgstr "APNIC 分配列表镜像"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "CHNRoute"
+msgstr "中国IP列表"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Update"
+msgstr "更新"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "GFWList mirror"
+msgstr "GFW List 镜像"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "GFWList"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Extra proxy list"
+msgstr "额外的代理列表"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+#, javascript-format
+msgid "One address per line. Allow types: DOMAIN, IP, CIDR. eg: %s, %s, %s"
+msgstr "每行一个地址，支持的类型：域名、IP、CIDR. 例如：%s、%s、%s"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Extra direct list"
+msgstr "额外的直连列表"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Proxy list DNS"
+msgstr "代理列表 DNS"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+#, javascript-format
+msgid ""
+"DNS used for domains in proxy list, format: <code>ip#port</code>. eg: %s"
+msgstr "代理列表中域名使用的 DNS，格式：<code>ip#port</code>. 例如：%s"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Direct list DNS"
+msgstr "直连列表 DNS"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+#, javascript-format
+msgid ""
+"DNS used for domains in direct list, format: <code>ip#port</code>. eg: %s"
+msgstr "直连列表中域名使用的 DNS，格式：<code>ip#port</code>. 例如：%s"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Local devices direct outbound list"
+msgstr "本地设备直接连出列表"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+#, javascript-format
+msgid "One address per line. Allow types: IP, CIDR. eg: %s, %s"
+msgstr "每行一个地址，支持的类型：IP、CIDR. 例如: %s, %s"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Invalid links."
+msgstr "非法链接."
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Empty field."
+msgstr "内容为空."
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Import Vmess Links"
+msgstr "导入Vmess连接"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+#, lua-format
+msgid "Allowed link format: <code>%s</code>"
+msgstr "允许的连接格式: <code>%s</code>"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Dismiss"
+msgstr "关闭"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Save"
+msgstr "保存"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Outbound"
+msgstr "出站连接"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Mux Settings"
+msgstr "多路复用配置"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Send through"
+msgstr "使用 IP 地址发出"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Response type"
+msgstr "响应类型"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Domain strategy"
+msgstr "域名策略"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Redirect"
+msgstr "发送到指定地址"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "TCP Fragmentize"
+msgstr "TCP碎片化处理"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Fragment"
+msgstr "碎片"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Length"
+msgstr "长度"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Interval"
+msgstr "发送间隔"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Packets"
+msgstr "数据包数量"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Server address"
+msgstr "服务器地址"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Server port"
+msgstr "服务器端口"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "OTA"
 msgstr ""
 
-#: outbound.ts:625 outbound.ts:675
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "User ID"
 msgstr "用户ID"
 
-#: outbound.ts:634
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "User Level"
 msgstr "用户等级"
 
-#: outbound.ts:644
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Encryption"
 msgstr "加密方式"
 
-#: outbound.ts:684
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Alter ID"
 msgstr ""
 
-#: outbound.ts:699
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Auto"
 msgstr "自动"
 
-#: outbound.ts:834
-msgid "Show REALITY Debug Info in LOGs"
-msgstr "在日志中记录REALITY调试信息"
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Private Key"
+msgstr "私钥"
 
-#: outbound.ts:838
-msgid "Show"
-msgstr "启用"
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Endpoint"
+msgstr "接入点"
 
-#: outbound.ts:839
-msgid "Hide"
-msgstr "关闭"
-
-#: outbound.ts:845
-msgid "fingerprint"
-msgstr "指纹"
-
-#: outbound.ts:867
-msgid "Server Name"
-msgstr "服务器名称"
-
-#: outbound.ts:878
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Public Key"
 msgstr "公钥"
 
-#: outbound.ts:884
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Pre-Shared Key"
+msgstr "预共享密钥"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Allowed IPs"
+msgstr "允许的IP"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Keep Alive"
+msgstr "连接保活间隔"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "MTU"
+msgstr "最大传输单元"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Reserved"
+msgstr "保留字"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Show REALITY Debug Info"
+msgstr "输出REALITY调试信息"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Show"
+msgstr "输出"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Hide"
+msgstr "隐藏"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "fingerprint"
+msgstr "指纹"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Server Name"
+msgstr "服务器名称"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Short ID"
 msgstr "短ID"
 
-#: outbound.ts:894
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Spider Parameters"
 msgstr "爬虫参数"
 
-#: outbound.ts:1119
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Service"
 msgstr "服务"
 
-#: outbound.ts:1119
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Name"
 msgstr "名称"
 
-#: outbound.ts:1129
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Mode"
 msgstr "模式"
 
-#: outbound.ts:1140
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Health Check"
 msgstr "健康度检测"
 
-#: outbound.ts:1144
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Disabled"
 msgstr "禁用"
 
-#: outbound.ts:1151
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Idle Timeout"
 msgstr "空闲超时时间"
 
-#: outbound.ts:1152
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "No less than 10 seconds"
 msgstr "不少于10秒"
 
-#: outbound.ts:1164
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Health Check timeout"
 msgstr "健康度检测超时时间"
 
-#: outbound.ts:1175
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Initial Windows Size"
 msgstr "初始窗口大小"
 
-#: outbound.ts:1177
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid ""
 "While connecting through Cloudflare CDN</br> set Initial Windows Size "
 "greater than <code>65536</code> to disable Dynamic Window mechanism"
@@ -849,343 +1267,107 @@ msgstr ""
 "使用通过Cloudflare CDN建立连接时，</br>将 初始窗口大小值设置为大于 "
 "<code>65536/code> 以禁用 Dynamic Window机制"
 
-#: outbound.ts:1259
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Mark"
 msgstr "标记"
 
-#: outbound.ts:1261
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid ""
 "If transparent proxy is enabled, this option is ignored and will be set to "
 "255."
 msgstr "如果启用了透明代理，此选项会被忽略，并自动设置为255."
 
-#: outbound.ts:1305
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "TCP No Delay"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Dialer Proxy"
+msgstr "底层前置代理"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Congestion Control"
+msgstr "拥塞控制算法"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Proxy settings"
 msgstr "前置代理设置"
 
-#: outbound.ts:1334 outbound.ts:1352
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Mux"
-msgstr ""
-
-#: outbound.ts:1372 outbound.ts:1375
-msgid "Import"
-msgstr "导入"
-
-#: policy.ts:23
-msgid "Policy"
-msgstr "策略"
-
-#: policy.ts:40
-msgid "Levels"
-msgstr "等级"
-
-#: policy.ts:41
-msgid "Select policy levels"
-msgstr "选择策略等级"
-
-#: policy.ts:50 policy.ts:56
-msgid "System"
-msgstr "系统"
-
-#: policy.ts:50
-msgid "Stats inbound uplink"
-msgstr "入站上行流量统计"
-
-#: policy.ts:56
-msgid "Stats inbound downlink"
-msgstr "入站下行流量统计"
-
-#: policy.ts:62
-msgid "Policy Level"
-msgstr "策略等级"
-
-#: policy.ts:63
-msgid "Add policy levels here"
-msgstr "Add policy levels here"
-
-#: policy.ts:70
-msgid "Level"
-msgstr "等级"
-
-#: policy.ts:74
-msgid "Handshake"
-msgstr "握手时间限制"
-
-#: policy.ts:78
-msgid "Connection idle"
-msgstr "连接空闲时间"
-
-#: policy.ts:82
-msgid "Uplink only"
-msgstr "上行连接关闭等待时间"
-
-#: policy.ts:87
-msgid "Downlink only"
-msgstr "下上连接关闭等待时间"
-
-#: policy.ts:92
-msgid "Stats user uplink"
-msgstr "用户上行流量统计"
-
-#: policy.ts:95
-msgid "Stats user downlink"
-msgstr "用户下行流量统计"
-
-#: policy.ts:98
-msgid "Buffer size"
-msgstr "缓存大小"
-
-#: reverse.ts:18
-msgid "Reverse"
-msgstr "反向代理"
-
-#: reverse.ts:34
-msgid "Bridges"
-msgstr ""
-
-#: reverse.ts:35
-#, javascript-format
-msgid "A list of bridges, format: <code>tag|domain</code>. eg: %s"
-msgstr "Bridge 列表,格式: <code>tag|domain</code>.例如：%s"
-
-#: reverse.ts:43
-msgid "Portals"
-msgstr ""
-
-#: reverse.ts:44
-#, javascript-format
-msgid "A list of portals, format: <code>tag|domain</code>. eg: %s"
-msgstr "Portal 列表,格式: <code>tag|domain</code>.例如：%s"
-
-#: routing.ts:43
-msgid "Routing"
-msgstr "路由"
-
-#: routing.ts:58
-msgid "Domain resolution strategy"
-msgstr "域名解析策略"
-
-#: routing.ts:64 routing.ts:102
-msgid "Domain Matcher"
-msgstr "域名匹配器"
-
-#: routing.ts:71
-msgid "Rules"
-msgstr "规则"
-
-#: routing.ts:72
-msgid "Select routing rules to use"
-msgstr "选择使用的路由规则"
-
-#: routing.ts:81
-msgid "Balancers"
-msgstr "负载均衡器"
-
-#: routing.ts:82
-msgid "Select routing balancers to use"
-msgstr "选择使用的负载均衡器"
-
-#: routing.ts:91
-msgid "Routing Rule"
-msgstr "路由规则"
-
-#: routing.ts:92
-msgid "Add routing rules here"
-msgstr "在这里添加路由规则"
-
-#: routing.ts:109
-msgid "Domain"
-msgstr "域名"
-
-#: routing.ts:123
-msgid "Source"
-msgstr "源IP地址"
-
-#: routing.ts:127
-msgid "Source Port"
-msgstr "源端口"
-
-#: routing.ts:155
-msgid "Attrs"
-msgstr ""
-
-#: routing.ts:158
-msgid "Outbound tag"
-msgstr "出站连接标识"
-
-#: routing.ts:172
-msgid "Balancer tag"
-msgstr "负载均衡器标识"
-
-#: routing.ts:179
-msgid "Add routing balancers here"
-msgstr "在这里添加负载均衡器"
-
-#: routing.ts:179
-msgid "Routing Balancer"
-msgstr "负载均衡器"
-
-#: routing.ts:187
-msgid "Selector"
-msgstr "标识匹配前缀"
-
-#: transparent-proxy.ts:59 transparent-proxy.ts:95
-msgid "List Update"
-msgstr "列表更新"
-
-#: transparent-proxy.ts:60
-msgid "GFWList updated."
-msgstr "GFW List 已更新."
-
-#: transparent-proxy.ts:68 transparent-proxy.ts:104
-msgid "Update Failed"
-msgstr "更新失败"
-
-#: transparent-proxy.ts:96
-msgid "China Route Lists updated."
-msgstr "中国IP列表已更新."
-
-#: transparent-proxy.ts:122
-msgid "Unexpected error."
-msgstr "未知错误."
-
-#: transparent-proxy.ts:132
-msgid "Transparent Proxy"
-msgstr "透明代理"
-
-#: transparent-proxy.ts:146
-msgid "Redirect port"
-msgstr "转发端口"
-
-#: transparent-proxy.ts:147
-msgid "Enable transparent proxy on Dokodemo-door port."
-msgstr "在 Dokodemo-door 端口上启用透明代理."
-
-#: transparent-proxy.ts:158
-msgid "LAN interfaces"
-msgstr "LAN 接口"
-
-#: transparent-proxy.ts:159
-msgid "Enable proxy on selected interfaces."
-msgstr "在选中的接口上启用代理."
-
-#: transparent-proxy.ts:171
-msgid "Use TProxy"
-msgstr "使用 TProxy 方式"
-
-#: transparent-proxy.ts:172
-msgid "Setup redirect rules with TProxy."
-msgstr "使用 TProxy 来设置转发规则."
-
-#: transparent-proxy.ts:178
-msgid "Only privileged ports"
-msgstr "仅转发特权端口"
-
-#: transparent-proxy.ts:179
-msgid "Only redirect traffic on ports below 1024."
-msgstr "仅转发端口小于 1024 的流量."
-
-#: transparent-proxy.ts:185
-msgid "Redirect UDP"
-msgstr "转发 UDP"
-
-#: transparent-proxy.ts:186
-msgid "Redirect UDP traffic to V2Ray."
-msgstr "转发 UDP 流量到 Core."
-
-#: transparent-proxy.ts:192
-msgid "Redirect DNS"
-msgstr "转发 DNS请求"
-
-#: transparent-proxy.ts:193
-msgid "Redirect DNS traffic to V2Ray."
-msgstr "转发 DNS 请求到 Core."
-
-#: transparent-proxy.ts:201
-msgid "Proxy mode"
-msgstr "代理模式"
-
-#: transparent-proxy.ts:203
-msgid ""
-"If enabled, iptables rules will be added to pre-filter traffic and then sent "
-"to V2Ray."
-msgstr ""
-"如果启用，将会添加 iptables/nftables 规则来预先过滤流量，再发送给 XRay 处理."
-
-#: transparent-proxy.ts:206
-msgid "Default"
-msgstr "默认"
-
-#: transparent-proxy.ts:207
-msgid "CN Direct"
-msgstr "直连中国IP"
-
-#: transparent-proxy.ts:208
-msgid "CN Proxy"
-msgstr "代理中国IP"
-
-#: transparent-proxy.ts:209
-msgid "GFWList Proxy"
-msgstr "代理GFW List"
-
-#: transparent-proxy.ts:214
-msgid "APNIC delegated mirror"
-msgstr "APNIC 分配列表镜像"
-
-#: transparent-proxy.ts:221
-msgid "CHNRoute"
-msgstr ""
-
-#: transparent-proxy.ts:223 transparent-proxy.ts:235
-msgid "Update"
-msgstr "更新"
-
-#: transparent-proxy.ts:227
-msgid "GFWList mirror"
-msgstr "GFW List 镜像"
-
-#: transparent-proxy.ts:233
-msgid "GFWList"
-msgstr ""
-
-#: transparent-proxy.ts:242
-msgid "Extra proxy list"
-msgstr "额外的代理列表"
-
-#: transparent-proxy.ts:244 transparent-proxy.ts:257
-#, javascript-format
-msgid "One address per line. Allow types: DOMAIN, IP, CIDR. eg: %s, %s, %s"
-msgstr "每行一个地址，支持的类型：域名、IP、CIDR. 例如：%s、%s、%s"
-
-#: transparent-proxy.ts:255
-msgid "Extra direct list"
-msgstr "额外的直连列表"
-
-#: transparent-proxy.ts:268
-msgid "Proxy list DNS"
-msgstr "代理列表 DNS"
-
-#: transparent-proxy.ts:270
-#, javascript-format
-msgid ""
-"DNS used for domains in proxy list, format: <code>ip#port</code>. eg: %s"
-msgstr "代理列表中域名使用的 DNS，格式：<code>ip#port</code>. 例如：%s"
-
-#: transparent-proxy.ts:277
-msgid "Direct list DNS"
-msgstr "直连列表 DNS"
-
-#: transparent-proxy.ts:279
-#, javascript-format
-msgid ""
-"DNS used for domains in direct list, format: <code>ip#port</code>. eg: %s"
-msgstr "直连列表中域名使用的 DNS，格式：<code>ip#port</code>. 例如：%s"
-
-#: transparent-proxy.ts:286
-msgid "Local devices direct outbound list"
-msgstr "本地设备直接连出列表"
-
-#: transparent-proxy.ts:287
-#, javascript-format
-msgid "One address per line. Allow types: IP, CIDR. eg: %s, %s"
-msgstr "每行一个地址，支持的类型：IP、CIDR. 例如: %s, %s"
+msgstr "多路复用"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Mux Concurrency"
+msgstr "TCP并发连接数"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "xudp Concurrency"
+msgstr "xudp并发连接数"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Proxy UDP443"
+msgstr "代理UDP 443端口流量"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Reject"
+msgstr "拒绝"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Allow"
+msgstr "允许"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Skip"
+msgstr "忽略"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Import (Vmess Only)"
+msgstr "导入(仅Vmess)"
+
+#: htdocs/luci-static/resources/view/v2ray/include/custom.js:7
+msgid "Unknown"
+msgstr "未知"
+
+#: htdocs/luci-static/resources/view/v2ray/include/custom.js:7
+#, lua-format
+msgid "%s is required."
+msgstr "须提供 %s."
+
+#: htdocs/luci-static/resources/view/v2ray/include/custom.js:7
+msgid "Invalid JSON content."
+msgstr "非法的 JSON 内容."
+
+#: htdocs/luci-static/resources/view/v2ray/include/custom.js:7
+msgid "Listtype is required"
+msgstr "需提供列表类型"
+
+#: htdocs/luci-static/resources/view/v2ray/include/custom.js:7
+#, lua-format
+msgid "Entries: %s"
+msgstr "条目数: %s"
+
+#: htdocs/luci-static/resources/view/v2ray/include/custom.js:7
+#, lua-format
+msgid "Last Update: %s"
+msgstr "最后更新时间: %s"
+
+#: htdocs/luci-static/resources/view/v2ray/include/custom.js:7
+msgid "Unable to get core version."
+msgstr "无法读取内核版本."
+
+#: htdocs/luci-static/resources/view/v2ray/include/custom.js:7
+msgid "Not Running"
+msgstr "未运行"
+
+#: htdocs/luci-static/resources/view/v2ray/include/custom.js:7
+msgid "Running"
+msgstr "运行中"
+
+#: htdocs/luci-static/resources/view/v2ray/include/custom.js:7
+msgid "Collecting data..."
+msgstr "正在收集数据..."
+
+#: htdocs/luci-static/resources/view/v2ray/include/custom.js:7
+msgid "Getting..."
+msgstr "正在获取..."

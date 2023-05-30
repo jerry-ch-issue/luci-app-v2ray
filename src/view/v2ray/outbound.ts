@@ -387,7 +387,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       "general",
       form.Flag,
       "s_freedom_fragment_enabled",
-      "%s - %s".format(_("Fragmentize"), _("Enabled"))
+      "%s - %s".format(_("TCP Fragmentize"), _("Enabled"))
     );
     o.modalonly = true;
     o.depends("protocol", "freedom");
@@ -1054,7 +1054,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       form.ListValue,
       "ss_reality_show",
       "%s - %s".format("Debug", _("Info")),
-      _("Show REALITY Debug Info in LOGs")
+      _("Show REALITY Debug Info")
     );
     o.modalonly = true;
     o.depends("ss_security", "reality");

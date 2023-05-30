@@ -135,9 +135,9 @@ const CUSTOMListStatusValue = form.AbstractValue.extend({
               {
                 style: "color: #ff8c00;margin-right: 5px;",
               },
-              _("Total: %s").format(count)
+              _("Entries: %s").format(count)
             ),
-            _("Time: %s").format(datetime),
+            _("Last update: %s").format(datetime),
             E(
               "button",
               {
@@ -226,7 +226,7 @@ const CUSTOMRunningStatus = form.AbstractValue.extend({
         node,
         version
           ? _("Version: %s").format(version)
-          : E("em", { style: "color: red;" }, _("Unable to get V2Ray version."))
+          : E("em", { style: "color: red;" }, _("Unable to get core version."))
       );
     });
   },

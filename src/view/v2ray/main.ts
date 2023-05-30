@@ -96,19 +96,19 @@ return L.view.extend<SectionItem[][], string>({
     o = s.option(
       form.Value,
       "v2ray_file",
-      _("V2Ray file"),
-      _("Set the V2Ray executable file path.")
+      _("Core file"),
+      _("Set the location of the core binary.")
     );
     o.datatype = "file";
-    o.placeholder = "/usr/bin/v2ray";
+    o.placeholder = "/usr/bin/xray";
     o.rmempty = false;
 
     o = s.option(
       form.Value,
       "asset_location",
-      _("V2Ray asset location"),
+      _("Assets location"),
       _(
-        "Directory where geoip.dat and geosite.dat files are, default: same directory as V2Ray file."
+        "Directory where geoip.dat and geosite.dat files are, default: same directory as core binary."
       )
     );
     o.datatype = "directory";
@@ -118,7 +118,7 @@ return L.view.extend<SectionItem[][], string>({
       form.Value,
       "mem_percentage",
       _("Memory percentage"),
-      _("The maximum percentage of memory used by V2Ray.")
+      _("The maximum percentage of memory used by core.")
     );
     o.datatype = "and(uinteger, max(100))";
     o.placeholder = "80";
