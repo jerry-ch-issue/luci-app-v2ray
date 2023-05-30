@@ -208,7 +208,7 @@ return L.view.extend<[SectionItem[], SectionItem[], string]>({
       _("Proxy mode"),
       "%s %s.".format(
         _(
-          "If enabled, firewall rules will be added to pre-filter traffic and then sent to."
+          "Apply firewall rules to Pre-filter traffic before sending to"
         ),
         core
       )

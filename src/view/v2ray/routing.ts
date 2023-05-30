@@ -63,7 +63,7 @@ return L.view.extend<SectionItem[][][][][][][][][], string>({
     o = s1.option(
       form.ListValue,
       "domain_strategy",
-      _("Domain resolution strategy")
+      _("Domain Matching Strategy")
     );
     o.value("AsIs");
     o.value("IPIfNonMatch");

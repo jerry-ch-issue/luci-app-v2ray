@@ -97,7 +97,7 @@ return L.view.extend<SectionItem[][], string>({
       form.Value,
       "v2ray_file",
       _("Core file"),
-      _("Set the location of the core binary.")
+      _("Location of the core binary.")
     );
     o.datatype = "file";
     o.placeholder = "/usr/bin/xray";

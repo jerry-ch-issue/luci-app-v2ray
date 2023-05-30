@@ -626,8 +626,8 @@ msgid "Core file"
 msgstr "内核文件"
 
 #: htdocs/luci-static/resources/view/v2ray/main.js:7
-msgid "Set the location of the Core binary."
-msgstr "配置内核路径."
+msgid "Location of the core binary."
+msgstr "内核路径."
 
 #: htdocs/luci-static/resources/view/v2ray/main.js:7
 msgid "Assets location"
@@ -821,7 +821,7 @@ msgid "Routing"
 msgstr "路由"
 
 #: htdocs/luci-static/resources/view/v2ray/routing.js:7
-msgid "Domain resolution strategy"
+msgid "Domain Matching Strategy"
 msgstr "域名解析策略"
 
 #: htdocs/luci-static/resources/view/v2ray/routing.js:7
@@ -980,8 +980,7 @@ msgstr "代理模式"
 
 #: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
 msgid ""
-"If enabled, firewall rules will be added to pre-filter traffic and then sent "
-"to"
+"Apply firewall rules to Pre-filter traffic before sending to"
 msgstr "如果启用，将会添加防火墙规则来预先过滤流量，再发送到"
 
 #: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
@@ -1105,7 +1104,7 @@ msgstr "响应类型"
 
 #: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Domain strategy"
-msgstr "域名策略"
+msgstr "域名解析策略"
 
 #: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Redirect"
@@ -1349,7 +1348,7 @@ msgstr "条目数: %s"
 
 #: htdocs/luci-static/resources/view/v2ray/include/custom.js:7
 #, lua-format
-msgid "Last Update: %s"
+msgid "Last update: %s"
 msgstr "最后更新时间: %s"
 
 #: htdocs/luci-static/resources/view/v2ray/include/custom.js:7

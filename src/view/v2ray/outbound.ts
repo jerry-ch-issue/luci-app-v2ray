@@ -1562,7 +1562,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       "%s - %s".format("TCP", _("Congestion Control"))
     );
     o.modalonly = true;
-    o.value("", "Default");
+    o.value("", _("Default"));
     o.depends({ protocol: "wireguard", "!reverse": true });
     for (let i = 0; i < tcp_congestion.length; i++) {
       o.value(tcp_congestion[i]);
