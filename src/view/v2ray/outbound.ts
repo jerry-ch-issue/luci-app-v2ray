@@ -912,25 +912,25 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.optional = true;
     o.depends({
       protocol: "vless",
-      network: "tcp",
+      ss_network: "tcp",
       reality_check: "0",
       ss_security: "xtls",
     });
     o.depends({
       protocol: "vless",
-      network: "kcp",
+      ss_network: "kcp",
       reality_check: "0",
       ss_security: "xtls",
     });
     o.depends({
       protocol: "vless",
-      network: "domainsocket",
+      ss_network: "domainsocket",
       reality_check: "0",
       ss_security: "xtls",
     });
     o.depends({
       protocol: "vless",
-      network: "tcp",
+      ss_network: "tcp",
       reality_check: "1",
       ss_security: "tls",
     });
@@ -942,25 +942,25 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     });
     o.depends({
       protocol: "vless",
-      network: "domainsocket",
+      ss_network: "domainsocket",
       reality_check: "1",
       ss_security: "tls",
     });
     o.depends({
       protocol: "vless",
-      network: "tcp",
+      ss_network: "tcp",
       reality_check: "1",
       ss_security: "reality",
     });
     o.depends({
       protocol: "vless",
-      network: "kcp",
+      ss_network: "kcp",
       reality_check: "1",
       ss_security: "reality",
     });
     o.depends({
       protocol: "vless",
-      network: "domainsocket",
+      ss_network: "domainsocket",
       reality_check: "1",
       ss_security: "reality",
     });
