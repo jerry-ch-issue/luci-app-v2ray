@@ -2,7 +2,7 @@ name: Package Build and Release
 on:
   push:
     tags: 
-      - '*-firewall4'
+      - 'v*.*.*'
 env:
   PACKAGE_NAME: luci-app-v2ray
   CACHE_DIR: ~/cache

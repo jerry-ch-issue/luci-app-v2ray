@@ -911,56 +911,20 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.rmempty = true;
     o.optional = true;
     o.depends({
-      protocol: "vless",
-      ss_network: "tcp",
+      protocol: /\b(vless|trojan|vmess)\b/,
+      ss_network: /\b(tcp|kcp|domainsocket)\b/,
       reality_check: "0",
       ss_security: "xtls",
     });
     o.depends({
-      protocol: "vless",
-      ss_network: "kcp",
-      reality_check: "0",
-      ss_security: "xtls",
-    });
-    o.depends({
-      protocol: "vless",
-      ss_network: "domainsocket",
-      reality_check: "0",
-      ss_security: "xtls",
-    });
-    o.depends({
-      protocol: "vless",
-      ss_network: "tcp",
+      protocol: /\b(vless|trojan|vmess)\b/,
+      ss_network: /\b(tcp|kcp|domainsocket|ws|grpc)\b/,
       reality_check: "1",
       ss_security: "tls",
     });
     o.depends({
-      protocol: "vless",
-      network: "kcp",
-      reality_check: "1",
-      ss_security: "tls",
-    });
-    o.depends({
-      protocol: "vless",
-      ss_network: "domainsocket",
-      reality_check: "1",
-      ss_security: "tls",
-    });
-    o.depends({
-      protocol: "vless",
-      ss_network: "tcp",
-      reality_check: "1",
-      ss_security: "reality",
-    });
-    o.depends({
-      protocol: "vless",
-      ss_network: "kcp",
-      reality_check: "1",
-      ss_security: "reality",
-    });
-    o.depends({
-      protocol: "vless",
-      ss_network: "domainsocket",
+      protocol: /\b(vless|trojan|vmess)\b/,
+      ss_network: /\b(tcp|kcp|domainsocket|ws|grpc)\b/,
       reality_check: "1",
       ss_security: "reality",
     });
