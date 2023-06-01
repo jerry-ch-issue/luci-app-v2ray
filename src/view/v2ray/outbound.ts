@@ -1559,7 +1559,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.modalonly = true;
     o.depends({
       ss_network: /\b(ws|tcp|grpc|h2)\b/,
-      ss_security: /\b(tls|none)\b/
+      ss_security: /\b(tls|none)\b/,
     });
     o.enabled = "1";
     o.disabled = "0";
