@@ -943,13 +943,11 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       _("Server name")
     );
     o.modalonly = true;
-    o.depends("ss_security", "tls");
-    o.depends("ss_security", "xtls");
+    o.depends({ ss_security: /tls$/ });
 
     o = s.taboption("stream", form.MultiValue, "ss_tls_alpn", "ALPN");
     o.modalonly = true;
-    o.depends("ss_security", "tls");
-    o.depends("ss_security", "xtls");
+    o.depends({ ss_security: /tls$/ });
     o.value("h2");
     o.value("http/1.1");
 
@@ -960,8 +958,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       _("Allow insecure")
     );
     o.modalonly = true;
-    o.depends("ss_security", "tls");
-    o.depends("ss_security", "xtls");
+    o.depends({ ss_security: /tls$/ });
 
     o = s.taboption(
       "stream",
@@ -970,8 +967,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       _("Allow insecure ciphers")
     );
     o.modalonly = true;
-    o.depends("ss_security", "tls");
-    o.depends("ss_security", "xtls");
+    o.depends({ ss_security: /tls$/ });
 
     o = s.taboption(
       "stream",
@@ -980,8 +976,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       _("Disable system root")
     );
     o.modalonly = true;
-    o.depends("ss_security", "tls");
-    o.depends("ss_security", "xtls");
+    o.depends({ ss_security: /tls$/ });
 
     o = s.taboption(
       "stream",
@@ -990,8 +985,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       _("Certificate usage")
     );
     o.modalonly = true;
-    o.depends("ss_security", "tls");
-    o.depends("ss_security", "xtls");
+    o.depends({ ss_security: /tls$/ });
     o.value("");
     o.value("encipherment");
     o.value("verify");
@@ -1004,13 +998,11 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       _("Certificate file")
     );
     o.modalonly = true;
-    o.depends("ss_security", "tls");
-    o.depends("ss_security", "xtls");
+    o.depends({ ss_security: /tls$/ });
 
     o = s.taboption("stream", form.Value, "ss_tls_key_file", _("Key file"));
     o.modalonly = true;
-    o.depends("ss_security", "tls");
-    o.depends("ss_security", "xtls");
+    o.depends({ ss_security: /tls$/ });
 
     // Stream Settings - REALITY
     o = s.taboption(
@@ -1032,9 +1024,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       _("fingerprint")
     );
     o.modalonly = true;
-    o.depends("ss_security", "reality");
-    o.depends("ss_security", "tls");
-    o.depends("ss_security", "xtls");
+    o.depends({ ss_security: /\b(reality|tls|xtls)\b/ });
     o.value("", "none");
     o.value("360");
     o.value("android");
@@ -1419,9 +1409,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       "%s - %s".format("QUIC", _("Key"))
     );
     o.modalonly = true;
-    o.depends("ss_quic_security", "aes-128-gcm");
-    o.depends("ss_quic_security", "chacha20-poly1305");
-
+    o.depends({ ss_quic_security: /\b(aes-128-gcm|chacha20-poly1305)\b/ });
     o = s.taboption(
       "stream",
       form.ListValue,
@@ -1569,14 +1557,10 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       "%s - %s".format(_("Mux"), _("Enabled"))
     );
     o.modalonly = true;
-    o.depends({ ss_network: "ws", ss_security: "tls" });
-    o.depends({ ss_network: "tcp", ss_security: "tls" });
-    o.depends({ ss_network: "grpc", ss_security: "tls" });
-    o.depends({ ss_network: "h2", ss_security: "tls" });
-    o.depends({ ss_network: "ws", ss_security: "none" });
-    o.depends({ ss_network: "tcp", ss_security: "none" });
-    o.depends({ ss_network: "grpc", ss_security: "none" });
-    o.depends({ ss_network: "h2", ss_security: "none" });
+    o.depends({
+      ss_network: /\b(ws|tcp|grpc|h2)\b/,
+      ss_security: /\b(tls|none)\b/
+    });
     o.enabled = "1";
     o.disabled = "0";
 
