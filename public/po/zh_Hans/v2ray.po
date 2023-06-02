@@ -1324,6 +1324,10 @@ msgstr "忽略"
 msgid "Import (Vmess Only)"
 msgstr "导入(仅Vmess)"
 
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Flow"
+msgstr "流控"
+
 #: htdocs/luci-static/resources/view/v2ray/include/custom.js:7
 msgid "Unknown"
 msgstr "未知"

@@ -1318,6 +1318,10 @@ msgstr ""
 msgid "Import (Vmess Only)"
 msgstr ""
 
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Flow"
+msgstr ""
+
 #: htdocs/luci-static/resources/view/v2ray/include/custom.js:7
 msgid "Unknown"
 msgstr ""

@@ -906,24 +906,24 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       }
     }
 
-    o = s.taboption("stream", form.ListValue, "s_xtls_flow", "Flow");
+    o = s.taboption("stream", form.ListValue, "s_xtls_flow", _("Flow"));
     o.modalonly = true;
     o.rmempty = true;
     o.optional = true;
     o.depends({
-      protocol: /\b(vless|trojan|vmess)\b/,
+      protocol: "vless",
       ss_network: /\b(tcp|kcp|domainsocket)\b/,
       reality_check: "0",
       ss_security: "xtls",
     });
     o.depends({
-      protocol: /\b(vless|trojan|vmess)\b/,
+      protocol: "vless",
       ss_network: /\b(tcp|kcp|domainsocket|ws|grpc)\b/,
       reality_check: "1",
       ss_security: "tls",
     });
     o.depends({
-      protocol: /\b(vless|trojan|vmess)\b/,
+      protocol: "vless",
       ss_network: /\b(tcp|kcp|domainsocket|ws|grpc)\b/,
       reality_check: "1",
       ss_security: "reality",
