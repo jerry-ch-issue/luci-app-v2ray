@@ -371,7 +371,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.value("", _("Default"));
     o.value("drop", _("Drop"));
     o.value("skip", _("Skip"));
-    
+
     // Settings Freedom
     o = s.taboption(
       "general",
@@ -437,8 +437,8 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.modalonly = true;
     o.rmempty = true;
     o.depends("s_freedom_fragment_enabled", "1");
-    o.value("tlshello",_("TLS Hello Packet"));
-    o.value("",_("All Packets"));
+    o.value("tlshello", _("TLS Hello Packet"));
+    o.value("", _("All Packets"));
 
     o = s.taboption(
       "general",
