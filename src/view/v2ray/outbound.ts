@@ -492,7 +492,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
 
     o = s.taboption(
       "general",
-      form.ListValue,
+      form.DynamicList,
       "s_http_headers",
       "%s - %s".format("HTTP", _("Headers")),
       _("Custom HTTP Headers,format: <code>header=value</code>")

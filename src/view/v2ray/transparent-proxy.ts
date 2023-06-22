@@ -197,7 +197,7 @@ return L.view.extend<[SectionItem[], SectionItem[], string]>({
       form.Flag,
       "redirect_dns",
       _("Redirect DNS"),
-      "%s %s.".format(_("Redirect DNS traffic to"), core)
+      "%s %s.".format(_("Redirect DNS queries to"), core)
     );
     o.depends("redirect_udp", "");
     o.depends("redirect_udp", "0");

@@ -94,6 +94,14 @@ msgstr ""
 msgid "Tag"
 msgstr ""
 
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Non IP Queries"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Drop"
+msgstr ""
+
 #: htdocs/luci-static/resources/view/v2ray/dns.js:7
 msgid "Client IP"
 msgstr ""
@@ -446,6 +454,10 @@ msgstr ""
 #: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Request headers"
 msgstr ""
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Custom HTTP Headers,format: <code>header=value</code>"
+msgstr "
 
 #: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 #: htdocs/luci-static/resources/view/v2ray/outbound.js:7
@@ -971,6 +983,22 @@ msgid "Redirect DNS traffic to"
 msgstr ""
 
 #: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Excluded TCP Source Port(s)"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Outgoing TCP Traffic from the given port(s) will be ignored by Transparent Proxy."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Excluded UDP Source Port(s)"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Outgoing UDP Traffic from the given port(s) will be ignored by Transparent Proxy."
+msgstr ""
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
 msgid "Proxy mode"
 msgstr ""
 
@@ -1124,6 +1152,14 @@ msgstr ""
 
 #: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Packets"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "TLS Hello Packet"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "All Packets"
 msgstr ""
 
 #: htdocs/luci-static/resources/view/v2ray/outbound.js:7

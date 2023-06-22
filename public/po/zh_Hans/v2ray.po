@@ -102,10 +102,6 @@ msgstr "非IP类查询"
 msgid "Drop"
 msgstr "丢弃"
 
-#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
-msgid "TLS Hello Packet"
-msgstr "TLS Hello包"
-
 #: htdocs/luci-static/resources/view/v2ray/dns.js:7
 msgid "Client IP"
 msgstr "客户端公网IP"
@@ -986,6 +982,10 @@ msgid "Redirect DNS"
 msgstr "转发 DNS请求"
 
 #: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Redirect DNS queries to"
+msgstr "转发 DNS请求到"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
 msgid "Excluded TCP Source Port(s)"
 msgstr "不代理的TCP源端口"
 
@@ -1155,7 +1155,15 @@ msgstr "发送间隔"
 
 #: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Packets"
-msgstr "数据包数量"
+msgstr "指定数据包"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "TLS Hello Packet"
+msgstr "TLS Hello数据包"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "All Packets"
+msgstr "全部数据包"
 
 #: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Server address"

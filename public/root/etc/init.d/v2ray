@@ -1162,7 +1162,7 @@ create_v2ray_ipset() {
 
 destroy_v2ray_ipset() {
 	ipset -! restore <<-EOF 2>/dev/null
-		$(ipset -n list | grep "^v2ray" | sed "s/^/destroy /")
+		$(ipset -n list 2>/dev/null | grep "^v2ray" | sed "s/^/destroy /")
 	EOF
 }
 
@@ -2355,6 +2355,7 @@ add_outbound_setting() {
 				config_list_foreach "$section" "s_http_headers" handle_websocket_header
 
 				json_close_object # headers
+			fi
 			json_close_object # settings
 			;;
 		"loopback")
