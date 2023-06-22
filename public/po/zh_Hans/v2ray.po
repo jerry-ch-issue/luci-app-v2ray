@@ -94,6 +94,18 @@ msgstr "启用"
 msgid "Tag"
 msgstr "标识"
 
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Non IP Queries"
+msgstr "非IP类查询"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Drop"
+msgstr "丢弃"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "TLS Hello Packet"
+msgstr "TLS Hello包"
+
 #: htdocs/luci-static/resources/view/v2ray/dns.js:7
 msgid "Client IP"
 msgstr "客户端公网IP"
@@ -445,6 +457,9 @@ msgstr "HTTP 请求方式"
 #: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Request path"
 msgstr "请求路径"
+
+msgid "Custom HTTP Headers,format: <code>header=value</code>"
+msgstr "自定义HTTP头报文，格式: <code>header=value</code>"
 
 #: htdocs/luci-static/resources/view/v2ray/inbound.js:7
 #: htdocs/luci-static/resources/view/v2ray/outbound.js:7
@@ -971,8 +986,20 @@ msgid "Redirect DNS"
 msgstr "转发 DNS请求"
 
 #: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
-msgid "Redirect DNS queries to"
-msgstr "转发 DNS 请求到"
+msgid "Excluded TCP Source Port(s)"
+msgstr "不代理的TCP源端口"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Outgoing TCP Traffic from the given port(s) will be ignored by Transparent Proxy."
+msgstr "经由上述端口发出的TCP流量不会被代理"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Excluded UDP Source Port(s)"
+msgstr "不代理的UDP源端口"
+
+#: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
+msgid "Outgoing UDP Traffic from the given port(s) will be ignored by Transparent Proxy."
+msgstr "经由上述端口发出的UDP流量不会被代理"
 
 #: htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:7
 msgid "Proxy mode"

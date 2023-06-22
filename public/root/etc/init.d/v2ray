@@ -43,6 +43,8 @@ TRANSPARENT_PROXY_PORT=
 TRANSPARENT_PROXY_USE_TPROXY=
 TRANSPARENT_PROXY_ADDITION=
 TRANSPARENT_PROXY_IPV6=0
+EXCLUDED_TCP_PORT=
+EXCLUDED_UDP_PORT=
 DNSMASQ_RESTART_EXPECTED=0
 
 . /usr/share/libubox/jshn.sh
@@ -364,6 +366,8 @@ outbound_section_validate() {
 		's_dns_network:or("tcp", "udp")' \
 		's_dns_address:string' \
 		's_dns_port:port' \
+		's_dns_user_level:uinteger' \
+		's_dns_non_ip_query:or("", "drop", "skip")' \
 		's_freedom_domain_strategy:or("AsIs", "UseIP", "UseIPv4", "UseIPv6")' \
 		's_freedom_redirect:string' \
 		's_freedom_fragment_length:string' \
@@ -374,6 +378,7 @@ outbound_section_validate() {
 		's_http_server_port:port' \
 		's_http_account_user:string' \
 		's_http_account_pass:string' \
+		's_http_headers:list(string)' \
 		's_loopback_inboundtag:string' \
 		's_shadowsocks_email:string' \
 		's_shadowsocks_address:host' \
@@ -525,6 +530,14 @@ add_v2ray_iptables_redirect_rules() {
 					echo "-A PREROUTING -p tcp -j V2RAY"
 				fi
 			)
+			$(
+				if [ -n "$EXCLUDED_TCP_PORT" ] ; then
+					local etp
+					for etp in $EXCLUDED_TCP_PORT ; do
+						echo "-A OUTPUT -p tcp --sport $(echo $etp | sed 's/\-/\:/') -j ACCEPT"
+					done
+				fi
+			)
 			-A OUTPUT -p tcp -j V2RAY
 			COMMIT
 		EOF
@@ -582,6 +595,15 @@ add_v2ray_iptables_redirect_rules() {
 						echo "-A V2RAY_OUTPUT -p udp -j RETURN -m set --match-set $ipset_src_direct src"
 					fi
 				)
+				$(
+					if [ -n "$EXCLUDED_UDP_PORT" ] ; then
+						local eup
+						for eup in $EXCLUDED_UDP_PORT ; do
+							echo "-A V2RAY_OUTPUT -p udp --sport $(echo $eup | sed 's/\-/\:/') -j ACCEPT"
+						done
+					fi
+				)
+
 				-A V2RAY_OUTPUT -p udp -j RETURN -m set --match-set $ipset_dst_direct dst
 				$(
 					if [ "$addition" = "udp" ] ; then
@@ -622,6 +644,14 @@ add_v2ray_nftables_redirect_rules() {
 				)
 			}
 			chain v2ray_tcp_rules {
+				$(
+					if [ -n "$EXCLUDED_TCP_PORT" ] ; then
+						local etp
+						for etp in $EXCLUDED_TCP_PORT; do
+							echo "tcp sport $etp counter accept"
+						done
+					fi
+				)
 				meta l4proto tcp mark 0xff counter accept
 				$(
 					if [ "$FAKEDNS_ENABLED" = "1" ] ; then
@@ -720,6 +750,13 @@ add_v2ray_nftables_redirect_rules() {
 					meta l4proto udp mark 0xff counter accept
 					udp dport 53 counter meta mark set 1
 					$(
+						if [ -n "$EXCLUDED_UDP_PORT" ] ; then
+							local eup
+							for eup in $EXCLUDED_UDP_PORT ; do
+								echo "udp sport $eup counter accept"
+							done
+						fi
+					
 						if [ "$FAKEDNS_ENABLED" = "1" ] ; then
 							echo -e "ip daddr 192.18.0.0/15 meta l4proto udp mark set 1\n \
 								ip6 daddr fc00::/18 meta l4proto udp mark set 1"
@@ -840,9 +877,23 @@ add_v2ray_iptables_tproxy_rules() {
 			fi
 		)
 		-A V2RAY_OUTPUT -j RETURN -m set --match-set $ipset_dst_direct dst
-		-A V2RAY_OUTPUT -p tcp $ext_args -j MARK --set-mark 1
+		$(
+			if [ -n "$EXCLUDED_TCP_PORT" ] ; then
+				local etp
+				for etp in $EXCLUDED_TCP_PORT ; do
+					echo "-A V2RAY_OUTPUT -p tcp --sport $(echo $etp | sed 's/\-/\:/') -j ACCEPT"
+				done
+			fi
+		)
+		-A V2RAY_OUTPUT -p tcp $ext_args -j MARK --set-mark 1		
 		$(
 			if [ "$addition" = "udp" ] ; then
+				if [ -n "$EXCLUDED_UDP_PORT" ] ; then
+					local etp
+					for etp in $EXCLUDED_UDP_PORT ; do
+						echo "-A V2RAY_OUTPUT -p tcp --sport $(echo $etp | sed 's/\-/\:/') -j ACCEPT"
+					done
+				fi
 				echo "-A V2RAY_OUTPUT -p udp $ext_args -j MARK --set-mark 1"
 			fi
 		)
@@ -945,6 +996,20 @@ add_v2ray_nftables_tproxy_rules() {
 					if [ -n "$addition" ] ; then
 						echo -e "udp dport 53 counter meta mark set 1"
 					fi
+
+					if  [ -n "$EXCLUDED_TCP_PORT" ] ; then
+						local etp
+						for etp in $EXCLUDED_TCP_PORT ; do
+							echo "tcp sport $etp counter accept"
+						done
+					fi
+
+					if [ -n "$EXCLUDED_UDP_PORT" ] ; then
+						local eup
+						for eup in $EXCLUDED_UDP_PORT ; do
+							echo "udp sport $eup counter accept"
+						done
+					fi
 				)
 				$(
 					if [ "$FAKEDNS_ENABLED" = "1" ] ; then
@@ -963,7 +1028,9 @@ add_v2ray_nftables_tproxy_rules() {
 				tcp $ext_args counter meta mark set 1
 				$(
 					if [ "$addition" = "udp" ] ; then
+
 						echo "udp $ext_args" counter meta mark set 1
+
 						if [ "x$TRANSPARENT_PROXY_IPV6" = "x1" ] ; then
 							echo "udp $ext_args6 counter meta mark set 1"
 						fi
@@ -2222,6 +2289,9 @@ add_outbound_setting() {
 			test -n "$s_dns_port" && \
 				json_add_int "port" "$s_dns_port"
 
+			test -n "$s_dns_non_ip_query" && \
+				json_add_int "nonIPQuery" "$s_dns_non_ip_query" 
+
 			json_close_object # settings
 			;;
 		"freedom")
@@ -2231,7 +2301,7 @@ add_outbound_setting() {
 				json_add_string "domainStrategy" "$s_freedom_domain_strategy"
 			test -n "$s_freedom_redirect" && \
 				json_add_string "redirect" "$s_freedom_redirect"
-			if [ -n "$s_freedom_fragment_length" ] && [ -n "$s_freedom_fragment_interval" ] && [ -n "$s_freedom_fragment_packets" ] ; then
+			if [ -n "$s_freedom_fragment_length" ] && [ -n "$s_freedom_fragment_interval" ] ; then
 				json_add_object "fragment"
 				json_add_string "length" "$s_freedom_fragment_length"
 				json_add_string "interval" "$s_freedom_fragment_interval"
@@ -2269,6 +2339,22 @@ add_outbound_setting() {
 			json_close_object
 
 			json_close_array # servers
+			
+			if [ -n "$s_http_headers" ] ; then
+				json_add_object "headers"
+				handle_http_header() {
+					local h="$1"
+
+					local name="$(echo "$h" | cut -d'=' -f1)"
+					local value="$(echo "$h" | cut -d'=' -f2)"
+
+					if [ -n "$name" ] && [ -n "$value" ] ; then
+						json_add_string "$name" "$value"
+					fi
+				}
+				config_list_foreach "$section" "s_http_headers" handle_websocket_header
+
+				json_close_object # headers
 			json_close_object # settings
 			;;
 		"loopback")
@@ -2863,14 +2949,25 @@ setup_transparent_proxy() {
 
 	_info "Setting transparent proxy on port: $TRANSPARENT_PROXY_PORT"
 
+
+
 	local tp_cfg="main_transparent_proxy"
 	local lan_ifaces only_privileged_ports proxy_mode direct_list_dns proxy_list_dns
+	local excluded_tcp_port excluded_udp_port
 
 	config_get lan_ifaces "$tp_cfg" "lan_ifaces"
 	config_get_bool only_privileged_ports "$tp_cfg" "only_privileged_ports" "0"
 	config_get proxy_mode "$tp_cfg" "proxy_mode"
 	config_get direct_list_dns "$tp_cfg" "direct_list_dns"
 	config_get proxy_list_dns "$tp_cfg" "proxy_list_dns"
+	config_get EXCLUDED_TCP_PORT "$tp_cfg" "excluded_tcp_port"
+	config_get EXCLUDED_UDP_PORT "$tp_cfg" "excluded_udp_port"
+
+	test -n "$EXCLUDED_TCP_PORT" && \
+		_info "Unproxied tcp port(s): $EXCLUDED_TCP_PORT"
+	
+	test -n "$EXCLUDED_UDP_PORT" && \
+		_info "Unproxied udp port(s): $EXCLUDED_UDP_PORT"
 
 	_info "Transparent proxy mode: $proxy_mode"
 	if [ -n "$NFT_BIN" ] ; then

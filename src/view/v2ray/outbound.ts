@@ -13,6 +13,7 @@
 // "require view";
 "require ui";
 "require fs";
+"require validation";
 
 "require view/v2ray/include/custom as custom";
 "require view/v2ray/tools/converters as converters";
@@ -359,6 +360,18 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.depends("protocol", "dns");
     o.datatype = "port";
 
+    o = s.taboption(
+      "general",
+      form.ListValue,
+      "s_dns_non_ip_query",
+      _("Non IP Queries")
+    );
+    o.modalonly = true;
+    o.depends("protocol", "dns");
+    o.value("", _("Default"));
+    o.value("drop", _("Drop"));
+    o.value("skip", _("Skip"));
+    
     // Settings Freedom
     o = s.taboption(
       "general",
@@ -424,6 +437,8 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.modalonly = true;
     o.rmempty = true;
     o.depends("s_freedom_fragment_enabled", "1");
+    o.value("tlshello",_("TLS Hello Packet"));
+    o.value("",_("All Packets"));
 
     o = s.taboption(
       "general",
@@ -474,6 +489,17 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.modalonly = true;
     o.depends("protocol", "http");
     o.password = true;
+
+    o = s.taboption(
+      "general",
+      form.ListValue,
+      "s_http_headers",
+      "%s - %s".format("HTTP", _("Headers")),
+      _("Custom HTTP Headers,format: <code>header=value</code>")
+    );
+    o.modalonly = true;
+    o.depends("protocol", "http");
+    o.rmempty = true;
 
     // Settings - Loopback
     o = s.taboption(

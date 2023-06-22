@@ -203,6 +203,25 @@ return L.view.extend<[SectionItem[], SectionItem[], string]>({
     o.depends("redirect_udp", "0");
 
     o = s.option(
+      form.DynamicList,
+      "excluded_tcp_port",
+      _("Excluded TCP Source Port(s)"),
+      _("Outgoing TCP Traffic from the given port(s) will be ignored by Transparent Proxy.")
+    );
+    o.datatype = "portrange";
+    o.rmempty = true;
+
+    o = s.option(
+      form.DynamicList,
+      "excluded_udp_port",
+      _("Excluded UDP Source Port(s)"),
+      _("Outgoing UDP Traffic from the given port(s) will be ignored by Transparent Proxy.")
+    );
+    o.depends("redirect_udp", "1");
+    o.datatype = "portrange";
+    o.rmempty = true;
+
+    o = s.option(
       form.ListValue,
       "proxy_mode",
       _("Proxy mode"),
