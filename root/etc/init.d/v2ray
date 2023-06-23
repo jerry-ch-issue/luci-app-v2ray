@@ -2290,7 +2290,7 @@ add_outbound_setting() {
 				json_add_int "port" "$s_dns_port"
 
 			test -n "$s_dns_non_ip_query" && \
-				json_add_int "nonIPQuery" "$s_dns_non_ip_query" 
+				json_add_string "nonIPQuery" "$s_dns_non_ip_query" 
 
 			json_close_object # settings
 			;;
