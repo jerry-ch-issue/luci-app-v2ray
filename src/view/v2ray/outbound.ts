@@ -278,7 +278,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     s.sectiontitle = function (section_name: string) {
       const section_title = uci.get("v2ray", section_name, "alias");
       return section_title;
-    }
+    };
     s.modaltitle = function (section_id: string) {
       const alias = uci.get("v2ray", section_id, "alias");
       return `${_("Outbound")} > ${alias ?? _("Add")}`;
@@ -1523,11 +1523,11 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.rmempty = true;
     o.depends({ protocol: "wireguard", "!reverse": true });
     o.validate = function (sid, value) {
-      if ((sid != value)) {
+      if (sid != value) {
         return true;
       }
       return `${_("Unable to use current outbound itself as proxy!")}`;
-    }
+    };
     o.value("", _("None"));
     for (let i = 0; i < outbound_alias.length; i++) {
       o.value(
@@ -1566,11 +1566,11 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.modalonly = true;
     o.rmempty = true;
     o.validate = function (sid, value) {
-      if ((sid != value)) {
+      if (sid != value) {
         return true;
       }
-      return `${_("Unable to use current outbound itself as proxy")}`
-    }
+      return `${_("Unable to use current outbound itself as proxy")}`;
+    };
     o.value("", _("None"));
     for (let i = 0; i < outbound_alias.length; i++) {
       o.value(
@@ -1593,7 +1593,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.ucisection = "main";
     o.ucioption = "reality";
     o.modalonly = true;
-    
+
     o = s.taboption(
       "mux",
       form.Flag,

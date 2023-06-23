@@ -109,14 +109,14 @@ return L.view.extend<SectionItem[], string>({
       _("DNS server"),
       _("Add DNS servers here")
     );
-    s2.sectiontitle = function (section_name: string){
+    s2.sectiontitle = function (section_name: string) {
       const section_title = uci.get("v2ray", section_name, "alias");
       return section_title;
-    }
+    };
     s2.modaltitle = function (sid: string) {
       const alias = uci.get("v2ray", sid, "alias");
       return `${_("DNS server")} > ${alias ?? _("Add")}`;
-    }
+    };
     s2.addremove = true;
     s2.nodescription = true;
     s2.sortable = true;
