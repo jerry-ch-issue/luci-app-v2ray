@@ -43,20 +43,13 @@ return L.Class.extend({
       const sections: SectionItem[] = [];
 
       uci.sections("v2ray", type, function (s: uci.SectionObject) {
-        let caption: string;
-        if ((caption = s[captionKey])) {
+        let caption: string = s[captionKey]
+        if (caption) {
           sections.push({
             caption: caption,
             value: s[".name"],
           });
-        } else {
-          if (s[".name"]) {
-            sections.push({
-              caption: type,
-              value: s[".name"],
-            });
-          }
-        }
+        }  
       });
       return sections;
     });

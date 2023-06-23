@@ -1323,6 +1323,10 @@ msgid "Proxy settings"
 msgstr ""
 
 #: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Unable to use current outbound itself as proxy!"
+msgstr ""
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Mux"
 msgstr ""
 

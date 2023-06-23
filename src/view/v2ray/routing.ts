@@ -99,20 +99,30 @@ return L.view.extend<SectionItem[][][][][][][][][], string>({
       _("Routing Rule"),
       _("Add routing rules here")
     );
-    s2.anonymous = false;
+    s2.sectiontitle = function (section_name: string) {
+      const section_title = uci.get("v2ray", section_name, "alias");
+      return section_title;
+    }
     s2.addremove = true;
     s2.sortable = true;
     s2.nodescription = true;
+    s2.modaltitle = function (section_id: string) {
+      const alias = uci.get("v2ray", section_id, "alias");
+      return `${_("Routing Rule")} > ${alias ?? _("Add")}}`;
+    }
 
     o = s2.option(form.Value, "alias", _("Alias"));
     o.rmempty = false;
+    o.modalonly = true;
 
     o = s2.option(form.ListValue, "domain_matcher", _("Domain Matcher"));
     o.value("hybrid");
     o.value("linear");
+    o.modalonly = true;
 
     o = s2.option(form.ListValue, "type", _("Type"));
     o.value("field");
+    o.modalonly = true;
 
     o = s2.option(form.DynamicList, "domain", _("Domain"));
     o.modalonly = true;
@@ -160,7 +170,7 @@ return L.view.extend<SectionItem[][][][][][][][][], string>({
     o.value("tls");
     o.value("bittorrent");
 
-    o = s2.option(form.Value, "attrs", _("Attrs"));
+    o = s2.option(form.DynamicList, "attrs", _("Attrs"));
     o.modalonly = true;
 
     o = s2.option(form.ListValue, "outbound_tag", _("Outbound tag"));

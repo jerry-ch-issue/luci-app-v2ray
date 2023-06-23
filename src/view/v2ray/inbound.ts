@@ -28,12 +28,15 @@ return L.view.extend<string[], string>({
     const m = new form.Map("v2ray", "%s - %s".format(core, _("Inbound")));
 
     const s = m.section(form.GridSection, "inbound");
-    s.anonymous = true;
     s.addremove = true;
     s.sortable = true;
+    s.sectiontitle = function (section_name: string ) {
+      const section_title = uci.get("v2ray", section_name, "alias");
+      return section_title;
+    }
     s.modaltitle = function (section_id: string) {
       const alias = uci.get("v2ray", section_id, "alias");
-      return `${_("Inbound")} » ${alias ?? _("Add")}`;
+      return `${_("Inbound")} > ${alias ?? _("Add")}`;
     };
     s.nodescriptions = true;
 
@@ -45,6 +48,7 @@ return L.view.extend<string[], string>({
 
     /** General settings */
     o = s.taboption("general", form.Value, "alias", _("Alias"));
+    o.modalonly = true;
     o.rmempty = false;
 
     o = s.taboption("general", form.Value, "listen", _("Listen"));
