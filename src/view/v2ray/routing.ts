@@ -108,7 +108,7 @@ return L.view.extend<SectionItem[][][][][][][][][], string>({
     s2.nodescription = true;
     s2.modaltitle = function (section_id: string) {
       const alias = uci.get("v2ray", section_id, "alias");
-      return `${_("Routing Rule")} > ${alias ?? _("Add")}}`;
+      return `${_("Routing Rule")} > ${alias ?? _("Add")}`;
     };
 
     o = s2.option(form.Value, "alias", _("Alias"));

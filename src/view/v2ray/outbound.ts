@@ -294,6 +294,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     /** General Settings **/
     o = s.taboption("general", form.Value, "alias", _("Alias"));
     o.rmempty = false;
+    o.modalonly = true;
 
     o = s.taboption("general", form.Value, "tag", _("Tag"));
     o.rmempty = false;
@@ -1526,7 +1527,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       if (sid != value) {
         return true;
       }
-      return `${_("Unable to use current outbound itself as proxy!")}`;
+      return `${_("Unable to use current outbound itself as proxy")}`;
     };
     o.value("", _("None"));
     for (let i = 0; i < outbound_alias.length; i++) {
