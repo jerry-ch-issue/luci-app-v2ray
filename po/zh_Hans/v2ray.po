@@ -1328,6 +1328,10 @@ msgid "Proxy settings"
 msgstr "前置代理设置"
 
 #: htdocs/luci-static/resources/view/v2ray/outbound.js:7
+msgid "Unable to use current outbound itself as proxy!"
+msgstr "无法使用当前出站连接作为自身前置代理"
+
+#: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Mux"
 msgstr "多路复用"
 
