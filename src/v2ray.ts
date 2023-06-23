@@ -49,7 +49,7 @@ return L.Class.extend({
             caption: caption,
             value: s[".name"],
           });
-        }  
+        } 
       });
       return sections;
     });

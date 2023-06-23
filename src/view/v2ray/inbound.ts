@@ -30,10 +30,10 @@ return L.view.extend<string[], string>({
     const s = m.section(form.GridSection, "inbound");
     s.addremove = true;
     s.sortable = true;
-    s.sectiontitle = function (section_name: string ) {
+    s.sectiontitle = function (section_name: string) {
       const section_title = uci.get("v2ray", section_name, "alias");
       return section_title;
-    }
+    };
     s.modaltitle = function (section_id: string) {
       const alias = uci.get("v2ray", section_id, "alias");
       return `${_("Inbound")} > ${alias ?? _("Add")}`;
