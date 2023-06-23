@@ -50,10 +50,12 @@ return L.Class.extend({
             value: s[".name"],
           });
         } else {
-          sections.push({
-            caption: "no_alias",
-            value: s[".name"],
-          });
+          if (s[".name"]) {
+            sections.push({
+              caption: type,
+              value: s[".name"],
+            });
+          }
         }
       });
       return sections;
