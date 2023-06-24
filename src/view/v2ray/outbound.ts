@@ -37,7 +37,7 @@ function customValidation(type: string, value: string): boolean | string {
         const reserveds = value.split(",");
         for (const rebytes of reserveds) {
           const re_bytes = parseInt(rebytes);
-          if (0 <= re_bytes) && (255 >= re_bytes) {
+          if ((re_bytes < 0 ) || (re_bytes > 255)) {
             return true;
           }
         }
