@@ -18,7 +18,7 @@
 "require view/v2ray/include/custom as custom";
 "require view/v2ray/tools/converters as converters";
 
-function customValidation (type: string,value: string): boolean | string {
+function customValidation (type: string, value: string): boolean | string {
   switch (type) {
     case "wg-keys": {
       if (
@@ -37,17 +37,18 @@ function customValidation (type: string,value: string): boolean | string {
         return _(
           "Invalid Reversed Bytes.\n    format: 'byte1,byte2,byte3'\n    each byte should be an integer between 0-255"
         );
-        const [, num1, num2, num3] = match.map(Number);
-        const isValid = [num1, num2, num3].every(
-          (num) => num >= 0 && num <= 255
-        );
-        return isValid
-          ? true
-          : _(
-              "Invalid Reversed Bytes.\n    format: 'byte1,byte2,byte3'\n    each byte should be an integer between 0-255"
-            );
       }
+      const [, num1, num2, num3] = match.map(Number);
+      const isValid = [num1, num2, num3].every(
+        (num) => num >= 0 && num <= 255
+      );
+      return isValid
+        ? true
+        : _(
+            "Invalid Reversed Bytes.\n    format: 'byte1,byte2,byte3'\n    each byte should be an integer between 0-255"
+          );
     }
+    break;
     case "fragment-packets": {
       if (/^\d+$/.test(value) && parseInt(value) > 0) {
         return true;
@@ -68,7 +69,7 @@ function customValidation (type: string,value: string): boolean | string {
       );
     }
   }
-};
+}
 // @ts-ignore
 return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
   // validate wg-keys, wg-reserved-bytes and fragment packets,
