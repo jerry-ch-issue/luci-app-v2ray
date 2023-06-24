@@ -25,9 +25,9 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     switch (type) {
       case "wg-keys": {
         if (
-          (value.match("^[a-zA-Z0-9/+]+=?=?$") !== null) &&
-          (value.length % 4 === 0) &&
-          (value.length === 44)
+          value.match("^[a-zA-Z0-9/+]+=?=?$") !== null &&
+          value.length % 4 === 0 &&
+          value.length === 44
         ) {
           return true;
         }
@@ -44,27 +44,27 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
           }
         }
         return _(
-          "Invalid Reversed Bytes.\n    format: \'byte1,byte2,byte3\'\n    each byte should be an integer between 0-255"
-        )
+          "Invalid Reversed Bytes.\n    format: 'byte1,byte2,byte3'\n    each byte should be an integer between 0-255"
+        );
       }
       case "fragment-packets": {
         if (/^\d+$/.test(value) && parseInt(value) > 0) {
           return true;
         }
         if (/^\d+-\d+$/.test(value)) {
-          const packets: string[] = value.split('-');
+          const packets: string[] = value.split("-");
           const start: number = parseInt(packets[0]);
           const end: number = parseInt(packets[1]);
           if (start > 0 && end > start) {
             return true;
           }
         }
-        if (value === 'tlshello') {
+        if (value === "tlshello") {
           return true;
         }
         return _(
-          "Valid inputs:\n    1. An integer no less than 1, corresponding to the packet index\n       eg: \"5\" for the fifth packet\n    2. A range of integers which are greater than 0\n       eg: \"1-3\" for the 1st to 3rd packets"
-        )
+          'Valid inputs:\n    1. An integer no less than 1, corresponding to the packet index\n       eg: "5" for the fifth packet\n    2. A range of integers which are greater than 0\n       eg: "1-3" for the 1st to 3rd packets'
+        );
       }
     }
   },
@@ -487,12 +487,12 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       "%s - %s".format(_("Fragment"), _("Packets"))
     );
     o.modalonly = true;
-    o.validate = function (sid:string, value:string): boolean | string {
-      if (!vaule) {
+    o.validate = function (sid: string, value: string): boolean | string {
+      if (!value) {
         return true;
       }
-      return customValidation("fragment-packets", value);
-    }
+      return L.bind(this.customValidation, "fragment-packets", value);
+    };
     o.rmempty = true;
     o.depends("s_freedom_fragment_enabled", "1");
     o.value("tlshello", _("TLS Hello Packet"));
@@ -863,9 +863,9 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       _("Private Key")
     );
     o.depends("protocol", "wireguard");
-    o.validate = function(sid: string, value: string): boolean | string {
-      return customValidation("wg-keys", value);
-    }
+    o.validate = function (sid: string, value: string): boolean | string {
+      return L.bind(this.customValidation, "wg-keys", value);
+    };
     o.modalonly = true;
     o.rmempty = false;
 
@@ -884,7 +884,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       "general",
       form.Value,
       "s_wireguard_endpoint",
-      _("Endpoint"),
+      _("Endpoint")
     );
     o.depends("protocol", "wireguard");
     o.rmempty = false;
@@ -899,9 +899,9 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       _("Public Key")
     );
     o.depends("protocol", "wireguard");
-    o.validate = function(sid: string, value: string) {
-      return customValidation("wg-keys", value);
-    }
+    o.validate = function (sid: string, value: string) {
+      return L.bind(this.customValidation, "wg-keys", value);
+    };
     o.rmempty = false;
     o.modalonly = true;
 
@@ -956,12 +956,12 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.depends("protocol", "wireguard");
     o.modalonly = true;
     o.optional = true;
-    o.validate = function(sid: string, value: string): boolean | string {
+    o.validate = function (sid: string, value: string): boolean | string {
       if (!value) {
         return true;
       }
-      return customValidation("wg-reserved", value);
-    }
+      return L.bind(this.customValidation, "wg-reserved", value);
+    };
     o.rmempty = true;
     o.placeholder = "0,123,255";
     o.optional = true;
