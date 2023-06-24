@@ -46,8 +46,8 @@ function customValidation(
       return isValid
         ? true
         : _(
-          "Invalid Reversed Bytes.\n    format: 'byte1,byte2,byte3'\n    each byte should be an integer between 0-255"
-      )
+            "Invalid Reversed Bytes.\n    format: 'byte1,byte2,byte3'\n    each byte should be an integer between 0-255"
+          )
     }
     case "fragment-packets": {
       if (/^\d+$/.test(input_value) && parseInt(input_value) > 0) {
