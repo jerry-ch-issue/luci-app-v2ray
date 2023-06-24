@@ -19,57 +19,57 @@
 "require view/v2ray/tools/converters as converters";
 
 // @ts-ignore
-function customValidation(type: string, value: string): boolean | string {
-  switch (type) {
-    case "wg-keys": {
-      if (
-        value.match("^[a-zA-Z0-9/+]+=?=?$") !== null &&
-        value.length % 4 === 0 &&
-        value.length === 44
-      ) {
-        return true;
-      }
-      return _("Invalid wireguard key format");
-    }
-    case "wg-reserved": {
-      const regex = /^(\d{1,3}),(\d{1,3}),(\d{1,3})$/;
-      const match = value.match(regex);
-      if (!match) {
-        return _(
-          "Invalid Reversed Bytes.\n    format: 'byte1,byte2,byte3'\n    each byte should be an integer between 0-255"
-        );
-      }
-      const [, num1, num2, num3] = match.map(Number);
-      const isValid = [num1, num2, num3].every((num) => num >= 0 && num <= 255);
-      return isValid
-        ? true
-        : _(
-            "Invalid Reversed Bytes.\n    format: 'byte1,byte2,byte3'\n    each byte should be an integer between 0-255"
-          );
-    }
-    case "fragment-packets": {
-      if (/^\d+$/.test(value) && parseInt(value) > 0) {
-        return true;
-      }
-      if (/^\d+-\d+$/.test(value)) {
-        const packets: string[] = value.split("-");
-        const start: number = parseInt(packets[0]);
-        const end: number = parseInt(packets[1]);
-        if (start > 0 && end > start) {
-          return true;
-        }
-      }
-      if (value === "tlshello") {
-        return true;
-      }
-      return _(
-        'Valid inputs:\n    1. An integer no less than 1, corresponding to the packet index\n       eg: "5" for the fifth packet\n    2. A range of integers which are greater than 0\n       eg: "1-3" for the 1st to 3rd packets'
-      );
-    }
-  }
-}
 return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
   // validate wg-keys, wg-reserved-bytes and fragment packets,
+  customValidation: function (type: string, value: string): boolean | string {
+    switch (type) {
+      case "wg-keys": {
+        if (
+          value.match("^[a-zA-Z0-9/+]+=?=?$") !== null &&
+          value.length % 4 === 0 &&
+          value.length === 44
+        ) {
+          return true;
+        }
+        return _("Invalid wireguard key format");
+      }
+      case "wg-reserved": {
+        const regex = /^(\d{1,3}),(\d{1,3}),(\d{1,3})$/;
+        const match = value.match(regex);
+        if (!match) {
+          return _(
+            "Invalid Reversed Bytes.\n    format: 'byte1,byte2,byte3'\n    each byte should be an integer between 0-255"
+          );
+        }
+        const [, num1, num2, num3] = match.map(Number);
+        const isValid = [num1, num2, num3].every((num) => num >= 0 && num <= 255);
+        return isValid
+          ? true
+          : _(
+              "Invalid Reversed Bytes.\n    format: 'byte1,byte2,byte3'\n    each byte should be an integer between 0-255"
+            );
+      }
+      case "fragment-packets": {
+        if (/^\d+$/.test(value) && parseInt(value) > 0) {
+          return true;
+        }
+        if (/^\d+-\d+$/.test(value)) {
+          const packets: string[] = value.split("-");
+          const start: number = parseInt(packets[0]);
+          const end: number = parseInt(packets[1]);
+          if (start > 0 && end > start) {
+            return true;
+          }
+        }
+        if (value === "tlshello") {
+          return true;
+        }
+        return _(
+          'Valid inputs:\n    1. An integer no less than 1, corresponding to the packet index\n       eg: "5" for the fifth packet\n    2. A range of integers which are greater than 0\n       eg: "1-3" for the 1st to 3rd packets'
+        );
+      }
+    }
+  },
   handleImportSave: function (val: string) {
     const links = val.split(/\r?\n/);
 
@@ -493,7 +493,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       if (!value) {
         return true;
       }
-      return customValidation("fragment-packets", value);
+      return this.customValidation("fragment-packets", value);
     };
     o.rmempty = true;
     o.depends("s_freedom_fragment_enabled", "1");
@@ -866,7 +866,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     );
     o.depends("protocol", "wireguard");
     o.validate = function (sid: string, value: string): boolean | string {
-      return customValidation("wg-keys", value);
+      return this.customValidation("wg-keys", value);
     };
     o.modalonly = true;
     o.rmempty = false;
@@ -902,7 +902,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     );
     o.depends("protocol", "wireguard");
     o.validate = function (sid: string, value: string) {
-      return customValidation("wg-keys", value);
+      return this.customValidation("wg-keys", value);
     };
     o.rmempty = false;
     o.modalonly = true;
@@ -962,7 +962,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       if (!value) {
         return true;
       }
-      return customValidation("wg-reserved", value);
+      return this.customValidation("wg-reserved", value);
     };
     o.rmempty = true;
     o.placeholder = "0,123,255";
