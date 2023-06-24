@@ -27,22 +27,21 @@ function customValidation(type: string, value: string): boolean | string {
         value.length % 4 === 0 &&
         value.length === 44
       ) {
-        customValidation = true;
+        return true;
       }
       return _("Invalid wireguard key format");
     }
     case "wg-reserved": {
-      const pattern = /^\d{1,3},\d{1,3},\d{1,3}$/;
-      if (pattern.test(value)) {
-        const reserveds = value.split(",");
-        for (const rebytes of reserveds) {
-          const re_bytes = parseInt(rebytes);
-          if ((re_bytes >= 0 ) && (re_bytes <= 255)) {
-            customValidation = true;
-          }
-        }
+      const regex = /^(\d{1,3}),(\d{1,3}),(\d{1,3})$/;
+      const match = value.match(regex);split(",");
+      if (!match) {
+        return _(
+          "Invalid Reversed Bytes.\n    format: 'byte1,byte2,byte3'\n    each byte should be an integer between 0-255"
+        );
       }
-      customValidation = _(
+      const [, num1, num2, num3] = match.map(Number);
+      const isValid = [num1, num2, num3].every((num) => num >= 0 && num <= 255);
+      return isValid ? true : _(
         "Invalid Reversed Bytes.\n    format: 'byte1,byte2,byte3'\n    each byte should be an integer between 0-255"
       );
     }
@@ -55,7 +54,7 @@ function customValidation(type: string, value: string): boolean | string {
         const start: number = parseInt(packets[0]);
         const end: number = parseInt(packets[1]);
         if (start > 0 && end > start) {
-          customValidation = true
+          return true;
         }
       }
       if (value === "tlshello") {
