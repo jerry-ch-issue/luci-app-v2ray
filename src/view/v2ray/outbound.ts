@@ -21,7 +21,7 @@
 // @ts-ignore
 return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
   // validate wg-keys, wg-reserved-bytes and fragment packets,
-customValidation (type: string, value: string): boolean | string {
+  customValidation (type: string, value: string): boolean | string {
     switch (type) {
       case "wg-keys": {
         if (
