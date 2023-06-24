@@ -65,10 +65,10 @@ function customValidation(type: string, value: string): boolean | string {
       );
     }
   }
-};
+}
 return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
   // validate wg-keys, wg-reserved-bytes and fragment packets,
-    handleImportSave: function (val: string) {
+  handleImportSave: function (val: string) {
     const links = val.split(/\r?\n/);
 
     let linksCount = 0;
@@ -491,7 +491,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       if (!value) {
         return true;
       }
-      return this.customValidation("fragment-packets", value);
+      return customValidation("fragment-packets", value);
     };
     o.rmempty = true;
     o.depends("s_freedom_fragment_enabled", "1");
@@ -864,7 +864,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     );
     o.depends("protocol", "wireguard");
     o.validate = function (sid: string, value: string): boolean | string {
-      return this.customValidation("wg-keys", value);
+      return customValidation("wg-keys", value);
     };
     o.modalonly = true;
     o.rmempty = false;
@@ -900,7 +900,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     );
     o.depends("protocol", "wireguard");
     o.validate = function (sid: string, value: string) {
-      return this.customValidation("wg-keys", value);
+      return customValidation("wg-keys", value);
     };
     o.rmempty = false;
     o.modalonly = true;
@@ -960,7 +960,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       if (!value) {
         return true;
       }
-      return this.customValidation("wg-reserved", value);
+      return customValidation("wg-reserved", value);
     };
     o.rmempty = true;
     o.placeholder = "0,123,255";
