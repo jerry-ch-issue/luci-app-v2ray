@@ -42,10 +42,10 @@ function customValidation(type: string, value: string): boolean | string {
       const [, num1, num2, num3] = match.map(Number);
       const isValid = [num1, num2, num3].every((num) => num >= 0 && num <= 255);
       return isValid
-      ? true
-      : _(
-        "Invalid Reversed Bytes.\n    format: 'byte1,byte2,byte3'\n    each byte should be an integer between 0-255"
-      );
+        ? true
+        : _(
+            "Invalid Reversed Bytes.\n    format: 'byte1,byte2,byte3'\n    each byte should be an integer between 0-255"
+          );
     }
     case "fragment-packets": {
       if (/^\d+$/.test(value) && parseInt(value) > 0) {
