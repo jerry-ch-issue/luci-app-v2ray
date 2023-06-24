@@ -20,6 +20,54 @@
 
 // @ts-ignore
 return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
+  // validate wg-keys, wg-reserved-bytes and fragment packets,
+  customValidation(type: string, value: string): boolean | string {
+    switch (type) {
+      case "wg-keys": {
+        if (
+          (value.match("^[a-zA-Z0-9/+]+=?=?$") !== null) &&
+          (value.length % 4 === 0) &&
+          (value.length === 44)
+        ) {
+          return true;
+        }
+        return _("Invalid wireguard key format");
+      }
+      case "wg-reserved": {
+        const pattern = /^\d{1,3},\d{1,3},\d{1,3}$/;
+        if (pattern.test(value)) {
+          const reserveds = value.split(",");
+          for (const rebytes of reserveds) {
+            if (0 <= parseInt(rebytes) <= 255) {
+              return true;
+            }
+          }
+        }
+        return _(
+          "Invalid Reversed Bytes.\n    format: \'byte1,byte2,byte3\'\n    each byte should be an integer between 0-255"
+        )
+      }
+      case "fragment-packets": {
+        if (/^\d+$/.test(value) && parseInt(value) > 0) {
+          return true;
+        }
+        if (/^\d+-\d+$/.test(value)) {
+          const packets: string[] = value.split('-');
+          const start: number = parseInt(packets[0]);
+          const end: number = parseInt(packets[1]);
+          if (start > 0 && end > start) {
+            return true;
+          }
+        }
+        if (value === 'tlshello') {
+          return true;
+        }
+        return _(
+          "Valid inputs:\n    1. An integer no less than 1, corresponding to the packet index\n       eg: \"5\" for the fifth packet\n    2. A range of integers which are greater than 0\n       eg: \"1-3\" for the 1st to 3rd packets"
+        )
+      }
+    }
+  },
   handleImportSave: function (val: string) {
     const links = val.split(/\r?\n/);
 
@@ -439,6 +487,12 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       "%s - %s".format(_("Fragment"), _("Packets"))
     );
     o.modalonly = true;
+    o.validate = function (sid:string, value:string): boolean | string {
+      if (!vaule) {
+        return true;
+      }
+      return customValidation("fragment-packets", value);
+    }
     o.rmempty = true;
     o.depends("s_freedom_fragment_enabled", "1");
     o.value("tlshello", _("TLS Hello Packet"));
@@ -809,6 +863,9 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       _("Private Key")
     );
     o.depends("protocol", "wireguard");
+    o.validate = function(sid: string, value: string): boolean | string {
+      return customValidation("wg-keys", value);
+    }
     o.modalonly = true;
     o.rmempty = false;
 
@@ -827,11 +884,13 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       "general",
       form.Value,
       "s_wireguard_endpoint",
-      _("Endpoint")
+      _("Endpoint"),
     );
     o.depends("protocol", "wireguard");
     o.rmempty = false;
     o.modalonly = true;
+    o.datatype = "or(hostport(0), ipaddrport(1))";
+    o.placeholder = "[2606:4700:d0::a29f:c001]:2408";
 
     o = s.taboption(
       "general",
@@ -840,6 +899,9 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       _("Public Key")
     );
     o.depends("protocol", "wireguard");
+    o.validate = function(sid: string, value: string) {
+      return customValidation("wg-keys", value);
+    }
     o.rmempty = false;
     o.modalonly = true;
 
@@ -882,32 +944,27 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.depends("protocol", "wireguard");
     o.rmempty = true;
     o.modalonly = true;
-    o.datatype = "and(uinteger, max(1420))";
+    o.datatype = "and(uinteger, range(1280, 1420)";
     o.optional = true;
 
     o = s.taboption(
       "general",
       form.Value,
-      "s_wireguard_reserved_a",
-      _("Reserved")
+      "s_wireguard_reserved_bytes",
+      _("Reserved Bytes")
     );
     o.depends("protocol", "wireguard");
     o.modalonly = true;
     o.optional = true;
+    o.validate = function(sid: string, value: string): boolean | string {
+      if (!value) {
+        return true;
+      }
+      return customValidation("wg-reserved", value);
+    }
     o.rmempty = true;
-    o.datatype = "and(uinteger, max(255))";
-
-    o = s.taboption("general", form.Value, "s_wireguard_reserved_b", " ");
-    o.depends({ s_wireguard_reserved_a: /^[0-9]{1,3}$/ });
-    o.modalonly = true;
-    o.rmempty = false;
-    o.datatype = "and(uinteger, max(255))";
-
-    o = s.taboption("general", form.Value, "s_wireguard_reserved_c", " ");
-    o.depends({ s_wireguard_reserved_a: /^[0-9]{1,3}$/ });
-    o.modalonly = true;
-    o.rmempty = false;
-    o.datatype = "and(uinteger, max(255))";
+    o.placeholder = "0,123,255";
+    o.optional = true;
 
     /** Stream Settings **/
     o = s.taboption("stream", form.ListValue, "ss_network", _("Network"));
