@@ -22,7 +22,27 @@
 function customValidation(type: string, value: string): boolean | string {
   switch (type) {
     case "wg-keys": {
-      return _(
+      if (
+        value.match("^[a-zA-Z0-9/+]+=?=?$") !== null &&
+        value.length % 4 === 0 &&
+        value.length === 44
+      ) {
+        customValidation = true;
+      }
+      return _("Invalid wireguard key format");
+    }
+    case "wg-reserved": {
+      const pattern = /^\d{1,3},\d{1,3},\d{1,3}$/;
+      if (pattern.test(value)) {
+        const reserveds = value.split(",");
+        for (const rebytes of reserveds) {
+          const re_bytes = parseInt(rebytes);
+          if ((re_bytes >= 0 ) && (re_bytes <= 255)) {
+            customValidation = true;
+          }
+        }
+      }
+      customValidation = _(
         "Invalid Reversed Bytes.\n    format: 'byte1,byte2,byte3'\n    each byte should be an integer between 0-255"
       );
     }
@@ -35,18 +55,18 @@ function customValidation(type: string, value: string): boolean | string {
         const start: number = parseInt(packets[0]);
         const end: number = parseInt(packets[1]);
         if (start > 0 && end > start) {
-          return true;
+          customValidation = true
         }
       }
       if (value === "tlshello") {
-        return true;
+        customValidation = true
       }
-      return _(
+      customValidation = _(
         'Valid inputs:\n    1. An integer no less than 1, corresponding to the packet index\n       eg: "5" for the fifth packet\n    2. A range of integers which are greater than 0\n       eg: "1-3" for the 1st to 3rd packets'
       );
     }
     default: {
-      return "Invalid Inputs";
+      customValidation = "Invalid Inputs";
     }
   }
 }
