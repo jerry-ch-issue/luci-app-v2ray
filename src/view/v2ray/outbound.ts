@@ -33,7 +33,7 @@ function customValidation(type: string, value: string): boolean | string {
     }
     case "wg-reserved": {
       const regex = /^(\d{1,3}),(\d{1,3}),(\d{1,3})$/;
-      const match = value.match(regex);split(",");
+      const match = value.match(regex);
       if (!match) {
         return _(
           "Invalid Reversed Bytes.\n    format: 'byte1,byte2,byte3'\n    each byte should be an integer between 0-255"
@@ -41,7 +41,9 @@ function customValidation(type: string, value: string): boolean | string {
       }
       const [, num1, num2, num3] = match.map(Number);
       const isValid = [num1, num2, num3].every((num) => num >= 0 && num <= 255);
-      return isValid ? true : _(
+      return isValid
+      ? true
+      : _(
         "Invalid Reversed Bytes.\n    format: 'byte1,byte2,byte3'\n    each byte should be an integer between 0-255"
       );
     }
@@ -58,14 +60,11 @@ function customValidation(type: string, value: string): boolean | string {
         }
       }
       if (value === "tlshello") {
-        customValidation = true
+        return true;
       }
-      customValidation = _(
+      return _(
         'Valid inputs:\n    1. An integer no less than 1, corresponding to the packet index\n       eg: "5" for the fifth packet\n    2. A range of integers which are greater than 0\n       eg: "1-3" for the 1st to 3rd packets'
       );
-    }
-    default: {
-      customValidation = "Invalid Inputs";
     }
   }
 }
