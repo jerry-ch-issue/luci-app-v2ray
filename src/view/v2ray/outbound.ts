@@ -68,6 +68,9 @@ function customValidation(
         'Valid inputs:\n    1. An integer no less than 1, corresponding to the packet index\n       eg: "5" for the fifth packet\n    2. A range of integers which are greater than 0\n       eg: "1-3" for the 1st to 3rd packets'
       );
     }
+    default: {
+      return _("Unknown Data");
+    }
   }
 }
 // @ts-ignore
