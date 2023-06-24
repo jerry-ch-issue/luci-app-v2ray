@@ -1165,6 +1165,10 @@ msgstr "TLS Hello数据包"
 msgid "All Packets"
 msgstr "全部数据包"
 
+msgid ""
+'Valid inputs:\n    1. An integer no less than 1, corresponding to the packet index\n       eg: "5" for the fifth packet\n    2. A range of integers which are greater than 0\n       eg: "1-3" for the 1st to 3rd packets'
+msgstr "输入格式为:\n    1. 一个不小于1的整数,对应数据包的序号\n       例如: \"5\"表示第5个数据包     2. 一个大于0的整数区间\n       例如: \"1-3\" 表示第1-3个数据包"
+
 #: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Server address"
 msgstr "服务器地址"
@@ -1201,6 +1205,9 @@ msgstr "自动"
 msgid "Private Key"
 msgstr "私钥"
 
+msggid "Invalid wireguard key format"
+msgstr "Wireguard密钥格式不正确"
+
 #: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Endpoint"
 msgstr "接入点"
@@ -1226,8 +1233,11 @@ msgid "MTU"
 msgstr "最大传输单元"
 
 #: htdocs/luci-static/resources/view/v2ray/outbound.js:7
-msgid "Reserved"
+msgid "Reserved Bytes"
 msgstr "保留字"
+
+msgid "Invalid Reversed Bytes.\n    format: \'byte1,byte2,byte3\'\n    each byte should be an integer between 0-255"
+msgstr "不合法的保留字节.\n    格式: \'byte1,byte2,byte3\'\n    每字节均为一个0-255之间的整数"
 
 #: htdocs/luci-static/resources/view/v2ray/outbound.js:7
 msgid "Show REALITY Debug Info"

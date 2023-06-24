@@ -413,10 +413,8 @@ outbound_section_validate() {
 		's_wireguard_allowed_ips:or(ipaddr, cidr)' \
 		's_wireguard_keep_alive:uinteger' \
 		's_wireguard_endpoint:string' \
-		's_wireguard_mtu:and(uinteger, max(1420))' \
-		's_wireguard_reserved_a:and(uinteger, max(255))' \
-		's_wireguard_reserved_b:and(uinteger, max(255))' \
-		's_wireguard_reserved_c:and(uinteger, max(255))' \
+		's_wireguard_mtu:and(uinteger, min(1280), max(1420))' \
+		's_wireguard_reserved_bytes:string' \
 		'ss_network:or("tcp", "kcp", "grpc", "ws", "h2", "domainsocket", "quic")' \
 		'ss_security:or("none", "tls", "xtls", "reality")' \
 		's_xtls_flow:or("","xtls-rprx-direct", "xtls-rprx-direct-udp443", "xtls-rprx-origin", "xtls-rprx-origin-udp443", "xtls-rprx-splice", "xtls-rprx-splice-udp443", "xtls-rprx-vision", "xtls-rprx-vision-udp443")' \
@@ -2568,11 +2566,15 @@ add_outbound_setting() {
 			json_close_array
 			test -n "$s_wireguard_mtu" && \
 				json_add_int "mtu" "$s_wireguard_mtu"
-			if [ -n "$s_wireguard_reserved_a" ] && [ -n "$s_wireguard_reserved_b" ] && [ -n "$s_wireguard_reserved_c" ] ; then
+			if [ -n "$s_wireguard_reserved_bytes" ] ; then
 				json_add_array "reserved"
-				json_add_int "" "$s_wireguard_reserved_a"
-				json_add_int "" "$s_wireguard_reserved_b"
-				json_add_int "" "$s_wireguard_reserved_c"
+				local OLD_IFS=$IFS
+				IFS=","
+				local rb
+				for rb in $s_wireguard_reserved_bytes ; do
+					json_add_int "" rb
+				done
+				IFS=$OLD_IFS
 				json_close_array
 			fi
 			json_close_object
