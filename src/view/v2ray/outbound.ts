@@ -18,7 +18,10 @@
 "require view/v2ray/include/custom as custom";
 "require view/v2ray/tools/converters as converters";
 
-function customValidation(validate_type: string, input_value: string): boolean | string {
+function customValidation(
+  validate_type: string,
+  input_value: string
+): boolean | string {
   switch (validate_type) {
     case "wg-keys": {
       if (
@@ -39,13 +42,11 @@ function customValidation(validate_type: string, input_value: string): boolean |
         );
       }
       const [, num1, num2, num3] = match.map(Number);
-      const isValid = [num1, num2, num3].every(
-        (num) => num >= 0 && num <= 255
-      );
+      const isValid = [num1, num2, num3].every((num) => num >= 0 && num <= 255);
       return isValid
-      ? true
-      : _(
-        "Invalid Reversed Bytes.\n    format: 'byte1,byte2,byte3'\n    each byte should be an integer between 0-255"
+        ? true
+        : _(
+          "Invalid Reversed Bytes.\n    format: 'byte1,byte2,byte3'\n    each byte should be an integer between 0-255"
       )
     }
     case "fragment-packets": {
