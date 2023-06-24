@@ -18,13 +18,13 @@
 "require view/v2ray/include/custom as custom";
 "require view/v2ray/tools/converters as converters";
 
-function customValidation(validate_type: string, value: string): boolean | string {
+function customValidation(validate_type: string, input_value: string): boolean | string {
   switch (validate_type) {
     case "wg-keys": {
       if (
-        value.match("^[a-zA-Z0-9/+]+=?=?$") !== null &&
-        value.length % 4 === 0 &&
-        value.length === 44
+        input_value.match("^[a-zA-Z0-9/+]+=?=?$") !== null &&
+        input_value.length % 4 === 0 &&
+        input_value.length === 44
       ) {
         return true;
       }
@@ -32,7 +32,7 @@ function customValidation(validate_type: string, value: string): boolean | strin
     }
     case "wg-reserved": {
       const regex = /^(\d{1,3}),(\d{1,3}),(\d{1,3})$/;
-      const match = value.match(regex);
+      const match = input_value.match(regex);
       if (!match) {
         return _(
           "Invalid Reversed Bytes.\n    format: 'byte1,byte2,byte3'\n    each byte should be an integer between 0-255"
@@ -43,25 +43,24 @@ function customValidation(validate_type: string, value: string): boolean | strin
         (num) => num >= 0 && num <= 255
       );
       return isValid
-        ? true
-        : _(
-            "Invalid Reversed Bytes.\n    format: 'byte1,byte2,byte3'\n    each byte should be an integer between 0-255"
-          );
+      ? true
+      : _(
+        "Invalid Reversed Bytes.\n    format: 'byte1,byte2,byte3'\n    each byte should be an integer between 0-255"
+      )
     }
-    break;
     case "fragment-packets": {
-      if (/^\d+$/.test(value) && parseInt(value) > 0) {
+      if (/^\d+$/.test(input_value) && parseInt(input_value) > 0) {
         return true;
       }
-      if (/^\d+-\d+$/.test(value)) {
-        const packets: string[] = value.split("-");
+      if (/^\d+-\d+$/.test(input_value)) {
+        const packets: string[] = input_value.split("-");
         const start: number = parseInt(packets[0]);
         const end: number = parseInt(packets[1]);
         if (start > 0 && end > start) {
           return true;
         }
       }
-      if (value === "tlshello") {
+      if (input_value === "tlshello") {
         return true;
       }
       return _(
