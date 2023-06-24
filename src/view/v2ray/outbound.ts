@@ -37,7 +37,7 @@ function customValidation(type: string, value: string): boolean | string {
         const reserveds = value.split(",");
         for (const rebytes of reserveds) {
           const re_bytes = parseInt(rebytes);
-          if (0 <= re_bytes <= 255) {
+          if ((0 <= re_bytes) && (255 >= re_bytes)) {
             return true;
           }
         }
@@ -64,6 +64,9 @@ function customValidation(type: string, value: string): boolean | string {
       return _(
         'Valid inputs:\n    1. An integer no less than 1, corresponding to the packet index\n       eg: "5" for the fifth packet\n    2. A range of integers which are greater than 0\n       eg: "1-3" for the 1st to 3rd packets'
       );
+    }
+    default: {
+      return "Invalid Inputs";
     }
   }
 }
