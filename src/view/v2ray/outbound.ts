@@ -22,26 +22,6 @@
 function customValidation(type: string, value: string): boolean | string {
   switch (type) {
     case "wg-keys": {
-      if (
-        value.match("^[a-zA-Z0-9/+]+=?=?$") !== null &&
-        value.length % 4 === 0 &&
-        value.length === 44
-      ) {
-        return true;
-      }
-      return _("Invalid wireguard key format");
-    }
-    case "wg-reserved": {
-      const pattern = /^\d{1,3},\d{1,3},\d{1,3}$/;
-      if (pattern.test(value)) {
-        const reserveds = value.split(",");
-        for (const rebytes of reserveds) {
-          const re_bytes = parseInt(rebytes);
-          if ((re_bytes < 0 ) || (re_bytes > 255)) {
-            return true;
-          }
-        }
-      }
       return _(
         "Invalid Reversed Bytes.\n    format: 'byte1,byte2,byte3'\n    each byte should be an integer between 0-255"
       );
