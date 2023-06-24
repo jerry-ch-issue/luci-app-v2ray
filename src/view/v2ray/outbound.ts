@@ -42,7 +42,9 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
           );
         }
         const [, num1, num2, num3] = match.map(Number);
-        const isValid = [num1, num2, num3].every((num) => num >= 0 && num <= 255);
+        const isValid = [num1, num2, num3].every(
+          (num) => num >= 0 && num <= 255
+        );
         return isValid
           ? true
           : _(
