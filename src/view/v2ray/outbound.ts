@@ -60,7 +60,7 @@ function customValidation(
       const frag_length: string[] = input_value.split("-");
       const lengthMin: number = parseInt(frag_length[0]);
       const lengthMax: number = parseInt(frag_length[1]);
-      if (lengthMin > 0 && lengthMax > intervalMin) {
+      if (lengthMin > 0 && lengthMax > lengthMin) {
         return true;
       }
       return "%s: %s:\n- %s\n- %s".format(
