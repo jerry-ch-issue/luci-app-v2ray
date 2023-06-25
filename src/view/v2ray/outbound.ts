@@ -48,10 +48,10 @@ function customValidation(
       return isValid
         ? true
         : "%s:\n- %s\n  %s".format(
-          _("Expecting"),
-          _("'value1,value2,value3'"),
-          _("each value should be an integer between 0-255")
-        );
+            _("Expecting"),
+            _("'value1,value2,value3'"),
+            _("each value should be an integer between 0-255")
+          );
     }
     case "fragment-length": {
       if (/^\d+$/.test(input_value) && parseInt(input_value) > 0) {
@@ -60,7 +60,7 @@ function customValidation(
       const frag_length: string[] = input_value.split("-");
       const lengthMin: number = parseInt(frag_length[0]);
       const lengthMax: number = parseInt(frag_length[1]);
-      if (intervalMin > 0 && intervalMax > intervalMin) {
+      if (lengthMin > 0 && lengthMax > intervalMin) {
         return true;
       }
       return "%s: %s:\n- %s\n- %s".format(
