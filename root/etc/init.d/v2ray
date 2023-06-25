@@ -2572,7 +2572,7 @@ add_outbound_setting() {
 				IFS=","
 				local rb
 				for rb in $s_wireguard_reserved_bytes ; do
-					json_add_int "" rb
+					json_add_int "" "$rb"
 				done
 				IFS=$OLD_IFS
 				json_close_array
