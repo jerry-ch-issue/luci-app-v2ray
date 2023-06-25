@@ -104,7 +104,7 @@ function customValidation(
       if (input_value === "tlshello") {
         return true;
       }
-      return "%s: %s:\n- %s\n  %s\n- %s\n  %s".format(
+      return "%s: %s:\n - %s\n   %s\n - %s\n   %s".format(
         _("Expecting"),
         _("One of the following"),
         _("Integers greater than 0, corresponding to the packet index"),
@@ -520,6 +520,12 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       "%s - %s".format(_("Fragment"), _("Length"))
     );
     o.modalonly = true;
+    o.validate= function (sid: string, value: string): boolean | string {
+      if (!value) {
+        return true;
+      }
+      return customValidation("fragment-length", value);
+    };
     o.rmempty = true;
     o.depends("s_freedom_fragment_enabled", "1");
 
@@ -530,6 +536,12 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       "%s - %s".format(_("Fragment"), _("Interval"))
     );
     o.modalonly = true;
+    o.validate = function (sid: string, value: string): boolean | string {
+      if (!value) {
+        return true;
+      }
+      return customValidation("fragment-interval", value);
+    };
     o.rmempty = true;
     o.depends("s_freedom_fragment_enabled", "1");
 
