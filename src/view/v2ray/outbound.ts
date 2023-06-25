@@ -1646,10 +1646,11 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.rmempty = true;
     o.depends({ protocol: "wireguard", "!reverse": true });
     o.validate = function (sid, value) {
-      if (sid != value) {
+      const current_tag: string = uci.get("v2ray", sid, "tag");
+      if (current_tag != value) {
         return true;
       }
-      return `${_("Unable to use current outbound itself as proxy")}`;
+      return _("Unable to use current outbound itself as proxy");
     };
     o.value("", _("None"));
     for (let i = 0; i < outbound_alias.length; i++) {
@@ -1689,10 +1690,11 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.modalonly = true;
     o.rmempty = true;
     o.validate = function (sid, value) {
-      if (sid != value) {
+      const current_tag: string = uci.get("v2ray", sid, "tag");
+      if (current_tag != value) {
         return true;
       }
-      return `${_("Unable to use current outbound itself as proxy")}`;
+      return _("Unable to use current outbound itself as proxy");
     };
     o.value("", _("None"));
     for (let i = 0; i < outbound_alias.length; i++) {
