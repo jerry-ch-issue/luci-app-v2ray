@@ -520,7 +520,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       "%s - %s".format(_("Fragment"), _("Length"))
     );
     o.modalonly = true;
-    o.validate= function (sid: string, value: string): boolean | string {
+    o.validate = function (sid: string, value: string): boolean | string {
       if (!value) {
         return true;
       }
