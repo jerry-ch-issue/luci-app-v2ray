@@ -31,23 +31,63 @@ function customValidation(
       ) {
         return true;
       }
-      return _("Invalid wireguard key format");
+      return _("Invalid WireGuard key");
     }
     case "wg-reserved": {
       const regex = /^(\d{1,3}),(\d{1,3}),(\d{1,3})$/;
       const match = input_value.match(regex);
       if (!match) {
-        return _(
-          "Invalid Reversed Bytes.\n    format: 'byte1,byte2,byte3'\n    each byte should be an integer between 0-255"
+        return "%s:\n- %s\n  %s".format(
+          _("Expecting"),
+          _("'value1,value2,value3'"),
+          _("each value should be an integer between 0-255")
         );
       }
       const [, num1, num2, num3] = match.map(Number);
       const isValid = [num1, num2, num3].every((num) => num >= 0 && num <= 255);
       return isValid
         ? true
-        : _(
-            "Invalid Reversed Bytes.\n    format: 'byte1,byte2,byte3'\n    each byte should be an integer between 0-255"
-          );
+        : "%s:\n- %s\n  %s".format(
+          _("Expecting"),
+          _("'value1,value2,value3'"),
+          _("each value should be an integer between 0-255")
+        );
+    }
+    case "fragment-length": {
+      if (/^\d+$/.test(input_value) && parseInt(input_value) > 0) {
+        return true;
+      }
+      const frag_length: string[] = input_value.split("-");
+      const lengthMin: number = parseInt(frag_length[0]);
+      const lengthMax: number = parseInt(frag_length[1]);
+      if (intervalMin > 0 && intervalMax > intervalMin) {
+        return true;
+      }
+      return "%s: %s:\n- %s\n- %s".format(
+        _("Expecting"),
+        _("One of the following"),
+        _("Integers greater than 0"),
+        _("A range of integers which are greater than 0")
+      );
+    }
+    case "fragment-interval": {
+      if (/^\d+$/.test(input_value) && parseInt(input_value) > 0) {
+        return true;
+      }
+      if (/^\d+-\d+$/.test(input_value)) {
+        const frag_interval: string[] = input_value.split("-");
+        const intervalMin: number = parseInt(frag_interval[0]);
+        const intervalMax: number = parseInt(frag_interval[1]);
+        if (intervalMin > 0 && intervalMax > intervalMin) {
+          return true;
+        }
+      }
+      return "%s: %s:\n- %s\n- %s".format(
+        _("Expecting"),
+        _("One of the following"),
+        _("Integers greater than 0"),
+        _("A range of integers which are greater than 0")
+      );
     }
     case "fragment-packets": {
       if (/^\d+$/.test(input_value) && parseInt(input_value) > 0) {
@@ -64,8 +104,13 @@ function customValidation(
       if (input_value === "tlshello") {
         return true;
       }
-      return _(
-        'Valid inputs:\n    1. An integer no less than 1, corresponding to the packet index\n       eg: "5" for the fifth packet\n    2. A range of integers which are greater than 0\n       eg: "1-3" for the 1st to 3rd packets'
+      return "%s: %s:\n- %s\n  %s\n- %s\n  %s".format(
+        _("Expecting"),
+        _("One of the following"),
+        _("Integers greater than 0, corresponding to the packet index"),
+        _("eg: '5' for the fifth packet'"),
+        _("A range of integers which are greater than 0"),
+        _("eg: '1-3' for the 1st to 3rd packets")
       );
     }
     default: {
@@ -952,7 +997,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.depends("protocol", "wireguard");
     o.rmempty = true;
     o.modalonly = true;
-    o.datatype = "and(uinteger, range(1280, 1420)";
+    o.datatype = "and(uinteger, range(1280, 1420))";
     o.optional = true;
 
     o = s.taboption(
