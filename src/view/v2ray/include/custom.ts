@@ -263,14 +263,15 @@ const CUSTOMRunningStatus = form.AbstractValue.extend({
 });
 
 const CbiRichListValue = form.ListValue.extend({
-  renderWidget: function(
+  renderWidget: function (
     section_id: string,
     option_index: number,
     cfgvalue: string
   ) {
     const choices = this.transformChoices();
     const widget = new ui.Dropdown(
-      cfgvalue !== null ? cfgvalue : this.default, choices,
+      cfgvalue !== null ? cfgvalue : this.default,
+      choices,
       {
         id: this.cbid(section_id),
         sort: this.keylist,
@@ -281,8 +282,9 @@ const CbiRichListValue = form.ListValue.extend({
         disabled: this.readonly !== null ? this.readonly : this.map.readonly
       }
     );
+    return widget.render();
   },
-  
+
   value: function(value: any, title: string, description?: string) {
     if (description) {
       form.ListValue.prototype.value.call(
@@ -293,11 +295,10 @@ const CbiRichListValue = form.ListValue.extend({
           [
             E("span", { class: "hide-open" }, [title]),
             E("div", { class: "hide-close", style: "min-width:25vw" }, [
-                E("strong", [title]),
-                E("br"),
-                E("span", { style: "white-space:normal" }, description),
-              ]
-            ),
+              E("strong", [title]),
+              E("br"),
+              E("span", { style: "white-space:normal" }, description),
+            ]),
           ]
         )
       );
