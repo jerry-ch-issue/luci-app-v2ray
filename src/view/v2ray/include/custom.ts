@@ -279,13 +279,13 @@ const CbiRichListValue = form.ListValue.extend({
         select_placeholder: this.select_placeholder || this.placeholder,
         custom_placeholder: this.custom_placeholder || this.placeholder,
         validate: this.validate.bind(this, section_id),
-        disabled: this.readonly !== null ? this.readonly : this.map.readonly
+        disabled: this.readonly !== null ? this.readonly : this.map.readonly,
       }
     );
     return widget.render();
   },
 
-  value: function(value: any, title: string, description?: string) {
+  value: function (value: any, title: string, description?: string) {
     if (description) {
       form.ListValue.prototype.value.call(
         this,
