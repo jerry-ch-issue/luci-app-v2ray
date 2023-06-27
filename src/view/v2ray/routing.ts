@@ -10,6 +10,7 @@
 "require form";
 "require uci";
 "require v2ray";
+"require view/v2ray/include/custom as custom";
 // "require view";
 
 // @ts-ignore
@@ -61,13 +62,26 @@ return L.view.extend<SectionItem[][][][][][][][][], string>({
     let o;
     o = s1.option(form.Flag, "enabled", _("Enabled"));
     o = s1.option(
-      form.ListValue,
+      custom.RichListValue,
       "domain_strategy",
       _("Domain Matching Strategy")
     );
-    o.value("AsIs");
-    o.value("IPIfNonMatch");
-    o.value("IPOnDemand");
+    o.optional = false;
+    o.value("AsIs", "AsIs", _("Match with the domain-based rules only."));
+    o.value(
+      "IPIfNonMatch",
+      "IPIfNonMatch",
+      _(
+        "If no domain-based rules were matched, resolve domain and try matching with the </span>IP-based rules</span>."
+      )
+    );
+    o.value(
+      "IPOnDemand",
+      "IPOnDemand",
+      _(
+        "Whenever IP-based rules are encountered, resolve domain and match the rules using IP address immediately."
+      )
+    );
 
     o = s1.option(form.ListValue, "main_domain_matcher", _("Domain Matcher"));
     o.value("hybrid");

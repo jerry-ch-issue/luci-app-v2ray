@@ -1152,8 +1152,24 @@ msgstr ""
 msgid "Routing"
 msgstr ""
 
-#: src/view/v2ray/routing.ts:66
+#: src/view/v2ray/routing.ts:67
 msgid "Domain Matching Strategy"
+msgstr ""
+
+#: src/view/v2ray/routing.ts:70
+msgid "Match with the domain-based rules only."
+msgstr ""
+
+#: src/view/v2ray/routing.ts:75
+msgid "If no domain-based rules were matched, resolve domain and try matching with the </span>IP-based rules</span>."
+msgstr ""
+
+#: src/view/v2ray/routing.ts:82
+msgid "Whenever IP-based rules are encountered, resolve domain and match the rules using IP address immediately."
+msgstr ""
+
+#: src/view/v2ray/routing.ts:70
+msgid "Match with the domain-based rules only."
 msgstr ""
 
 #: src/view/v2ray/routing.ts:72 src/view/v2ray/routing.ts:118
