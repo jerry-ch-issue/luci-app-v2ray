@@ -1163,6 +1163,18 @@ msgstr "分流"
 msgid "Domain Matching Strategy"
 msgstr "域名匹配策略"
 
+#: src/view/v2ray/routing.ts:70
+msgid "Match with the domain-based rules only."
+msgstr "进使用域名匹配域名规则."
+
+#: src/view/v2ray/routing.ts:75
+msgid "If no domain-based rules were matched, resolve domain and try matching with the </span>IP-based rules</span>."
+msgstr "如果域名规则无命中，则解析域名，并匹配IP规则."
+
+#: src/view/v2ray/routing.ts:82
+msgid "Whenever IP-based rules are encountered, resolve domain and match the rules using IP address immediately."
+msgstr "一旦轮询到IP规则，马上解析域名并使用IP地址进行匹配"
+
 #: src/view/v2ray/routing.ts:72 src/view/v2ray/routing.ts:118
 msgid "Domain Matcher"
 msgstr "域名匹配器"
