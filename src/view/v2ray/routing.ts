@@ -16,24 +16,18 @@
 // @ts-ignore
 return L.view.extend<SectionItem[][][][][][][][][], string>({
   load: function () {
-    return uci.load("v2ray").then(function () {
-      let core = uci.get("v2ray", "main", "core");
-      if (!core) {
-        core = "V2Ray";
-      }
-      return Promise.all([
-        v2ray.getSections("routing_rule"),
-        v2ray.getSections("routing_balancer", "tag"),
-        v2ray.getSections("inbound", "alias"),
-        v2ray.getSections("inbound", "tag"),
-        v2ray.getSections("outbound", "alias"),
-        v2ray.getSections("outbound", "tag"),
-        v2ray.getSections("dns", "tag"),
-        v2ray.getSections("reverse", "bridges"),
-        v2ray.getSections("reverse", "portals"),
-        core,
-      ]);
-    });
+    return Promise.all([
+      v2ray.getSections("routing_rule"),
+      v2ray.getSections("routing_balancer", "tag"),
+      v2ray.getSections("inbound"),
+      v2ray.getSections("inbound", "tag"),
+      v2ray.getSections("outbound"),
+      v2ray.getSections("outbound", "tag"),
+      v2ray.getSections("dns", "tag"),
+      v2ray.getSections("reverse", "bridges"),
+      v2ray.getSections("reverse", "portals"),
+      v2ray.getCore(),
+    ]);
   },
   render: function ([
     routingRules = [],

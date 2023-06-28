@@ -18,109 +18,8 @@
 "require view/v2ray/include/custom as custom";
 "require view/v2ray/tools/converters as converters";
 
-function customValidation(
-  validate_type: string,
-  input_value: string
-): boolean | string {
-  switch (validate_type) {
-    case "wg-keys": {
-      if (
-        input_value.match("^[a-zA-Z0-9/+]+=?=?$") !== null &&
-        input_value.length % 4 === 0 &&
-        input_value.length === 44
-      ) {
-        return true;
-      }
-      return _("Invalid WireGuard key");
-    }
-    case "wg-reserved": {
-      const regex = /^(\d{1,3}),(\d{1,3}),(\d{1,3})$/;
-      const match = input_value.match(regex);
-      if (!match) {
-        return "%s:\n- %s\n  %s".format(
-          _("Expecting"),
-          _("'value1,value2,value3'"),
-          _("each value should be an integer between 0-255")
-        );
-      }
-      const [, num1, num2, num3] = match.map(Number);
-      const isValid = [num1, num2, num3].every((num) => num >= 0 && num <= 255);
-      return isValid
-        ? true
-        : "%s:\n- %s\n  %s".format(
-            _("Expecting"),
-            _("'value1,value2,value3'"),
-            _("each value should be an integer between 0-255")
-          );
-    }
-    case "fragment-length": {
-      if (/^\d+$/.test(input_value) && parseInt(input_value) > 0) {
-        return true;
-      }
-      const frag_length: string[] = input_value.split("-");
-      const lengthMin: number = parseInt(frag_length[0]);
-      const lengthMax: number = parseInt(frag_length[1]);
-      if (lengthMin > 0 && lengthMax > lengthMin) {
-        return true;
-      }
-      return "%s: %s:\n- %s\n- %s".format(
-        _("Expecting"),
-        _("One of the following"),
-        _("Integers greater than 0"),
-        _("A range of integers which are greater than 0")
-      );
-    }
-    case "fragment-interval": {
-      if (/^\d+$/.test(input_value) && parseInt(input_value) > 0) {
-        return true;
-      }
-      if (/^\d+-\d+$/.test(input_value)) {
-        const frag_interval: string[] = input_value.split("-");
-        const intervalMin: number = parseInt(frag_interval[0]);
-        const intervalMax: number = parseInt(frag_interval[1]);
-        if (intervalMin > 0 && intervalMax > intervalMin) {
-          return true;
-        }
-      }
-      return "%s: %s:\n- %s\n- %s".format(
-        _("Expecting"),
-        _("One of the following"),
-        _("Integers greater than 0"),
-        _("A range of integers which are greater than 0")
-      );
-    }
-    case "fragment-packets": {
-      if (/^\d+$/.test(input_value) && parseInt(input_value) > 0) {
-        return true;
-      }
-      if (/^\d+-\d+$/.test(input_value)) {
-        const packets: string[] = input_value.split("-");
-        const start: number = parseInt(packets[0]);
-        const end: number = parseInt(packets[1]);
-        if (start > 0 && end > start) {
-          return true;
-        }
-      }
-      if (input_value === "tlshello") {
-        return true;
-      }
-      return "%s: %s:\n - %s\n   %s\n - %s\n   %s".format(
-        _("Expecting"),
-        _("One of the following"),
-        _("Integers greater than 0, corresponding to the packet index"),
-        _("eg: '5' for the fifth packet'"),
-        _("A range of integers which are greater than 0"),
-        _("eg: '1-3' for the 1st to 3rd packets")
-      );
-    }
-    default: {
-      return _("Unknown Data");
-    }
-  }
-}
 // @ts-ignore
 return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
-  // validate wg-keys, wg-reserved-bytes and fragment packets,
   handleImportSave: function (val: string) {
     const links = val.split(/\r?\n/);
 
@@ -336,14 +235,10 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
   },
   load: function () {
     return uci.load("v2ray").then(function () {
-      let core = uci.get("v2ray", "main", "core");
-      if (!core) {
-        core = "V2Ray";
-      }
       const tcp_congestion: string[] = fs
         .read("/proc/sys/net/ipv4/tcp_available_congestion_control")
         .then((result) => {
-          return result.replace(/\n/g, "").split(" ");
+          return result.replace(/\n/g, ",").split(",");
         });
       return Promise.all([
         v2ray.getLocalIPs(),
@@ -354,7 +249,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
         v2ray.getSections("reverse", "bridges"),
         v2ray.getSections("reverse", "portals"),
         v2ray.getXtlsSecurity(),
-        core,
+        v2ray.getCore(),
         tcp_congestion,
       ]);
     });

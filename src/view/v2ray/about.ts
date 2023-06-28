@@ -10,6 +10,7 @@
 "require fs";
 "require uci";
 "require ui";
+"require v2ray";
 // "require view";
 
 // @ts-ignore
@@ -17,17 +18,13 @@ return L.view.extend<[string, string, string]>({
   load: function () {
     return uci.load("v2ray").then(function () {
       let configFile = uci.get("v2ray", "main", "config_file");
-      let core = uci.get("v2ray", "main", "core");
-      if (!core) {
-        core = "V2Ray";
-      }
       if (!configFile) {
         configFile = "/var/etc/v2ray/v2ray.main.json";
       }
       return Promise.all([
         Promise.resolve(configFile),
         L.resolveDefault(fs.read(configFile), ""),
-        core,
+        v2ray.getCore(),
       ]);
     });
   },

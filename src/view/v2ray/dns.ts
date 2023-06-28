@@ -15,14 +15,12 @@
 // @ts-ignore
 return L.view.extend<SectionItem[], string>({
   load: function () {
-    return uci.load("v2ray").then(function () {
-      let core = uci.get("v2ray", "main", "core");
-      if (!core) {
-        core = "V2Ray";
-      }
-      return Promise.all([v2ray.getSections("dns_server"), core]);
-    });
+    return Promise.all([
+      v2ray.getSections("dns_server"),
+      v2ray.getCore(),
+    ]);
   },
+
   render: function ([dnsServers = [], core = ""] = []) {
     const m = new form.Map(
       "v2ray",

@@ -16,14 +16,12 @@
 // @ts-ignore
 return L.view.extend<string[], string>({
   load: function () {
-    return uci.load("v2ray").then(function () {
-      let core = uci.get("v2ray", "main", "core");
-      if (!core) {
-        core = "V2Ray";
-      }
-      return Promise.all([v2ray.getLocalIPs(), core]);
-    });
+    return Promise.all([
+      v2ray.getLocalIPs(),
+      v2ray.getCore(),
+    ]);
   },
+
   render: function ([localIPs = [], core = ""] = []) {
     const m = new form.Map("v2ray", "%s - %s".format(core, _("Inbound")));
 

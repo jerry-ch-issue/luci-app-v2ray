@@ -9,19 +9,15 @@
 
 "require form";
 "require uci";
+"require v2ray";
 // "require view";
 
 // @ts-ignore
 return L.view.extend<string>({
-  load: function () {
-    return uci.load("v2ray").then(function () {
-      let core = uci.get("v2ray", "main", "core");
-      if (!core) {
-        core = "V2Ray";
-      }
-      return core;
-    });
+  load: function (): string {
+    return v2ray.getCore();
   },
+
   render: function (core = "") {
     const m = new form.Map(
       "v2ray",
