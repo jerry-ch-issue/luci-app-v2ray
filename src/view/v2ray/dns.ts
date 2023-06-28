@@ -15,10 +15,7 @@
 // @ts-ignore
 return L.view.extend<SectionItem[], string>({
   load: function () {
-    return Promise.all([
-      v2ray.getSections("dns_server"),
-      v2ray.getCore(),
-    ]);
+    return Promise.all([v2ray.getSections("dns_server"), v2ray.getCore()]);
   },
 
   render: function ([dnsServers = [], core = ""] = []) {

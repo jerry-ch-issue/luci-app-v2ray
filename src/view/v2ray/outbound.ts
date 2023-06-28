@@ -419,7 +419,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       if (!value) {
         return true;
       }
-      return customValidation("fragment-length", value);
+      return v2ray.v2rayValidation("fragment-length", value);
     };
     o.rmempty = true;
     o.depends("s_freedom_fragment_enabled", "1");
@@ -435,7 +435,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       if (!value) {
         return true;
       }
-      return customValidation("fragment-interval", value);
+      return v2ray.v2rayValidation("fragment-interval", value);
     };
     o.rmempty = true;
     o.depends("s_freedom_fragment_enabled", "1");
@@ -451,7 +451,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       if (!value) {
         return true;
       }
-      return customValidation("fragment-packets", value);
+      return v2ray.v2rayValidation("fragment-packets", value);
     };
     o.rmempty = true;
     o.depends("s_freedom_fragment_enabled", "1");
@@ -824,7 +824,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     );
     o.depends("protocol", "wireguard");
     o.validate = function (sid: string, value: string): boolean | string {
-      return customValidation("wg-keys", value);
+      return v2ray.v2rayValidation("wg-keys", value);
     };
     o.modalonly = true;
     o.rmempty = false;
@@ -860,7 +860,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     );
     o.depends("protocol", "wireguard");
     o.validate = function (sid: string, value: string) {
-      return customValidation("wg-keys", value);
+      return v2ray.v2rayValidation("wg-keys", value);
     };
     o.rmempty = false;
     o.modalonly = true;
@@ -920,7 +920,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       if (!value) {
         return true;
       }
-      return customValidation("wg-reserved", value);
+      return v2ray.v2rayValidation("wg-reserved", value);
     };
     o.rmempty = true;
     o.placeholder = "0,123,255";

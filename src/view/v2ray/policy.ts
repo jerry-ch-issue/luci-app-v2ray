@@ -16,7 +16,7 @@
 return L.view.extend<SectionItem[], string>({
   load: function () {
     return Promise.all([
-      v2ray.getSections("policy_level", "level"), 
+      v2ray.getSections("policy_level", "level"),
       v2ray.getCore(),
     ]);
   },

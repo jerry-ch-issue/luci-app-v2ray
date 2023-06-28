@@ -147,7 +147,9 @@ return L.Class.extend({
           );
         }
         const [, num1, num2, num3] = match.map(Number);
-        const isValid = [num1, num2, num3].every((num) => num >= 0 && num <= 255);
+        const isValid = [num1, num2, num3].every(
+          (num) => num >= 0 && num <= 255
+        );
         return isValid
           ? true
           : "%s:\n- %s\n  %s".format(
@@ -220,5 +222,5 @@ return L.Class.extend({
         return _("Unknown Data");
       }
     }
-  }
+  },
 });
