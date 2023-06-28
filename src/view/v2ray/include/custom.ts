@@ -262,56 +262,9 @@ const CUSTOMRunningStatus = form.AbstractValue.extend({
   write: function () {},
 });
 
-const CbiRichListValue = form.ListValue.extend({
-  renderWidget: function (
-    section_id: string,
-    option_index: number,
-    cfgvalue: string
-  ) {
-    const choices = this.transformChoices();
-    const widget = new ui.Dropdown(
-      cfgvalue !== null ? cfgvalue : this.default,
-      choices,
-      {
-        id: this.cbid(section_id),
-        sort: this.keylist,
-        optional: this.optional || false,
-        select_placeholder: this.select_placeholder || this.placeholder,
-        custom_placeholder: this.custom_placeholder || this.placeholder,
-        validate: this.validate.bind(this, section_id),
-        disabled: this.readonly !== null ? this.readonly : this.map.readonly,
-      }
-    );
-    return widget.render();
-  },
-
-  value: function (value: any, title: string, description?: string) {
-    if (description) {
-      form.ListValue.prototype.value.call(
-        this,
-        value,
-        E(
-          [],
-          [
-            E("span", { class: "hide-open" }, [title]),
-            E("div", { class: "hide-close", style: "min-width:25vw" }, [
-              E("strong", [title]),
-              E("br"),
-              E("span", { style: "white-space:normal" }, description),
-            ]),
-          ]
-        )
-      );
-    } else {
-      form.ListValue.prototype.value.call(this, value, title);
-    }
-  },
-});
-
 // @ts-ignore
 return L.Class.extend({
   TextValue: CUSTOMTextValue,
   ListStatusValue: CUSTOMListStatusValue,
   RunningStatus: CUSTOMRunningStatus,
-  RichListValue: CbiRichListValue,
 });
