@@ -126,9 +126,7 @@ return L.view.extend<SectionItem[][][][][][][][][], string>({
       if (!Value) {
         return true;
       }
-      return v2ray.domainRule(Value)
-        ? true
-        : _("Invalid domain/geosite/keyword/regular expression");
+      return v2ray.v2rayValidation("domainrule", Value);
     };
 
     o = s2.option(form.DynamicList, "ip", _("IP"));
@@ -137,7 +135,7 @@ return L.view.extend<SectionItem[][][][][][][][][], string>({
       if (!Value) {
         return true;
       }
-      return v2ray.ipRule(Value) ? true : _("Invalid IP address/CIDR/geoip.");
+      return v2ray.v2rayValidation("iprule", Value);
     };
 
     o = s2.option(form.DynamicList, "port", _("Port"));

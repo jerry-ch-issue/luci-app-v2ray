@@ -133,55 +133,51 @@ return L.Class.extend({
         return false;
       }
     }
-    if (Value.match(hostReg)) {
+    if (Value.match(hostReg) || Value.match(localhostReg) || Value.match(keywordReg)) {
       return true;
     } else {
-      if (Value.match(localhostReg)) {
-        return true;
-      } else {
-        const ruleExp = Value.match(/^(\S+):(\S+)$/);
-        if (ruleExp) {
-          switch (ruleExp[1]) {
-            case "domain":
-              {
-                if (ruleExp[2].match(hostReg)) {
-                  return true;
-                }
+      const ruleExp = Value.match(/^(\S+):(\S+)$/);
+      if (ruleExp) {
+        switch (ruleExp[1]) {
+          case "domain":
+            {
+              if (ruleExp[2].match(hostReg)) {
+                return true;
               }
-              break;
-            case "geosite":
-              {
-                if (ruleExp[2].match(geositeReg)) {
-                  return true;
-                }
-              }
-              break;
-            case "regexp":
-              {
-                if (ruleExp[2].length !== 0) {
-                  try {
-                    new RegExp(ruleExp[2]);
-                    return true;
-                  } catch (error) {
-                    return false;
-                  }
-                }
-              }
-              break;
-            case "keyword":
-              {
-                if (ruleExp[2].match(keywordReg)) {
-                  return true;
-                }
-              }
-              break;
-            default: {
-              return false;
             }
+            break;
+          case "geosite":
+            {
+              if (ruleExp[2].match(geositeReg)) {
+                return true;
+              }
+            }
+            break;
+          case "regexp":
+            {
+              if (ruleExp[2].length !== 0) {
+                try {
+                  new RegExp(ruleExp[2]);
+                  return true;
+                } catch (error) {
+                  return false;
+                }
+              }
+            }
+            break;
+          case "keyword":
+            {
+              if (ruleExp[2].match(keywordReg)) {
+                return true;
+              }
+            }
+            break;
+          default: {
+            return false;
           }
         }
-        return false;
       }
+      return false;
     }
   },
 
@@ -238,6 +234,15 @@ return L.Class.extend({
     validate_type: string,
     input_value: string
   ): boolean | string {
+    const domain_match_errmsg: string = "%s\n   %s\n   %s\n   %s\n   %s\n   %s\n   %s".format(
+      _("Valid domain matching conditions:"),
+      _("match by subdomain , eg: \"domain:google.com\""),
+      _("strict match, eg: \"full:ipv6.google.com\""),
+      _("match by predefined domain list, eg: \"geosite:google\""),
+      _("match by keywords, eg: \"keyword:google\""),
+      _("match by regular expression, eg: \"regexp:\\.goo.*gle\\.com\""),
+      _("plain text, eg: \"google.com\""),
+    );
     switch (validate_type) {
       case "wg-keys": {
         if (
@@ -281,9 +286,8 @@ return L.Class.extend({
         if (lengthMin > 0 && lengthMax > lengthMin) {
           return true;
         }
-        return "%s: %s:\n- %s\n- %s".format(
+        return "%s:\n- %s\n- %s".format(
           _("Expecting"),
-          _("One of the following"),
           _("Integers greater than 0"),
           _("A range of integers which are greater than 0")
         );
@@ -300,9 +304,8 @@ return L.Class.extend({
             return true;
           }
         }
-        return "%s: %s:\n- %s\n- %s".format(
+        return "%s:\n- %s\n- %s".format(
           _("Expecting"),
-          _("One of the following"),
           _("Integers greater than 0"),
           _("A range of integers which are greater than 0")
         );
@@ -322,10 +325,9 @@ return L.Class.extend({
         if (input_value === "tlshello") {
           return true;
         }
-        return "%s: %s:\n - %s\n   %s\n - %s\n   %s".format(
+        return "%s:\n - %s\n   %s\n - %s\n   %s".format(
           _("Expecting"),
-          _("One of the following"),
-          _("Integers greater than 0, corresponding to the packet index"),
+          _("an integer greater than 0 corresponding to the sequence number of the packet"),
           _("eg: '5' for the fifth packet'"),
           _("A range of integers which are greater than 0"),
           _("eg: '1-3' for the 1st to 3rd packets")
@@ -343,19 +345,34 @@ return L.Class.extend({
             }
           }
         }
-        return "%s: %s:\n - %s\n   %s\n   %s\n   %s\n   %s\n - %s\n   %s\n   %s\n   %s".format(
+        return "%s: %s:\n - %s\n - %s\n   %s\n   %s\n   %s".format(
           _("Expecting"),
-          "domain_structure|mapping_structure",
-          _("valid domain structures:"),
-          "subdomain: 'domain:google.com'",
-          "keywords: 'keyword:google'",
-          "predefined domains: 'geosite:google'",
-          "regular expression: 'regexp:\\.goo.*\\.com'. ",
-          _("valid mapping structures:"),
-          "IP address: '2001:4860:4860::8844'",
-          "IP address array: '8.8.8.8,2001:4860:4860::8888,8.8.4.4'",
-          "hostname: 'www.google.com'"
+          "domain_match_conditions|mapping_objects",
+          domain_match_errmsg,
+          _("Valid mapping objects:"),
+          _("IP address, eg: \"8.8.8.8\""),
+          _("IP address array, eg: \"8.8.8.8,2001:4860:4860::8888,8.8.4.4\""),
+          _("domain name, eg: \"www.google.com\"")
         );
+      }
+      case "iprule": {
+        return this.ipRule(input_value)
+          ? true
+          : "%s:\n   %s\n   %s\n   %s\n   %s\n".fromat(
+            _("Expecting"),
+            _("IP address, eg: \"8.8.8.8\""),
+            _("CIDR, eg: \"2606:4700::/32\""),
+            _("Predifined IP List, eg: \"geoip:us\""),
+          ); 
+      }
+      case "domainrule": {
+        return this.domainRule(input_value)
+          ? true
+          : "%s: %s\n - %s".fromat(
+            _("Expecting"),
+            _("domain matching conditions"),
+            domain_match_errmsg
+          );
       }
       default: {
         return _("Invalid Input");

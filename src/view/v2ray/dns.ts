@@ -64,7 +64,7 @@ return L.view.extend<SectionItem[], string>({
       if (!Value) {
         return true;
       }
-      return v2ray.v2rayValidation("hostMapping", Value);
+      return v2ray.v2rayValidation("hostmapping", Value);
     };
     o.rmempty = true;
 
@@ -171,9 +171,7 @@ return L.view.extend<SectionItem[], string>({
       if (!Value) {
         return true;
       }
-      return v2ray.domainRule(Value)
-        ? true
-        : _("Invalid domain/geosite/keyword/regular expression");
+      return v2ray.v2rayValidation("domainrule", Value);
     };
     o.modalonly = true;
 
@@ -182,7 +180,7 @@ return L.view.extend<SectionItem[], string>({
       if (!Value) {
         return true;
       }
-      return v2ray.ipRule(Value) ? true : _("Invalid IP address/CIDR/geoip.");
+      return v2ray.v2rayValidation("iprule", Value);
     };
     o.modalonly = true;
 

@@ -718,7 +718,7 @@ msgid "A range of integers which are greater than 0"
 msgstr ""
 
 #: src/view/v2ray/outbound.ts:110
-msgid "Integers greater than 0, corresponding to the packet index"
+msgid "msgid "an integer greater than 0 corresponding to the sequence number of the packet""
 msgstr ""
 
 #: src/view/v2ray/outbound.ts:111
@@ -1463,4 +1463,49 @@ msgstr ""
 
 #: src/view/v2ray/include/custom.ts:254
 msgid "Getting..."
+msgstr ""
+
+msgid "Valid domain matching conditions:"
+msgstr ""
+
+msgid "match by subdomain , eg: \"domain:google.com\""
+msgstr ""
+
+msgid "strict match, eg: \"full:ipv6.google.com\""
+msgstr ""
+
+msgid "match by predefined domain list, eg: \"geosite:google\""
+msgstr ""
+
+msgid "match by keywords, eg: \"keyword:google\""
+msgstr ""
+
+msgid "match by regular expression, eg: \"regexp:\\.goo.*gle\\.com\""
+msgstr ""
+
+msgid "plain text, eg: \"google.com\""
+msgstr ""
+
+msgid "an integer greater than 0 corresponding to the sequence number of the packet"
+msgstr ""
+
+msgid "Valid mapping objects:"
+msgstr ""
+
+msgid "IP address, eg: \"8.8.8.8\""
+msgstr ""
+
+msgid "IP address array, eg: \"8.8.8.8,2001:4860:4860::8888,8.8.4.4\""
+msgstr ""
+
+msgid "domain name, eg: \"www.google.com\""
+msgstr ""
+
+msgid "CIDR, eg: \"2606:4700::/32\""
+msgstr ""
+
+msgid "Predifined IP List, eg: \"geoip:us\""
+msgstr ""
+
+msgid "Invalid Input"
 msgstr ""
