@@ -243,9 +243,9 @@ return L.Class.extend({
       _('match by subdomain , eg: "domain:google.com"'),
       _('strict match, eg: "full:ipv6.google.com"'),
       _('match by predefined domain list, eg: "geosite:google"'),
-      _('match by keywords, eg: \"keyword:google"'),
+      _('match by keywords, eg: "keyword:google"'),
       _('match by regular expression, eg: "regexp:\\.goo.*gle\\.com"'),
-      _('plain text, eg: "google.com"'),
+      _('plain text, eg: "google.com"')
     );
     switch (validate_type) {
       case "wg-keys": {
@@ -365,11 +365,11 @@ return L.Class.extend({
         return this.ipRule(input_value)
           ? true
           : "%s:\n   %s\n   %s\n   %s\n   %s\n".fromat(
-            _("Expecting"),
-            _('IP address, eg: "8.8.8.8"'),
-            _('CIDR, eg: "2606:4700::/32"'),
-            _('Predifined IP List, eg: "geoip:us"'),
-          );
+              _("Expecting"),
+              _('IP address, eg: "8.8.8.8"'),
+              _('CIDR, eg: "2606:4700::/32"'),
+              _('Predifined IP List, eg: "geoip:us"'),
+            );
       }
       case "domainrule": {
         return this.domainRule(input_value)
@@ -379,7 +379,7 @@ return L.Class.extend({
               _("domain matching conditions"),
               domain_match_errmsg
             );
-        }
+      }
       default: {
         return _("Invalid Input");
       }
