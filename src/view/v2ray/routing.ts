@@ -56,26 +56,14 @@ return L.view.extend<SectionItem[][][][][][][][][], string>({
     let o;
     o = s1.option(form.Flag, "enabled", _("Enabled"));
     o = s1.option(
-      custom.RichListValue,
+      form.ListValue,
       "domain_strategy",
       _("Domain Matching Strategy")
     );
     o.optional = false;
-    o.value("AsIs", "AsIs", _("Match with the domain-based rules only."));
-    o.value(
-      "IPIfNonMatch",
-      "IPIfNonMatch",
-      _(
-        "If no domain-based rules were matched, resolve domain and try matching with the </span>IP-based rules</span>."
-      )
-    );
-    o.value(
-      "IPOnDemand",
-      "IPOnDemand",
-      _(
-        "Whenever IP-based rules are encountered, resolve domain and match the rules using IP address immediately."
-      )
-    );
+    o.value("AsIs");
+    o.value("IPIfNonMatch");
+    o.value("IPOnDemand");
 
     o = s1.option(form.ListValue, "main_domain_matcher", _("Domain Matcher"));
     o.value("hybrid");
@@ -134,9 +122,25 @@ return L.view.extend<SectionItem[][][][][][][][][], string>({
 
     o = s2.option(form.DynamicList, "domain", _("Domain"));
     o.modalonly = true;
+    o.validate = function (sid: string, Value: string): boolean | string {
+      if (!value) {
+        return true;
+      }
+      return v2ray.domainRule(Value)
+      ? true
+      : _("Invalid domain name/geosite/keyword/regular expression");
+    };
 
     o = s2.option(form.DynamicList, "ip", _("IP"));
     o.modalonly = true;
+    o.validate = function (sid: string, Value: string): boolean | string {
+      if (!value) {
+        return true;
+      }
+      return v2ray.ipRule(Value)
+      ? true
+      : _("Invalid IP address/CIDR/geoip");
+    };
 
     o = s2.option(form.DynamicList, "port", _("Port"));
     o.modalonly = true;
@@ -149,6 +153,14 @@ return L.view.extend<SectionItem[][][][][][][][][], string>({
     o = s2.option(form.DynamicList, "source", _("Source"));
     o.modalonly = true;
     o.datatype = "ipaddr";
+    o.validate = function (sid: string, Value: string): boolean | string {
+      if (!value) {
+        return true;
+      }
+      return v2ray.ipRule(Value)
+      ? true
+      : _("Invalid IP address/CIDR/geoip");
+    };
 
     o = s2.option(form.DynamicList, "source_port", _("Source Port"));
     o.modalonly = true;

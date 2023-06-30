@@ -60,6 +60,13 @@ return L.view.extend<SectionItem[], string>({
         "<code>google.cn|google.com</code>"
       )
     );
+    o.validate = function (sid: string, Value: string): boolean | string {
+      if (!Value) {
+        return true;
+      }
+      return v2ray.v2rayValidation("hostMapping", Value);
+    };
+    o.rmempty = true;
 
     o = s1.option(form.ListValue, "query_strategy", _("Domain Strategy"));
     o.value("UseIP");
@@ -160,9 +167,21 @@ return L.view.extend<SectionItem[], string>({
     o.depends("dns_server_type", "QUIC");
 
     o = s2.option(form.DynamicList, "domains", _("Domains"));
+    o.validate = function (sid: string, Value: string): boolean | string {
+      if (!Value) {
+        return true;
+      }
+      return v2ray.domainRule(Value) ? true : _("Invalid domain structure.");
+    };
     o.modalonly = true;
 
     o = s2.option(form.DynamicList, "expect_ips", _("Expect IPs"));
+    o.validate = function (sid: string, Value: string): boolean | string {
+      if (!Value) {
+        return true;
+      }
+      return v2ray.ipRule(Value) ? true : _("Invalid ip structure.")
+    }
     o.modalonly = true;
 
     o = s2.option(form.ListValue, "skip_fallback", _("Skip Fallback"));

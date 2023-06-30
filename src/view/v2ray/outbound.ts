@@ -15,7 +15,6 @@
 "require fs";
 "require validation";
 
-"require view/v2ray/include/custom as custom";
 "require view/v2ray/tools/converters as converters";
 
 // @ts-ignore

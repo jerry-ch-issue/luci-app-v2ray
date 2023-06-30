@@ -120,6 +120,106 @@ return L.Class.extend({
       return xtls;
     });
   },
+  domainRule: function (Value: string, hostMapping: boolean = false): boolean {
+    const localhostReg = /^localhost$/i
+    const hostReg = /^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\.)+[A-Za-z]{2,6}$/;
+    const geositeReg = /^[a-zA-Z][a-zA-Z!-@.]*[a-zA-Z]$/;
+    const keywordReg = /^[a-zA-Z0-9-.]+$/;
+    if (hostMapping) {
+      if (Value.match(hostReg) || Value.match(localhostReg)) {
+        return true;
+      } else {
+        return false;
+      }
+    }  
+    if (Value.match(hostReg)) {
+      return true;
+    } else {
+      if (Value.match(localhostReg)) {
+        return true;
+      } else {
+        const ruleExp = Value.match(/^(\S+)\:(\S+)$/);
+        if (ruleExp) {
+          console.log(ruleExp[2])
+          switch (ruleExp[1]) {
+            case "domain": {
+              if (ruleExp[2].match(hostReg)) {
+                return true;
+              }
+            }
+            case "geosite": {
+              if (ruleExp[2].match(geositeReg)) {
+                return true;
+              }
+            }
+            case "regexp": {
+              if (ruleExp[2].length !== 0) {
+                try {
+                  new RegExp(ruleExp[2]);
+                  return true;
+                } catch (error) {
+                  return false;
+                }
+              }
+            }
+            case "keyword": {
+              if (ruleExp[2].match(keywordReg)) {
+                return true;
+              }
+            }
+            default: {
+              return false;
+            }
+          } 
+        }
+        return false;
+      }
+    }
+  },
+  
+  ipRule: function (Value: string, hostMapping: boolean = false): boolean {
+    if (hostMapping) {
+      const IParray: string [] = Value.split(",");
+      for (const IPs of IParray) {
+        if (IPs.length > 0) {
+          const ip4addr = validation.parseIPv4(IPs);
+          const ip6addr = validation.parseIPv6(IPs);
+          if (null === ip4addr && null === ip6addr) {
+            return false;
+          }
+        } else {
+          return false;
+        }
+      }
+      return true;
+    } else {
+      const ip4addr = validation.parseIPv4(Value);
+      const ip6addr = validation.parseIPv6(Value);
+      if ((null == ip4addr) && (null == ip6addr)) {
+        const cidr: string[] = Value.split("/");
+        if (cidr && cidr.length == 2) {
+          const ip4addr = parseIPv4(cidr[0]);
+          const ip6addr = parseIPv6(cidr[0]);
+          if ((ip4addr && 0 <= parseInt(cidr[1]) && parseInt(cidr[1]) <= 32) ||  (ip6addr && 0 <= parseInt(cidr[1]) && parseInt(cidr[1]) <= 128)) {
+            return true;
+          }
+        } else {
+          const geoipVal = Value.match(/^geoip\:[a-zA-Z]{2}[a-zA-Z0-9@!-]*(?<![@!0-9-])$/);
+          if (geoipVal) {
+            //console.log(geoipVal[1])
+            //if (geoipVal[1] == "geoip" && geoipVal[2].match(/^[a-zA-Z\!-@.]+[a-zA-Z]$/)) {
+              return true;
+            //}
+          } else {
+            return false;
+          }
+        }
+      } else {
+        return true;
+      }
+      return false;
+    }
+  },
 
   v2rayValidation: function (
     validate_type: string,
@@ -216,6 +316,27 @@ return L.Class.extend({
           _("eg: '5' for the fifth packet'"),
           _("A range of integers which are greater than 0"),
           _("eg: '1-3' for the 1st to 3rd packets")
+        );
+      }
+      case "hostmapping": {
+        const hostMap = input_value.match(/^(\S+)\:(\S+)$/);
+        if (hostMap) {
+          const domainSection = this.domainRule(hostMap[1]);
+          if (domainSection) {
+            const domainMap = this.domainRule(hostMap[2], true);
+            const ipMap = this.ipRule(hostMap[2], true);
+            if (domainMap || ipMap) {
+              return true;
+            }
+          }
+        }
+        return "%s: %s:\n - %s\n   %s\n - %s\n   %s".format(
+          _("Expecting"),
+          "domain_structure|mapping_structure",
+          _("valid domain structures:"),
+          "<abbr>domain:domain.name</abbr> or <abbr>keyword:keywords</abbr> or <abbr>geosite:geosite_catagory</abbr> or <abbr>regexp:regular_expression</abbr>",
+          _("valid mapping structures"),
+          "<abbr>IP_address</abbr> or <abbr>IP_address,IP_address,...,IP_address</abbr> or <abbr>domain.name</abbr>"
         );
       }
       default: {
