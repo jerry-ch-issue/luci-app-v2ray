@@ -268,9 +268,7 @@ return L.Class.extend({
         const isValid = [num1, num2, num3].every(
           (num) => num >= 0 && num <= 255
         );
-        return isValid
-          ? true
-          : "%s:\n%s".format(_("Expecting"), wg_err);
+        return isValid ? true : "%s:\n%s".format(_("Expecting"), wg_err);
       }
       case "fragment-length": {
         if (/^\d+$/.test(input_value) && parseInt(input_value) > 0) {
