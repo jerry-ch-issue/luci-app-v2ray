@@ -133,7 +133,11 @@ return L.Class.extend({
         return false;
       }
     }
-    if (Value.match(hostReg) || Value.match(localhostReg) || Value.match(keywordReg)) {
+    if (
+      Value.match(hostReg) ||
+      Value.match(localhostReg) ||
+      Value.match(keywordReg)
+    ) {
       return true;
     } else {
       const ruleExp = Value.match(/^(\S+):(\S+)$/);
@@ -236,12 +240,12 @@ return L.Class.extend({
   ): boolean | string {
     const domain_match_errmsg: string = "%s\n   %s\n   %s\n   %s\n   %s\n   %s\n   %s".format(
       _("Valid domain matching conditions:"),
-      _("match by subdomain , eg: \"domain:google.com\""),
-      _("strict match, eg: \"full:ipv6.google.com\""),
-      _("match by predefined domain list, eg: \"geosite:google\""),
-      _("match by keywords, eg: \"keyword:google\""),
-      _("match by regular expression, eg: \"regexp:\\.goo.*gle\\.com\""),
-      _("plain text, eg: \"google.com\""),
+      _('match by subdomain , eg: "domain:google.com"'),
+      _('strict match, eg: "full:ipv6.google.com"'),
+      _('match by predefined domain list, eg: "geosite:google"'),
+      _('match by keywords, eg: \"keyword:google"'),
+      _('match by regular expression, eg: "regexp:\\.goo.*gle\\.com"'),
+      _('plain text, eg: "google.com"'),
     );
     switch (validate_type) {
       case "wg-keys": {
@@ -327,7 +331,9 @@ return L.Class.extend({
         }
         return "%s:\n - %s\n   %s\n - %s\n   %s".format(
           _("Expecting"),
-          _("an integer greater than 0 corresponding to the sequence number of the packet"),
+          _(
+            "an integer greater than 0 corresponding to the sequence number of the packet"
+          ),
           _("eg: '5' for the fifth packet'"),
           _("A range of integers which are greater than 0"),
           _("eg: '1-3' for the 1st to 3rd packets")
@@ -350,9 +356,9 @@ return L.Class.extend({
           "domain_match_conditions|mapping_objects",
           domain_match_errmsg,
           _("Valid mapping objects:"),
-          _("IP address, eg: \"8.8.8.8\""),
-          _("IP address array, eg: \"8.8.8.8,2001:4860:4860::8888,8.8.4.4\""),
-          _("domain name, eg: \"www.google.com\"")
+          _('IP address, eg: "8.8.8.8"'),
+          _('IP address array, eg: "8.8.8.8,2001:4860:4860::8888,8.8.4.4"'),
+          _('domain name, eg: "www.google.com"')
         );
       }
       case "iprule": {
@@ -360,20 +366,20 @@ return L.Class.extend({
           ? true
           : "%s:\n   %s\n   %s\n   %s\n   %s\n".fromat(
             _("Expecting"),
-            _("IP address, eg: \"8.8.8.8\""),
-            _("CIDR, eg: \"2606:4700::/32\""),
-            _("Predifined IP List, eg: \"geoip:us\""),
-          ); 
+            _('IP address, eg: "8.8.8.8"'),
+            _('CIDR, eg: "2606:4700::/32"'),
+            _('Predifined IP List, eg: "geoip:us"'),
+          );
       }
       case "domainrule": {
         return this.domainRule(input_value)
           ? true
           : "%s: %s\n - %s".fromat(
-            _("Expecting"),
-            _("domain matching conditions"),
-            domain_match_errmsg
-          );
-      }
+              _("Expecting"),
+              _("domain matching conditions"),
+              domain_match_errmsg
+            );
+        }
       default: {
         return _("Invalid Input");
       }
