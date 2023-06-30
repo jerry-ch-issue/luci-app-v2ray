@@ -1465,7 +1465,7 @@ msgstr ""
 msgid "Getting..."
 msgstr ""
 
-msgid "Valid domain matching conditions:"
+msgid "Valid domain matching rules:"
 msgstr ""
 
 msgid "match by subdomain , eg: \"domain:google.com\""
@@ -1483,7 +1483,7 @@ msgstr ""
 msgid "match by regular expression, eg: \"regexp:\\.goo.*gle\\.com\""
 msgstr ""
 
-msgid "plain text, eg: \"google.com\""
+msgid "plain string, eg: \"google.com\""
 msgstr ""
 
 msgid "an integer greater than 0 corresponding to the sequence number of the packet"
@@ -1505,6 +1505,9 @@ msgid "CIDR, eg: \"2606:4700::/32\""
 msgstr ""
 
 msgid "Predifined IP List, eg: \"geoip:us\""
+msgstr ""
+
+msgid "domain matching rules"
 msgstr ""
 
 msgid "Invalid Input"

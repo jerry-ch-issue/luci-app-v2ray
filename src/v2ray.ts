@@ -133,11 +133,7 @@ return L.Class.extend({
         return false;
       }
     }
-    if (
-      Value.match(hostReg) ||
-      Value.match(localhostReg) ||
-      Value.match(keywordReg)
-    ) {
+    if (Value.match(hostReg) || Value.match(localhostReg)) {
       return true;
     } else {
       const ruleExp = Value.match(/^(\S+):(\S+)$/);
@@ -239,13 +235,17 @@ return L.Class.extend({
     input_value: string
   ): boolean | string {
     const domain_match_errmsg: string = "%s\n   %s\n   %s\n   %s\n   %s\n   %s\n   %s".format(
-      _("Valid domain matching conditions:"),
-      _('match by subdomain , eg: "domain:google.com"'),
+      _("Valid domain matching rules:"),
+      _('match by subdomain, eg: "domain:google.com"'),
       _('strict match, eg: "full:ipv6.google.com"'),
       _('match by predefined domain list, eg: "geosite:google"'),
       _('match by keywords, eg: "keyword:google"'),
       _('match by regular expression, eg: "regexp:\\.goo.*gle\\.com"'),
-      _('plain text, eg: "google.com"')
+      _('plain strings, eg: "google.com"')
+    );
+    const wg_err: string = " - %s\n   %s".format(
+      _("'value1,value2,value3'"),
+      _("each value should be an integer between 0-255")
     );
     switch (validate_type) {
       case "wg-keys": {
@@ -262,11 +262,7 @@ return L.Class.extend({
         const regex = /^(\d{1,3}),(\d{1,3}),(\d{1,3})$/;
         const match = input_value.match(regex);
         if (!match) {
-          return "%s:\n- %s\n  %s".format(
-            _("Expecting"),
-            _("'value1,value2,value3'"),
-            _("each value should be an integer between 0-255")
-          );
+          return "%s:\n%s".format(_("Expecting"), wg_err);
         }
         const [, num1, num2, num3] = match.map(Number);
         const isValid = [num1, num2, num3].every(
@@ -274,11 +270,7 @@ return L.Class.extend({
         );
         return isValid
           ? true
-          : "%s:\n- %s\n  %s".format(
-              _("Expecting"),
-              _("'value1,value2,value3'"),
-              _("each value should be an integer between 0-255")
-            );
+          : "%s:\n%s".format(_("Expecting"), wg_err);
       }
       case "fragment-length": {
         if (/^\d+$/.test(input_value) && parseInt(input_value) > 0) {
@@ -290,7 +282,7 @@ return L.Class.extend({
         if (lengthMin > 0 && lengthMax > lengthMin) {
           return true;
         }
-        return "%s:\n- %s\n- %s".format(
+        return "%s:\n - %s\n - %s".format(
           _("Expecting"),
           _("Integers greater than 0"),
           _("A range of integers which are greater than 0")
@@ -308,7 +300,7 @@ return L.Class.extend({
             return true;
           }
         }
-        return "%s:\n- %s\n- %s".format(
+        return "%s:\n - %s\n - %s".format(
           _("Expecting"),
           _("Integers greater than 0"),
           _("A range of integers which are greater than 0")
@@ -351,9 +343,9 @@ return L.Class.extend({
             }
           }
         }
-        return "%s: %s:\n - %s\n - %s\n   %s\n   %s\n   %s".format(
+        return '%s: "%s"\n - %s\n - %s\n   %s\n   %s\n   %s'.format(
           _("Expecting"),
-          "domain_match_conditions|mapping_objects",
+          "domain_match_rules|mapping_objects",
           domain_match_errmsg,
           _("Valid mapping objects:"),
           _('IP address, eg: "8.8.8.8"'),
@@ -364,7 +356,7 @@ return L.Class.extend({
       case "iprule": {
         return this.ipRule(input_value)
           ? true
-          : "%s:\n   %s\n   %s\n   %s\n   %s\n".fromat(
+          : "%s:\n - %s\n - %s\n - %s".format(
               _("Expecting"),
               _('IP address, eg: "8.8.8.8"'),
               _('CIDR, eg: "2606:4700::/32"'),
@@ -374,9 +366,9 @@ return L.Class.extend({
       case "domainrule": {
         return this.domainRule(input_value)
           ? true
-          : "%s: %s\n - %s".fromat(
+          : "%s%s:\n - %s".format(
               _("Expecting"),
-              _("domain matching conditions"),
+              _("domain matching rules"),
               domain_match_errmsg
             );
       }

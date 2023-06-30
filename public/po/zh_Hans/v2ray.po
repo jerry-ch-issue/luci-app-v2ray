@@ -1468,8 +1468,8 @@ msgstr "正在收集数据..."
 msgid "Getting..."
 msgstr "正在获取..."
 
-msgid "Valid domain matching conditions:"
-msgstr "有效的域名匹配条件:"
+msgid "Valid domain matching rules:"
+msgstr "有效的域名匹配规则:"
 
 msgid "match by subdomain, eg: \"domain:google.com\""
 msgstr "子域名匹配，例如: \"domain:google.com\""
@@ -1510,5 +1510,8 @@ msgstr "CIDR, 例如: \"2606:4700::/32\""
 msgid "Predifined IP List, eg: \"geoip:us\""
 msgstr "预定义IP列表, 例如: \"geoip:us\""
 
+msgid "domain matching rules"
+msgstr "域名匹配规则"
+
 msgid "Invalid Input"
-msgstr ""
+msgstr "无效输入"
