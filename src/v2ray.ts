@@ -368,7 +368,7 @@ return L.Class.extend({
               _("Expecting"),
               _('IP address, eg: "8.8.8.8"'),
               _('CIDR, eg: "2606:4700::/32"'),
-              _('Predifined IP List, eg: "geoip:us"'),
+              _('Predifined IP List, eg: "geoip:us"')
             );
       }
       case "domainrule": {
