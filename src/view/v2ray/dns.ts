@@ -180,8 +180,8 @@ return L.view.extend<SectionItem[], string>({
       if (!Value) {
         return true;
       }
-      return v2ray.ipRule(Value) ? true : _("Invalid ip structure.")
-    }
+      return v2ray.ipRule(Value) ? true : _("Invalid ip structure.");
+    };
     o.modalonly = true;
 
     o = s2.option(form.ListValue, "skip_fallback", _("Skip Fallback"));

@@ -141,35 +141,39 @@ return L.Class.extend({
         const ruleExp = Value.match(/^(\S+):(\S+)$/);
         if (ruleExp) {
           switch (ruleExp[1]) {
-            case "domain": {
-              if (ruleExp[2].match(hostReg)) {
-                return true;
-              }
-            }
-            break;
-            case "geosite": {
-              if (ruleExp[2].match(geositeReg)) {
-                return true;
-              }
-            }
-            break;
-            case "regexp": {
-              if (ruleExp[2].length !== 0) {
-                try {
-                  new RegExp(ruleExp[2]);
+            case "domain":
+              {
+                if (ruleExp[2].match(hostReg)) {
                   return true;
-                } catch (error) {
-                  return false;
                 }
               }
-            }
-            break;
-            case "keyword": {
-              if (ruleExp[2].match(keywordReg)) {
-                return true;
+              break;
+            case "geosite":
+              {
+                if (ruleExp[2].match(geositeReg)) {
+                  return true;
+                }
               }
-            }
-            break;
+              break;
+            case "regexp":
+              {
+                if (ruleExp[2].length !== 0) {
+                  try {
+                    new RegExp(ruleExp[2]);
+                    return true;
+                  } catch (error) {
+                    return false;
+                  }
+                }
+              }
+              break;
+            case "keyword":
+              {
+                if (ruleExp[2].match(keywordReg)) {
+                  return true;
+                }
+              }
+              break;
             default: {
               return false;
             }
@@ -203,11 +207,16 @@ return L.Class.extend({
         if (cidr && cidr.length == 2) {
           const ip4addr = validation.parseIPv4(cidr[0]);
           const ip6addr = validation.parseIPv6(cidr[0]);
-          if ((ip4addr && 0 <= parseInt(cidr[1]) && parseInt(cidr[1]) <= 32) ||  (ip6addr && 0 <= parseInt(cidr[1]) && parseInt(cidr[1]) <= 128)) {
+          if (
+            (ip4addr && 0 <= parseInt(cidr[1]) && parseInt(cidr[1]) <= 32) ||
+            (ip6addr && 0 <= parseInt(cidr[1]) && parseInt(cidr[1]) <= 128)
+          ) {
             return true;
           }
         } else {
-          const geoipVal = Value.match(/^geoip:[a-zA-Z]{2}[a-zA-Z0-9@!-]*(?<![@!0-9-])$/);
+          const geoipVal = Value.match(
+            /^geoip:[a-zA-Z]{2}[a-zA-Z0-9@!-]*(?<![@!0-9-])$/
+          );
           if (geoipVal) {
             //console.log(geoipVal[1])
             //if (geoipVal[1] == "geoip" && geoipVal[2].match(/^[a-zA-Z\!-@.]+[a-zA-Z]$/)) {

@@ -123,23 +123,21 @@ return L.view.extend<SectionItem[][][][][][][][][], string>({
     o = s2.option(form.DynamicList, "domain", _("Domain"));
     o.modalonly = true;
     o.validate = function (sid: string, Value: string): boolean | string {
-      if (!value) {
+      if (!Value) {
         return true;
       }
       return v2ray.domainRule(Value)
-      ? true
-      : _("Invalid domain name/geosite/keyword/regular expression");
+        ? true
+        : _("Invalid domain name/geosite/keyword/regular expression");
     };
 
     o = s2.option(form.DynamicList, "ip", _("IP"));
     o.modalonly = true;
     o.validate = function (sid: string, Value: string): boolean | string {
-      if (!value) {
+      if (!Value) {
         return true;
       }
-      return v2ray.ipRule(Value)
-      ? true
-      : _("Invalid IP address/CIDR/geoip");
+      return v2ray.ipRule(Value) ? true : _("Invalid IP address/CIDR/geoip");
     };
 
     o = s2.option(form.DynamicList, "port", _("Port"));
@@ -154,12 +152,10 @@ return L.view.extend<SectionItem[][][][][][][][][], string>({
     o.modalonly = true;
     o.datatype = "ipaddr";
     o.validate = function (sid: string, Value: string): boolean | string {
-      if (!value) {
+      if (!Value) {
         return true;
       }
-      return v2ray.ipRule(Value)
-      ? true
-      : _("Invalid IP address/CIDR/geoip");
+      return v2ray.ipRule(Value) ? true : _("Invalid IP address/CIDR/geoip");
     };
 
     o = s2.option(form.DynamicList, "source_port", _("Source Port"));
