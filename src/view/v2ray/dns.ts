@@ -172,8 +172,8 @@ return L.view.extend<SectionItem[], string>({
         return true;
       }
       return v2ray.domainRule(Value)
-       ? true
-       : _("Invalid domain/geosite/keyword/regular expression");
+        ? true
+        : _("Invalid domain/geosite/keyword/regular expression");
     };
     o.modalonly = true;
 
