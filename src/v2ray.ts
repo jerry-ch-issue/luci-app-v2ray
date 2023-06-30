@@ -350,11 +350,11 @@ return L.Class.extend({
           "subdomain: 'domain:google.com'",
           "keywords: 'keyword:google'",
           "predefined domains: 'geosite:google'",
-          "regular expression: 'regexp:\.goo.*\.com'. ",
+          "regular expression: 'regexp:\\.goo.*\\.com'. ",
           _("valid mapping structures:"),
           "IP address: '2001:4860:4860::8844'",
           "IP address array: '8.8.8.8,2001:4860:4860::8888,8.8.4.4'",
-          "hostname: 'www.google.com'",
+          "hostname: 'www.google.com'"
         );
       }
       default: {
