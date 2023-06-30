@@ -723,8 +723,8 @@ msgid "A range of integers which are greater than 0"
 msgstr "一个大于0的整数区间"
 
 #: src/view/v2ray/outbound.ts:110
-msgid "Integers greater than 0, corresponding to the packet index"
-msgstr "大于0的整数,对应第几个数据包的"
+msgid "an integer greater than 0 corresponding to the sequence number of the packet"
+msgstr "一个大于0的整数，对应指定顺序的数据包"
 
 #: src/view/v2ray/outbound.ts:111
 msgid "eg: '5' for the fifth packet'"
@@ -1467,3 +1467,48 @@ msgstr "正在收集数据..."
 #: src/view/v2ray/include/custom.ts:254
 msgid "Getting..."
 msgstr "正在获取..."
+
+msgid "Valid domain matching conditions:"
+msgstr "有效的域名匹配条件:"
+
+msgid "match by subdomain, eg: \"domain:google.com\""
+msgstr "子域名匹配，例如: \"domain:google.com\""
+
+msgid "strict match, eg: \"full:ipv6.google.com\""
+msgstr "严格匹配, 例如: \"full:ipv6.google.com\""
+
+msgid "match by predefined domain list, eg: \"geosite:google\""
+msgstr "预定义域名列表匹配, 例如: \"geosite:google\""
+
+msgid "match by keywords, eg: \"keyword:google\""
+msgstr "关键字匹配, 例如: \"keyword:google\""
+
+msgid "match by regular expression, eg: \"regexp:\\.goo.*gle\\.com\""
+msgstr "正则表达式匹配, 例如: \"regexp:\\.goo.*gle\\.com\""
+
+msgid "plain strings, eg: \"google.com\""
+msgstr "纯字符串匹配, 例如: \"google.com\""
+
+msgid "an integer greater than 0 corresponding to the sequence number of the packet"
+msgstr "一个大于0的整数，对应指定顺序的数据包"
+
+msgid "Valid mapping objects:"
+msgstr "有效的映射对象"
+
+msgid "IP address, eg: \"8.8.8.8\""
+msgstr "IP地址, 例如: \"8.8.8.8\""
+
+msgid "IP address array, eg: \"8.8.8.8,2001:4860:4860::8888,8.8.4.4\""
+msgstr "IP 地址数组, 例如: \"8.8.8.8,2001:4860:4860::8888,8.8.4.4\""
+
+msgid "domain name, eg: \"www.google.com\""
+msgstr "域名, 例如: \"www.google.com\""
+
+msgid "CIDR, eg: \"2606:4700::/32\""
+msgstr "CIDR, 例如: \"2606:4700::/32\""
+
+msgid "Predifined IP List, eg: \"geoip:us\""
+msgstr "预定义IP列表, 例如: \"geoip:us\""
+
+msgid "Invalid Input"
+msgstr ""
