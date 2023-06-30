@@ -11,6 +11,7 @@
 "require fs";
 "require network";
 "require uci";
+"require validation";
 
 // @ts-ignore
 return L.Class.extend({
@@ -331,7 +332,7 @@ return L.Class.extend({
         );
       }
       case "hostmapping": {
-        const hostMap = input_value.match(/^(\S+):(\S+)$/);
+        const hostMap = input_value.match(/^(\S+)\|(\S+)$/);
         if (hostMap) {
           const domainSection = this.domainRule(hostMap[1]);
           if (domainSection) {
@@ -342,17 +343,23 @@ return L.Class.extend({
             }
           }
         }
-        return "%s: %s:\n - %s\n   %s\n - %s\n   %s".format(
-          _("Expecting"),
-          "domain_structure|mapping_structure",
-          _("valid domain structures:"),
-          "<abbr>domain:domain.name</abbr> or <abbr>keyword:keywords</abbr> or <abbr>geosite:geosite_catagory</abbr> or <abbr>regexp:regular_expression</abbr>",
-          _("valid mapping structures"),
-          "<abbr>IP_address</abbr> or <abbr>IP_address,IP_address,...,IP_address</abbr> or <abbr>domain.name</abbr>"
-        );
+        return "%s: %s:\n - %s\n   %s\n   %s\n   %s\n   %s\n - %s\n   %s\n   %s\n   %s"
+          .format(
+            _("Expecting"),
+            "domain_structure|mapping_structure",
+            _("valid domain structures:"),
+            "subdomain: 'domain:google.com'",
+            "keywords: 'keyword:google'",
+            "predefined domains: 'geosite:google'",
+            "regular expression: 'regexp:\.goo.*\.com'. ",
+            _("valid mapping structures:"),
+            "IP address: '2001:4860:4860::8844'",
+            "IP address array: '8.8.8.8,2001:4860:4860::8888,8.8.4.4'",
+            "hostname: 'www.google.com'",
+          );
       }
       default: {
-        return _("Unknown Data");
+        return _("Invalid Input");
       }
     }
   },

@@ -171,7 +171,9 @@ return L.view.extend<SectionItem[], string>({
       if (!Value) {
         return true;
       }
-      return v2ray.domainRule(Value) ? true : _("Invalid domain structure.");
+      return v2ray.domainRule(Value)
+       ? true
+       : _("Invalid domain/geosite/keyword/regular expression");
     };
     o.modalonly = true;
 
@@ -180,7 +182,7 @@ return L.view.extend<SectionItem[], string>({
       if (!Value) {
         return true;
       }
-      return v2ray.ipRule(Value) ? true : _("Invalid ip structure.");
+      return v2ray.ipRule(Value) ? true : _("Invalid IP address/CIDR/geoip.");
     };
     o.modalonly = true;
 
