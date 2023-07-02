@@ -379,9 +379,9 @@ return L.Class.extend({
         const sni_err: string = "%s: %s".format(
           _("Expecting"),
           _("a valid domain name")
-        ); 
+        );
         const protocol: string = uci.get("v2ray", section_id, "protocol");
-        const addr_pointer: string = "s_" + "protocol" + "_address";
+        const addr_pointer: string = "s_" + protocol + "_address";
         const addr: string = uci.get("v2ray", section_id, addr_pointer);
         const lch_reg = /^localhost$/i;
         if (!input_value) {
