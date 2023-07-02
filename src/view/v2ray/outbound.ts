@@ -1438,8 +1438,8 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.datatype = "hostname";
     o.validate = function (sid: string, Value: string): boolean | string {
       if (Value) {
-        return v2ray.domainRule(Value, true)
-      };
+        return v2ray.domainRule(Value, true);
+      }
       return "%s: %s".format(_("Expecting"), _("a valid domain name"));
     };
     o.depends("ss_network", "h2");
@@ -1535,7 +1535,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     );
     o.modalonly = true;
     o.depends({
-      protocol: /\b(http|loopback|mtproto|shadowsocks|socks|trojan|vless|vmess)\b/
+      protocol: /\b(http|loopback|mtproto|shadowsocks|socks|trojan|vless|vmess)\b/,
     });
     o.value("AsIs");
     o.value("UseIP");
