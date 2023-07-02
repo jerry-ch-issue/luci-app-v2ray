@@ -42,6 +42,12 @@ return L.view.extend<string>({
         "bridge|test.v2ray.com"
       )
     );
+    o.validate = function (sid: string, Value: string): boolean | string {
+      if (!Value) {
+        return true;
+      }
+      return v2ray.v2rayValidation("reverse", Value);
+    };
 
     o = s.option(
       form.DynamicList,
@@ -51,6 +57,12 @@ return L.view.extend<string>({
         "portal|test.v2ray.com"
       )
     );
+    o.validate = function (sid: string, Value: string): boolean | string {
+      if (!Value) {
+        return true;
+      }
+      return v2ray.v2rayValidation("reverse", Value);
+    };
 
     return m.render();
   },

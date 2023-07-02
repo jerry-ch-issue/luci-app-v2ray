@@ -1365,6 +1365,10 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       "%s %s".format(_("Service"), _("Name"))
     );
     o.modalonly = true;
+    o.rmempty = false;
+    o.validate = function (sid: string, Value: string): boolean | string {
+      return Value.match(/(?![-_])^[a-z0-9-_]+(?<![_-])$/i) ? true : _("Invalid Service Name");
+    };
     o.depends("ss_network", "grpc");
     o.placeholder = "gRPC_Service";
 
@@ -1606,7 +1610,11 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.modalonly = true;
     o.rmempty = true;
     o.value("", _("Default"));
-    o.depends({ protocol: "wireguard", "!reverse": true });
+    o.depends({
+      protocol: /\b(http|trojan|vless|vmess)\b/,
+      ss_network: /\b(grpc|h2|tcp|ws)\b/,
+    });
+    o.depends({ protocol: /\b(freedom|mtproto|socks)\b/ });
     for (let i = 0; i < tcp_congestion.length; i++) {
       o.value(tcp_congestion[i]);
     }

@@ -139,6 +139,7 @@ return L.Class.extend({
       const ruleExp = Value.match(/^(\S+):(\S+)$/);
       if (ruleExp) {
         switch (ruleExp[1]) {
+          case "full":
           case "domain":
             {
               if (ruleExp[2].match(hostReg)) {
@@ -248,6 +249,7 @@ return L.Class.extend({
       _("'value1,value2,value3'"),
       _("each value should be an integer between 0-255")
     );
+    const lch_reg = /^localhost$/i;
     switch (validate_type) {
       case "wg-keys": {
         if (
@@ -372,7 +374,7 @@ return L.Class.extend({
             );
       }
       case "path": {
-        const path_reg = /^\/[a-z0-9-_/]*$/i;
+        const path_reg = /^\/[a-z0-9-_/?=]*(?<![-?=])$/i;
         return input_value.match(path_reg) ? true : _("Invalid Path");
       }
       case "sni": {
@@ -383,9 +385,8 @@ return L.Class.extend({
         const protocol: string = uci.get("v2ray", section_id, "protocol");
         const addr_pointer: string = "s_" + protocol + "_address";
         const addr: string = uci.get("v2ray", section_id, addr_pointer);
-        const lch_reg = /^localhost$/i;
         if (!input_value) {
-          if (!v2ray.ipRule(addr)) {
+          if (!this.ipRule(addr)) {
             return true;
           }
         }
@@ -394,6 +395,22 @@ return L.Class.extend({
           return true;
         }
         return sni_err;
+      }
+      case "reverse": {
+        const reverse_reg = /^(\S+)\|(\S+)$/;
+        const tag_reg = /^[a-z0-9_]+[a-z0-9]$/i;
+        const reverse_match = input_value.match(reverse_reg);
+        if (reverse_match) {
+          if (reverse_match[1].match(tag_reg)) {
+            if (
+              !reverse_match[2].match(lch_reg) &&
+              this.domainRule(reverse_match[2], true)
+            ) {
+              return true;
+            }
+          }
+        }
+        return "%s: %s".format(_("Expecting"), '"tag|domain.name"');
       }
       default: {
         return _("Invalid Input");

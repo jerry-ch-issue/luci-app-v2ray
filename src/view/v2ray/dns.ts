@@ -97,9 +97,6 @@ return L.view.extend<SectionItem[], string>({
       form.MultiValue,
       "servers",
       _("DNS Servers"),
-      _(
-        "Select DNS servers to use</br><code>Only 1 fakedns configuration can be enabled at the same time,prioritized by order</code>"
-      )
     );
     for (const d of dnsServers) {
       o.value(d.value, d.caption);
@@ -143,14 +140,11 @@ return L.view.extend<SectionItem[], string>({
     o.value("dns.adguard-dns.com", "adGuard");
 
     o = s2.option(form.Value, "address", _("Address"));
-    o.depends("dns_server_type", "QUIC");
-    o.depends("dns_server_type", "TCP");
-    o.depends("dns_server_type", "UDP");
-
+    o.datatype = "host";
+    o.depends({ dns_server_type: /\b(QUIC|TCP|UDP)\b/i });
+    
     o = s2.option(form.Value, "port", _("Port"));
-    o.depends("dns_server_type", "TCP");
-    o.depends("dns_server_type", "UDP");
-    o.depends("dns_server_type", "QUIC");
+    o.depends({ dns_server_type: /\b(QUIC|TCP|UDP)\b/i });
     o.modalonly = true;
     o.datatype = "port";
     o.placeholder = "53";
@@ -162,9 +156,7 @@ return L.view.extend<SectionItem[], string>({
       _("DNS Query through <code>Freedom</code> outbound")
     );
     o.modalonly = true;
-    o.depends("dns_server_type", "DoH");
-    o.depends("dns_server_type", "TCP");
-    o.depends("dns_server_type", "QUIC");
+    o.depends({ dns_server_type: /\b(DoH|TCP|QUIC)\b/i });
 
     o = s2.option(form.DynamicList, "domains", _("Domains"));
     o.validate = function (sid: string, Value: string): boolean | string {
