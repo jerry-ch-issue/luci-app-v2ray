@@ -237,7 +237,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       const tcp_congestion: string[] = fs
         .read("/proc/sys/net/ipv4/tcp_available_congestion_control")
         .then((result) => {
-          return result.replace(/\n/g, ",").split(",");
+          return result.split(" ");
         });
       return Promise.all([
         v2ray.getLocalIPs(),
@@ -471,7 +471,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o = s.taboption(
       "general",
       form.Value,
-      "s_http_server_address",
+      "s_http_address",
       "%s - %s".format("HTTP", _("Server address"))
     );
     o.modalonly = true;
@@ -927,7 +927,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
 
     /** Stream Settings **/
     o = s.taboption("stream", form.ListValue, "ss_network", _("Network"));
-    o.depends({ protocol: "wireguard", "!reverse": true });
+    o.depends({ protocol: /\b(http|trojan|vless|vmess)\b/ });
     o.value("");
     o.value("grpc", "gRPC");
     o.value("tcp", "TCP");
@@ -938,7 +938,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.value("quic", "QUIC");
 
     o = s.taboption("stream", form.ListValue, "ss_security", _("Security"));
-    o.depends({ protocol: "wireguard", "!reverse": true });
+    o.depends({ protocol: /\b(http|trojan|vless|vmess)\b/ });
     o.modalonly = true;
     o.rmempty = false;
     o.value("none", _("None"));
@@ -990,6 +990,9 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     );
     o.modalonly = true;
     o.depends({ ss_security: /tls$/ });
+    o.validate = function (sid: string, Value: string): boolean | string {
+      return v2ray.v2rayValidation("sni", Value, sid);
+    };
 
     o = s.taboption("stream", form.MultiValue, "ss_tls_alpn", "ALPN");
     o.modalonly = true;
@@ -1073,7 +1076,6 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.depends({ ss_security: /\b(reality|tls|xtls)\b/ });
     o.value("", "none");
     o.value("360");
-    o.value("android");
     o.value("chrome");
     o.value("edge");
     o.value("firefox");
@@ -1091,6 +1093,13 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     );
     o.modalonly = true;
     o.datatype = "hostname";
+    o.validate = function (sid: string, Value: string): boolean | string {
+      if (!Value) {
+        return true;
+      } else {
+        return v2ray.v2rayValidation("sni", Value, sid);
+      }
+    };
     o.depends("ss_security", "reality");
     o.placeholder = "example.com";
 
@@ -1166,6 +1175,12 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       "%s - %s".format("TCP", _("Request path"))
     );
     o.modalonly = true;
+    o.validate = function (sid: string, Value: string): boolean | string {
+      if (!Value) {
+        return true;
+      }
+      return v2ray.v2rayValidation("path", Value);
+    };
     o.depends("ss_tcp_header_type", "http");
 
     o = s.taboption(
@@ -1319,19 +1334,27 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       "%s - %s".format("WebSocket", _("Path"))
     );
     o.modalonly = true;
+    o.validate = function (sid: string, Value: string): boolean | string {
+      if (!Value) {
+        return true;
+      }
+      return v2ray.v2rayValidation("path", Value);
+    };
     o.depends("ss_network", "ws");
 
     o = s.taboption(
       "stream",
-      form.DynamicList,
+      form.Value,
       "ss_websocket_headers",
-      "%s - %s".format("WebSocket", _("Headers")),
-      _(
-        "A list of HTTP headers, format: <code>header=value</code>. eg: %s"
-      ).format("Host=www.bing.com")
+      "%s - %s".format("WebSocket", _("Host"))
     );
     o.modalonly = true;
+    o.datatype = "hostname";
+    o.validate = function (sid: string, Value: string): boolean | string {
+      return v2ray.v2rayValidation("sni", Value, sid);
+    };
     o.depends("ss_network", "ws");
+    o.rmempty = true;
 
     // Stream Settings - gRPC
 
@@ -1412,6 +1435,13 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       "%s - %s".format("HTTP/2", _("Host"))
     );
     o.modalonly = true;
+    o.datatype = "hostname";
+    o.validate = function (sid: string, Value: string): boolean | string {
+      if (Value) {
+        return v2ray.domainRule(Value, true)
+      };
+      return "%s: %s".format(_("Expecting"), _("a valid domain name"));
+    };
     o.depends("ss_network", "h2");
 
     o = s.taboption(
@@ -1421,6 +1451,12 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       "%s - %s".format("HTTP/2", _("Path"))
     );
     o.modalonly = true;
+    o.validate = function (sid: string, Value: string): boolean | string {
+      if (!Value) {
+        return true;
+      }
+      return v2ray.v2rayValidation("path", Value);
+    };
     o.depends("ss_network", "h2");
     o.placeholder = "/";
 
@@ -1432,6 +1468,12 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       "%s - %s".format("Domain Socket", _("Path"))
     );
     o.modalonly = true;
+    o.validate = function (sid: string, Value: string): boolean | string {
+      if (!Value) {
+        return true;
+      }
+      return v2ray.v2rayValidation("path", Value);
+    };
     o.depends("ss_network", "domainsocket");
 
     // Stream Settings - QUIC
@@ -1443,7 +1485,6 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     );
     o.modalonly = true;
     o.depends("ss_network", "quic");
-    o.value("");
     o.value("none", _("None"));
     o.value("aes-128-gcm");
     o.value("chacha20-poly1305");
@@ -1493,14 +1534,9 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       "%s - %s".format(_("Sockopt"), _("Domain strategy"))
     );
     o.modalonly = true;
-    o.depends("protocol", "http");
-    o.depends("protocol", "loopback");
-    o.depends("protocol", "mtproto");
-    o.depends("protocol", "shadowsocks");
-    o.depends("protocol", "socks");
-    o.depends("protocol", "trojan");
-    o.depends("protocol", "vless");
-    o.depends("protocol", "vmess");
+    o.depends({
+      protocol: /\b(http|loopback|mtproto|shadowsocks|socks|trojan|vless|vmess)\b/
+    });
     o.value("AsIs");
     o.value("UseIP");
     o.value("UseIPv4");

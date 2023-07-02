@@ -232,7 +232,8 @@ return L.Class.extend({
 
   v2rayValidation: function (
     validate_type: string,
-    input_value: string
+    input_value: string,
+    section_id: string,
   ): boolean | string {
     const domain_match_errmsg: string = "%s\n   %s\n   %s\n   %s\n   %s\n   %s\n   %s".format(
       _("Valid domain matching rules:"),
@@ -369,6 +370,27 @@ return L.Class.extend({
               _("domain matching rules"),
               domain_match_errmsg
             );
+      }
+      case "path": {
+        const path_reg = /^\/[a-z0-9-_/]*$/i;
+        return input_value.match(path_reg) ? true : _("Invalid Path");
+      }
+      case "sni" : {
+        const sni_err: string = "%s: %s".format(_("Expecting"), _("a valid domain name"));
+        const protocol: string = uci.get("v2ray", section_id, "protocol");
+        const addr_pointer: string = "s_" + "protocol" + "_address";
+        const addr: string = uci.get("v2ray", section_id, addr_pointer);
+        const lch_reg = /^localhost$/i;
+        if (!input_value) {
+          if (!(v2ray.ipRule(addr))) {
+            return true;
+          }
+        }
+        const lch: string = input_value.match(lch_reg);      
+        if (!lch && this.domainRule(input_value, true)) {
+          return true;
+        }
+        return sni_err;
       }
       default: {
         return _("Invalid Input");

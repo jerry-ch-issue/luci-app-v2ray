@@ -740,14 +740,15 @@ return L.view.extend<string[], string>({
 
     o = s.taboption(
       "stream",
-      form.DynamicList,
+      form.ListValue,
       "ss_websocket_headers",
-      "%s - %s".format("WebSocket", _("Headers")),
-      _(
-        "A list of HTTP headers, format: <code>header=value</code>. eg: %s"
-      ).format("Host=www.bing.com")
+      "%s - %s".format("WebSocket", _("Host"))
     );
     o.modalonly = true;
+    o.datatype = "hostname";
+    o.validate = function (sid: string, Value: string): boolean | string {
+      return v2ray.v2rayValidation("sni", Value, sid);
+    };
     o.depends("ss_network", "ws");
 
     // Stream Settings - HTTP/2
