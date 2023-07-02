@@ -93,11 +93,7 @@ return L.view.extend<SectionItem[], string>({
     o.value("0", _("False"));
     o.value("1", _("True"));
 
-    o = s1.option(
-      form.MultiValue,
-      "servers",
-      _("DNS Servers"),
-    );
+    o = s1.option(form.MultiValue, "servers", _("DNS Servers"),);
     for (const d of dnsServers) {
       o.value(d.value, d.caption);
     }
@@ -142,7 +138,7 @@ return L.view.extend<SectionItem[], string>({
     o = s2.option(form.Value, "address", _("Address"));
     o.datatype = "host";
     o.depends({ dns_server_type: /\b(QUIC|TCP|UDP)\b/i });
-    
+
     o = s2.option(form.Value, "port", _("Port"));
     o.depends({ dns_server_type: /\b(QUIC|TCP|UDP)\b/i });
     o.modalonly = true;

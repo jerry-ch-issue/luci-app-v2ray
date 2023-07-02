@@ -1367,7 +1367,9 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.modalonly = true;
     o.rmempty = false;
     o.validate = function (sid: string, Value: string): boolean | string {
-      return Value.match(/(?![-_])^[a-z0-9-_]+(?<![_-])$/i) ? true : _("Invalid Service Name");
+      return Value.match(/(?![-_])^[a-z0-9-_]+(?<![_-])$/i)
+        ? true
+        : _("Invalid Service Name");
     };
     o.depends("ss_network", "grpc");
     o.placeholder = "gRPC_Service";
