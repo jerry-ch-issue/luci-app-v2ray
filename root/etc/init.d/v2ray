@@ -331,7 +331,7 @@ inbound_section_validate() {
 		'ss_kcp_write_buffer_size:uinteger' \
 		'ss_kcp_header_type:or("none", "srtp", "utp", "wechat-video", "dtls", "wireguard")' \
 		'ss_websocket_path:string' \
-		'ss_websocket_headers:list(string)' \
+		'ss_websocket_headers:hostname' \
 		'ss_grpc_service_name:string' \
 		'ss_grpc_multi_mode:bool:0' \
 		'ss_grpc_permit_without_stream:bool:0' \
@@ -374,7 +374,7 @@ outbound_section_validate() {
 		's_freedom_fragment_interval:string' \
 		's_freedom_fragment_packets:string' \
 		's_freedom_user_level:uinteger' \
-		's_http_server_address:host' \
+		's_http_address:host' \
 		's_http_server_port:port' \
 		's_http_account_user:string' \
 		's_http_account_pass:string' \
@@ -450,7 +450,7 @@ outbound_section_validate() {
 		'ss_kcp_write_buffer_size:uinteger' \
 		'ss_kcp_header_type:or("none", "srtp", "utp", "wechat-video", "dtls", "wireguard")' \
 		'ss_websocket_path:string' \
-		'ss_websocket_headers:list(string)' \
+		'ss_websocket_headers:hostname' \
 		'ss_grpc_service_name:string' \
 		'ss_grpc_multi_mode:bool:0' \
 		'ss_grpc_permit_without_stream:bool:0' \
@@ -1951,20 +1951,17 @@ add_inbound_setting() {
 		json_add_boolean "allowInsecure" "$ss_tls_allow_insecure"
 		json_add_boolean "allowInsecureCiphers" "$ss_tls_allow_insecure_ciphers"
 		json_add_boolean "disableSystemRoot" "$ss_tls_disable_system_root"
-
-		json_add_array "certificates"
+		
 		if [ -n "$ss_tls_cert_fiile" ] ; then
-			json_add_object ""
-
-			json_add_string "certificateFile" "$ss_tls_cert_fiile"
-			json_add_string "keyFile" "$ss_tls_key_file"
-			test -n "$ss_tls_cert_usage" && \
-				json_add_string "usage" "$ss_tls_cert_usage"
-
-			json_close_object
+			json_add_array "certificates"
+				json_add_object ""
+				json_add_string "certificateFile" "$ss_tls_cert_fiile"
+				json_add_string "keyFile" "$ss_tls_key_file"
+				test -n "$ss_tls_cert_usage" && \
+					json_add_string "usage" "$ss_tls_cert_usage"
+				json_close_object
+			json_close_array
 		fi
-		json_close_array # certificates
-
 		json_close_object # tlsSettings
 	fi
 
@@ -2079,18 +2076,16 @@ add_inbound_setting() {
 
 			if [ -n "$ss_websocket_headers" ] ; then
 				json_add_object "headers"
-
-				handle_websocket_header() {
-					local h="$1"
-
-					local name="$(echo "$h" | cut -d'=' -f1)"
-					local value="$(echo "$h" | cut -d'=' -f2)"
-
-					if [ -n "$name" ] && [ -n "$value" ] ; then
-						json_add_string "$name" "$value"
-					fi
-				}
-				config_list_foreach "$section" "ss_websocket_headers" handle_websocket_header
+				json_add_string "Host" "$ss_websocket_headers"
+#				handle_websocket_header() {
+#					local h="$1"
+#					local name="$(echo "$h" | cut -d'=' -f1)"
+#					local value="$(echo "$h" | cut -d'=' -f2)"
+#					if [ -n "$name" ] && [ -n "$value" ] ; then
+#						json_add_string "$name" "$value"
+#					fi
+#				}
+#				config_list_foreach "$section" "ss_websocket_headers" handle_websocket_header
 
 				json_close_object # headers
 			fi
@@ -2318,8 +2313,8 @@ add_outbound_setting() {
 
 			json_add_object ""
 
-			json_add_string "address" "$s_http_server_address"
-			append_server_address "$s_http_server_address"
+			json_add_string "address" "$s_http_address"
+			append_server_address "$s_http_address"
 
 			test -n "$s_http_server_port" && \
 				json_add_int "port" "$s_http_server_port"
@@ -2621,16 +2616,16 @@ add_outbound_setting() {
 				json_add_boolean "allowInsecure" "$ss_tls_allow_insecure"
 				json_add_boolean "allowInsecureCiphers" "$ss_tls_allow_insecure_ciphers"
 				json_add_boolean "disableSystemRoot" "$ss_tls_disable_system_root"
-				json_add_array "certificates"
 				if [ -n "$ss_tls_cert_fiile" ] ; then
-					json_add_object ""
-					json_add_string "certificateFile" "$ss_tls_cert_fiile"
-					json_add_string "keyFile" "$ss_tls_key_file"
-					test -n "$ss_tls_cert_usage" && \
-					json_add_string "usage" "$ss_tls_cert_usage"
-					json_close_object
+					json_add_array "certificates"
+						json_add_object ""
+						json_add_string "certificateFile" "$ss_tls_cert_fiile"
+						json_add_string "keyFile" "$ss_tls_key_file"
+						test -n "$ss_tls_cert_usage" && \
+							json_add_string "usage" "$ss_tls_cert_usage"
+						json_close_object
+					json_close_array # certificates
 				fi
-				json_close_array # certificates
 				json_close_object # tlsSettings
 			;;
 		"reality")
@@ -2775,19 +2770,16 @@ add_outbound_setting() {
 
 			if [ -n "$ss_websocket_headers" ] ; then
 				json_add_object "headers"
-
-				handle_websocket_header() {
-					local h="$1"
-
-					local name="$(echo "$h" | cut -d'=' -f1)"
-					local value="$(echo "$h" | cut -d'=' -f2)"
-
-					if [ -n "$name" ] && [ -n "$value" ] ; then
-						json_add_string "$name" "$value"
-					fi
-				}
-				config_list_foreach "$section" "ss_websocket_headers" handle_websocket_header
-
+				json_add_string "Host" "$ss_websocket_headers"
+#				handle_websocket_header() {
+#					local h="$1"
+#					local name="$(echo "$h" | cut -d'=' -f1)"
+#					local value="$(echo "$h" | cut -d'=' -f2)"
+#					if [ -n "$name" ] && [ -n "$value" ] ; then
+#						json_add_string "$name" "$value"
+#					fi
+#				}
+#				config_list_foreach "$section" "ss_websocket_headers" handle_websocket_header
 				json_close_object # headers
 			fi
 
