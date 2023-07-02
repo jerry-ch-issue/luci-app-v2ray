@@ -93,7 +93,7 @@ return L.view.extend<SectionItem[], string>({
     o.value("0", _("False"));
     o.value("1", _("True"));
 
-    o = s1.option(form.MultiValue, "servers", _("DNS Servers"),);
+    o = s1.option(form.MultiValue, "servers", _("DNS Servers"));
     for (const d of dnsServers) {
       o.value(d.value, d.caption);
     }
