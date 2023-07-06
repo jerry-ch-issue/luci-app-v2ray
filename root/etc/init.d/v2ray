@@ -634,9 +634,9 @@ add_v2ray_nftables_redirect_rules() {
 							echo "iifname $device meta l4proto tcp counter jump v2ray_tcp_rules"
 						done
 					else
-						echo "ip protocol tcp counter jump v2ray_tcp_rules"
+						echo "meta nfproto ipv4 meta l4proto tcp counter jump v2ray_tcp_rules"
 						if [ "x$TRANSPARENT_PROXY_IPV6" = "x1" ] ; then
-							echo "ip6 protocol tcp counter jump v2ray_tcp_rules"
+							echo "meta nfproto ipv6 meta l4proto tcp counter jump v2ray_tcp_rules"
 						fi
 					fi
 				)
@@ -691,9 +691,9 @@ add_v2ray_nftables_redirect_rules() {
 								echo "iifname $device meta l4proto udp counter jump v2ray_udp_rules"
 							done
 						fi
-						echo "ip protocol udp counter jump v2ray_udp_rules"
+						echo "meta nfproto ipv4 meta l4proto udp counter jump v2ray_udp_rules"
 						if [ "x$TRANSPARENT_PROXY_IPV6" = "x1" ] ; then
-							echo "ip6 protocol udp counter jump v2ray_udp_rules"
+							echo "meta nfproto ipv6 meta l4proto udp counter jump v2ray_udp_rules"
 						fi
 					)
 				}
