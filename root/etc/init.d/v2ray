@@ -659,13 +659,13 @@ add_v2ray_nftables_redirect_rules() {
 				)
 				ip daddr @$IPSET_DST_DIRECT_V4 counter accept
 				ip saddr @$IPSET_SRC_DIRECT_V4 counter accept
+				ip6 daddr @$IPSET_DST_DIRECT_V6 counter accept
+				meta nfproto ipv4 tcp $ext_args counter redirect to :$port
 				$(
 					if [ "x$TRANSPARENT_PROXY_IPV6" = "x1" ] ; then
-						echo -e "ip6 daddr @$IPSET_DST_DIRECT_V6 counter accept \n \
-						tcp $ext_args6 counter redirect to :$port"
+						echo "meta nfproto ipv6 tcp $ext_args6 counter redirect to :$port"
 					fi
 				)
-				tcp $ext_args counter redirect to :$port
 			}
 			chain tcp_output {
 				type nat hook output priority filter; policy accept;
@@ -729,16 +729,13 @@ add_v2ray_nftables_redirect_rules() {
 							
 					ip daddr @$IPSET_DST_DIRECT_V4 counter accept
 					ip saddr @$IPSET_SRC_DIRECT_V4 counter accept
-					$(
-						if [ "x$TRANSPARENT_PROXY_IPV6" = "x1" ] ; then
-							echo "ip6 daddr @$IPSET_DST_DIRECT_V6 counter accept"
-						fi
-					)
+					ip6 daddr @$IPSET_DST_DIRECT_V6 counter accept
+					
 					$(
 						if [ "$addition" = "udp" ] ; then
-							echo "udp $ext_args counter tproxy ip to :$port meta mark set 1"
+							echo "meta nfproto ipv4 udp $ext_args counter tproxy ip to :$port meta mark set 1"
 							if [ "x$TRANSPARENT_PROXY_IPV6" = "x1" ] ; then
-								echo "udp $ext_args6 counter tproxy ip6 to :$port meta mark set 1"
+								echo "meta nfproto ipv6 udp $ext_args6 counter tproxy ip6 to :$port meta mark set 1"
 							fi
 						fi
 					)
@@ -762,16 +759,12 @@ add_v2ray_nftables_redirect_rules() {
 					)
 					ip daddr @$IPSET_DST_DIRECT_V4 counter accept
 					ip saddr @$IPSET_SRC_DIRECT_V4 counter accept
-					$(
-						if [ "x$TRANSPARENT_PROXY_IPV6" = "x1" ] ; then
-							echo "ip6 daddr @$IPSET_DST_DIRECT_V6 counter accept"
-						fi
-					)
+					ip6 daddr @$IPSET_DST_DIRECT_V6 counter accept
 					$(
 						if [ "$addition" = "udp" ] ; then
-							echo "udp $ext_args counter meta mark set 1"
+							echo "meta nfproto ipv4 udp $ext_args counter meta mark set 1"
 							if [ "x$TRANSPARENT_PROXY_IPV6" = "x1" ] ; then
-								echo "udp $ext_args6 counter meta mark set 1"
+								echo "meta nfproto iv6 udp $ext_args6 counter meta mark set 1"
 							fi
 						fi
 					)
@@ -962,8 +955,7 @@ add_v2ray_nftables_tproxy_rules() {
 					if [ "x$TRANSPARENT_PROXY_IPV6" = "x1" ] ; then
 						echo "ip6 daddr ::1 udp dport 53 counter tproxy ip6 to :$port meta mark set 1"
 					fi
-				)
-				$(
+
 					if [ "$FAKEDNS_ENABLED" = "1" ] ; then
 						echo -e "ip daddr 192.18.0.0/15 meta l4proto { tcp, udp } tproxy ip to :$port meta mark set 1\n \
 							ip6 daddr fc00::/18 meta l4proto { tcp, udp } tproxy ip6 to :$port meta mark set 1"
@@ -971,18 +963,19 @@ add_v2ray_nftables_tproxy_rules() {
 				)
 				ip daddr @$IPSET_DST_DIRECT_V4 counter return
 				ip saddr @$IPSET_SRC_DIRECT_V4 counter return
+				ip6 daddr @$IPSET_DST_DIRECT_V6 counter return
+				meta nfproto ipv4 tcp $ext_args counter tproxy ip to :$port meta mark set 1
 				$(
 					if [ "x$TRANSPARENT_PROXY_IPV6" = "x1" ] ; then
-						echo -e "ip6 daddr @$IPSET_DST_DIRECT_V6 counter return \n \
-							tcp $ext_args6 counter tproxy ip6 to :$port meta mark set 1"
+						echo "meta nfproto ipv6 tcp $ext_args6 counter tproxy ip6 to :$port meta mark set 1"
 					fi
 				)
-				tcp $ext_args counter tproxy ip to :$port meta mark set 1
+				
 				$(    	
 					if [ "$addition" = "udp" ] ; then
-						echo "udp $ext_args counter tproxy ip to :$port meta mark set 1"
+						echo "meta nfproto ipv4 udp $ext_args counter tproxy ip to :$port meta mark set 1"
 						if [ "x$TRANSPARENT_PROXY_IPV6" = "x1" ] ; then
-							echo "udp $ext_args6 counter tproxy ip6 to :$port meta mark set 1"
+							echo "meta nfproto ipv6 udp $ext_args6 counter tproxy ip6 to :$port meta mark set 1"
 						fi
 					fi
 				)
@@ -1017,20 +1010,19 @@ add_v2ray_nftables_tproxy_rules() {
 				)
 				ip daddr @$IPSET_DST_DIRECT_V4 counter accept
 				ip saddr @$IPSET_SRC_DIRECT_V4 counter accept
+				ip6 daddr @$IPSET_DST_DIRECT_V6 counter accept
+				meta nfproto ipv4 tcp $ext_args counter meta mark set 1
 				$(
 					if [ "x$TRANSPARENT_PROXY_IPV6" = "x1" ] ; then
-						echo -e "ip6 daddr @$IPSET_DST_DIRECT_V6 counter accept \n \
-							tcp $ext_args6 counter meta mark set 1"
+						echo "meta nfproto ipv6 tcp $ext_args6 counter meta mark set 1"
 					fi
-				)
-				tcp $ext_args counter meta mark set 1
-				$(
+				
 					if [ "$addition" = "udp" ] ; then
 
-						echo "udp $ext_args" counter meta mark set 1
+						echo "meta nfproto ipv4 udp $ext_args" counter meta mark set 1
 
 						if [ "x$TRANSPARENT_PROXY_IPV6" = "x1" ] ; then
-							echo "udp $ext_args6 counter meta mark set 1"
+							echo "meta nfproto ipv6 udp $ext_args6 counter meta mark set 1"
 						fi
 					fi
 				)
