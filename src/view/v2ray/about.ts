@@ -10,28 +10,28 @@
 "require fs";
 "require uci";
 "require ui";
+"require v2ray";
 // "require view";
 
 // @ts-ignore
-return L.view.extend<[string, string]>({
+return L.view.extend<[string, string, string]>({
   load: function () {
     return uci.load("v2ray").then(function () {
       let configFile = uci.get("v2ray", "main", "config_file");
-
       if (!configFile) {
         configFile = "/var/etc/v2ray/v2ray.main.json";
       }
-
       return Promise.all([
         Promise.resolve(configFile),
         L.resolveDefault(fs.read(configFile), ""),
+        v2ray.getCore(),
       ]);
     });
   },
-  render: function ([configFile = "", configContent = ""] = []) {
+  render: function ([configFile = "", configContent = "", core = ""] = []) {
     return E([
-      E("h2", "%s - %s".format(_("V2Ray"), _("About"))),
-      E("p", _("LuCI support for V2Ray.")),
+      E("h2", "%s - %s".format(core, _("About"))),
+      E("p", _("LuCI support for V2Ray and Xray.")),
       E(
         "p",
         _("Version: %s").format(
