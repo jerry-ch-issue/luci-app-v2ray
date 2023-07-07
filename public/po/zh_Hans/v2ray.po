@@ -1328,7 +1328,7 @@ msgstr "不代理的UDP端口"
 
 #: src/view/v2ray/transparent-proxy.ts:221
 msgid ""
-"Outgoing %s Traffic from the given port(s) will be ignored by Transparent "
+"Outgoing %s Traffic from the given port(s) will be excluded by Transparent "
 "Proxy."
 msgstr "经由上述端口发出的%s流量不会被代理."
 
@@ -1346,11 +1346,11 @@ msgstr "全局代理模式"
 
 #: src/view/v2ray/transparent-proxy.ts:238
 msgid "CN Direct"
-msgstr "直连中国IP"
+msgstr "直连中国网站"
 
 #: src/view/v2ray/transparent-proxy.ts:239
 msgid "CN Proxy"
-msgstr "代理中国IP"
+msgstr "代理中国网站"
 
 #: src/view/v2ray/transparent-proxy.ts:240
 msgid "GFWList Proxy"
