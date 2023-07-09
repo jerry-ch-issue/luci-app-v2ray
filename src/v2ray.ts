@@ -342,9 +342,10 @@ return L.Class.extend({
             }
           }
         }
-        return '%s: "%s"\n - %s\n - %s\n   %s\n   %s\n   %s'.format(
+        return '%s: "%s"\|"%s"\n - %s\n - %s\n   %s\n   %s\n   %s'.format(
           _("Expecting"),
-          "domain_match_rules|mapping_objects",
+          _("domain matching rules"),
+          _("mapping objects"),
           domain_match_errmsg,
           _("Valid mapping objects:"),
           _('IP address, eg: "8.8.8.8"'),
