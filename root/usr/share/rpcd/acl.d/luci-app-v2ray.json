@@ -1,0 +1,42 @@
+{
+  "luci-app-v2ray": {
+    "description": "Grant access to LuCI app V2ray",
+    "read": {
+      "ubus": {
+        "luci.v2ray": [
+          "*"
+        ]
+      },
+      "uci": [
+        "v2ray"
+      ],
+      "file": {
+        "/etc/v2ray/*": [
+          "read"
+        ],
+        "/proc/sys/net/ipv4/tcp_available_congestion_control": [
+          "read"
+        ],
+        "/var/etc/v2ray/*": [
+          "read"
+        ],
+        "/etc/init.d/v2ray": [
+          "exec"
+        ],
+        "/usr/share/v2ray/update_lists.sh": [
+          "exec"
+        ]
+      }
+    },
+    "write": {
+      "uci": [
+        "v2ray"
+      ],
+      "file": {
+        "/etc/v2ray/*": [
+          "write"
+        ]
+      }
+    }
+  }
+}
