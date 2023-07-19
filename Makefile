@@ -13,8 +13,10 @@ PKG_LICENSE:=MIT
 PKG_MAINTAINER:=Xingwang Liao <kuoruan@gmail.com>
 
 LUCI_TITLE:=LuCI support for V2Ray & Xray
-LUCI_DEPENDS:=+jshn +ip +nftables-json +kmod-nft-socket +kmod-nft-tproxy \
-	+resolveip +dnsmasq-full +curl +coreutils-base64
+LUCI_DEPENDS:=+jshn +ip +resolveip +dnsmasq-full +curl +coreutils-base64 \
+	+PACKAGE_kmod-nft-core:nftables-json +PACKAGE_kmod-nft-core:kmod-nft-socket +PACKAGE_kmod-nft-core:kmod-nft-tproxy +PACKAGE_kmod-nft-core:kmod-nft-fib \
+	+PACKAGE_kmod-ipt-core:iptables-mod-tproxy +PACKAGE_kmod-ipt-core:iptables-mod-socket +PACKAGE_kmod-ipt-core:iptables-mod-socket \
+	+PACKAGE_kmod-ipt-core:iptables-mod-extra
 LUCI_PKGARCH:=all
 
 define Package/$(PKG_NAME)/conffiles

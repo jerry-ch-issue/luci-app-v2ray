@@ -533,7 +533,7 @@ add_v2ray_iptables_redirect_rules() {
 				if [ -n "$EXCLUDED_TCP_PORT" ] ; then
 					local etp
 					for etp in $EXCLUDED_TCP_PORT ; do
-						echo "-A OUTPUT -p tcp --sport $(echo $etp | sed 's/\-/\:/') -j ACCEPT"
+						echo "-A OUTPUT -p tcp --sport $(echo $etp | sed 's/\-/\:/') -j RETURN"
 					done
 				fi
 			)
@@ -549,20 +549,30 @@ add_v2ray_iptables_redirect_rules() {
 				*mangle
 				:V2RAY -
 				-A V2RAY -j RETURN -m owner --gid-owner $V2RAY_GID
+				-A V2RAY -p udp --dport 53 -m addrtype ! --dst-type LOCAL -j TPROXY --on-port $port --tproxy-mark 0x1/0x1"
 				$(
-					if [ -n "$lan_ipaddrs" ] ; then
-						if [ "$proxy_mode" != "gfwlist_proxy" ] ; then
+					if [ "$proxy_mode" = "gfwlist_proxy" ] ; then
+						if [ -n "$lan_ipaddrs" ] ; then
+							local ipaddr
+							for ipaddr in $lan_ipaddrs ; do
+								echo "-A V2RAY -p udp --dport 53 -d $ipaddr -j RETURN"
+							done
+						fi
+						echo "-A V2RAY -p udp --dport 53 -d $loip -j RETURN"
+					else
+						if [ -n "$lan_ipaddrs" ] ; then
 							local ipaddr
 							for ipaddr in $lan_ipaddrs ; do
 								echo "-A V2RAY -p udp --dport 53 -d $ipaddr -j TPROXY --on-port $port --tproxy-mark 0x1/0x1"
 							done
 						fi
+						echo "-A V2RAY -p udp --dport 53 -d $loip -j TPROXY --on-port $port --tproxy-mark 0x1/0x1"
 					fi
-					echo "-A V2RAY -p udp --dport 53 -d $loip -j TPROXY --on-port $port --tproxy-mark 0x1/0x1"
 					
 					if [ "$FAKEDNS_ENABLED" = "1" ] ; then
 						echo "-A V2RAY -p udp -d $fakedns_pool -j TPROXY --on-port $port --tproxy-mark 0x1/0x1"
 					fi
+					
 					if [ -n "$ipset_src_direct" ] ; then
 						echo "-A V2RAY -p udp -j RETURN -m set --match-set $ipset_src_direct src"
 					fi
@@ -598,11 +608,10 @@ add_v2ray_iptables_redirect_rules() {
 					if [ -n "$EXCLUDED_UDP_PORT" ] ; then
 						local eup
 						for eup in $EXCLUDED_UDP_PORT ; do
-							echo "-A V2RAY_OUTPUT -p udp --sport $(echo $eup | sed 's/\-/\:/') -j ACCEPT"
+							echo "-A V2RAY_OUTPUT -p udp --sport $(echo $eup | sed 's/\-/\:/') -j RETURN"
 						done
 					fi
 				)
-
 				-A V2RAY_OUTPUT -p udp -j RETURN -m set --match-set $ipset_dst_direct dst
 				$(
 					if [ "$addition" = "udp" ] ; then
@@ -647,20 +656,20 @@ add_v2ray_nftables_redirect_rules() {
 					if [ -n "$EXCLUDED_TCP_PORT" ] ; then
 						local etp
 						for etp in $EXCLUDED_TCP_PORT; do
-							echo "tcp sport $etp counter accept"
+							echo "tcp sport $etp counter return"
 						done
 					fi
 				)
-				meta skgid $V2RAY_GID counter accept
+				meta skgid $V2RAY_GID counter return
 				$(
 					if [ "$FAKEDNS_ENABLED" = "1" ] ; then
 						echo -e "ip daddr 192.18.0.0/15 meta l4proto tcp counter redirect to :$port\n \
 							ip6 daddr fc00::/18 meta l4proto tcp counter redirect to :$port"
 					fi
 				)
-				ip daddr @$IPSET_DST_DIRECT_V4 counter accept
-				ip saddr @$IPSET_SRC_DIRECT_V4 counter accept
-				ip6 daddr @$IPSET_DST_DIRECT_V6 counter accept
+				ip daddr @$IPSET_DST_DIRECT_V4 counter return
+				ip saddr @$IPSET_SRC_DIRECT_V4 counter return
+				ip6 daddr @$IPSET_DST_DIRECT_V6 counter return
 				meta nfproto ipv4 tcp $ext_args counter redirect to :$port
 				$(
 					if [ "x$TRANSPARENT_PROXY_IPV6" = "x1" ] ; then
@@ -699,28 +708,32 @@ add_v2ray_nftables_redirect_rules() {
 					)
 				}
 				chain v2ray_udp_rules {
-					meta skgid $V2RAY_GID counter accept
+					meta skgid $V2RAY_GID counter return
 					$(
 						if [ -n "$lan_ipaddrs" ] ; then
-							if [ "$proxy_mode" != "gfwlist_proxy" ] ; then
-								local ipaddr
-								for ipaddr in $lan_ipaddrs ; do
+							local ipaddr
+							for ipaddr in $lan_ipaddrs ; do
+								if [ "$proxy_mode" = "gfwlist_proxy" ] ; then
+									echo "ip daddr $ipaddr udp dport 53 counter return"
+								else
 									echo "ip daddr $ipaddr udp dport 53 counter tproxy ip to :$port meta mark set 1"
-								done
-							fi
+								fi
+							done
 						fi
 						if [ "x$TRANSPARENT_PROXY_IPV6" = "x1" ] ; then
 							if [ -n "$lan_ip6addrs" ] ; then
-								if [ "$proxy_mode" != "gfwlist_proxy" ] ; then
-									local ip6adr
-									for ip6addr in $lan_ip6addrs ; do
+								local ip6adr
+								for ip6addr in $lan_ip6addrs ; do
+									if [ "$proxy_mode" = "gfwlist_proxy" ] ; then
+										echo "ip6 daddr $ip6addr udp dport 53 counter return"
+									else
 										echo "ip6 daddr $ip6addr udp dport 53 counter tproxy ip6 to :$port meta mark set 1"
-									done
-								fi
+									fi
+								done
 							fi
-							echo "ip6 saddr ::1 udp dport 53 counter tproxy ip6 to :$port meta mark set 1"
 						fi
-						echo "ip saddr 127.0.0.1 udp dport 53 counter tproxy ip to :$port meta mark set 1"
+						echo -e "ip saddr 127.0.0.1 udp dport 53 counter tproxy ip to :$port meta mark set 1\n \
+							ip6 saddr ::1 udp dport 53 counter tproxy ip6 to :$port meta mark set 1"
 
 						if [ "$FAKEDNS_ENABLED" = "1" ] ; then
 							echo -e "ip daddr 192.18.0.0/15 meta l4proto udp counter tproxy ip to :$port meta mark set 1\n \
@@ -728,9 +741,9 @@ add_v2ray_nftables_redirect_rules() {
 						fi
 					)
 							
-					ip daddr @$IPSET_DST_DIRECT_V4 counter accept
-					ip saddr @$IPSET_SRC_DIRECT_V4 counter accept
-					ip6 daddr @$IPSET_DST_DIRECT_V6 counter accept
+					ip daddr @$IPSET_DST_DIRECT_V4 counter return
+					ip saddr @$IPSET_SRC_DIRECT_V4 counter return
+					ip6 daddr @$IPSET_DST_DIRECT_V6 counter return
 					
 					$(
 						if [ "$addition" = "udp" ] ; then
@@ -743,13 +756,13 @@ add_v2ray_nftables_redirect_rules() {
 				}
 				chain udp_output {
 					type nat hook output priority filter; policy accept;
-					meta skgid $V2RAY_GID counter accept
+					meta skgid $V2RAY_GID counter return
 					udp dport 53 counter meta mark set 1
 					$(
 						if [ -n "$EXCLUDED_UDP_PORT" ] ; then
 							local eup
 							for eup in $EXCLUDED_UDP_PORT ; do
-								echo "udp sport $eup counter accept"
+								echo "udp sport $eup counter return"
 							done
 						fi
 					
@@ -758,9 +771,9 @@ add_v2ray_nftables_redirect_rules() {
 								ip6 daddr fc00::/18 meta l4proto udp mark set 1"
 						fi
 					)
-					ip daddr @$IPSET_DST_DIRECT_V4 counter accept
-					ip saddr @$IPSET_SRC_DIRECT_V4 counter accept
-					ip6 daddr @$IPSET_DST_DIRECT_V6 counter accept
+					ip daddr @$IPSET_DST_DIRECT_V4 counter return
+					ip saddr @$IPSET_SRC_DIRECT_V4 counter return
+					ip6 daddr @$IPSET_DST_DIRECT_V6 counter return
 					$(
 						if [ "$addition" = "udp" ] ; then
 							echo "meta nfproto ipv4 udp $ext_args counter meta mark set 1"
@@ -819,19 +832,31 @@ add_v2ray_iptables_tproxy_rules() {
 		:V2RAY -	
 		-A V2RAY -j RETURN -m owner --gid-owner $V2RAY_GID
 		$(
-			if [ -n "$addition" ] && [ -n "$lan_ipaddrs" ] ; then
-				if [ "$proxy_mode" != "gfwlist_proxy" ] ; then
-					local ipaddr
-					for ipaddr in $lan_ipaddrs ; do
-						echo "-A V2RAY -p udp --dport 53 -d $ipaddr -j TPROXY --on-port $port --tproxy-mark 0x1/0x1"
-					done
+			if [ -n "$addition" ] ; then
+				echo "-A V2RAY -m addrtype ! --dst-type LOCAL -p udp --dport 53 -j TPROXY --on-port $port --tproxy-mark 0x1/0x1" #Hijack All outgoing DNS queries to TProxy
+				if [ "$proxy_mode" = "gfwlist_proxy" ] ; then #do not bypass dnsmasq in GFWList-Proxy mode.
+					if [ -n "$lan_ipaddrs" ] ; then
+						local ipaddr
+						for ipaddr in $lan_ipaddrs ; do
+							echo "-A V2RAY -p udp --dport 53 -d $ipaddr -j RETURN" 
+						done
+					fi
+					echo "-A V2RAY -p udp --dport 53 -d $loip -j RETURN"
+				else  #Hijack All LAN DNS queries to TProxy.
+					if [ -n "$lan_ipaddrs" ] ; then
+						local ipaddr
+						for ipaddr in $lan_ipaddrs ; do
+							echo -e "-A V2RAY -p udp --dport 53 -d $ipaddr -j TPROXY --on-port $port --tproxy-mark 0x1/0x1"
+						done
+					fi
+					echo "-A V2RAY -p udp --dport 53 -d $loip -j TPROXY --on-port $port --tproxy-mark 0x1/0x1"
 				fi
 			fi
-			echo "-A V2RAY -p udp --dport 53 -d $loip -j TPROXY --on-port $port --tproxy-mark 0x1/0x1"
+
 			if [ "$FAKEDNS_ENABLED" = "1" ] ; then
-				echo -e "-A V2RAY -d $fakedns_pool -p tcp -j TPROXY --on-port $port --tproxy-mark 0x1/0x1\n \
-					-A V2RAY -d $fakedns_pool -p udp -j TPROXY --on-port $port --tproxy-mark 0x1/0x1"
-			fi	
+				echo "-A V2RAY -d $fakedns_pool -j TPROXY --on-port $port --tproxy-mark 0x1/0x1"
+			fi
+
 			if [ -n "$ipset_src_direct" ] ; then
 				echo "-A V2RAY -j RETURN -m set --match-set $ipset_src_direct src"
 			fi
@@ -860,12 +885,13 @@ add_v2ray_iptables_tproxy_rules() {
 			if [ -n "$addition" ] ; then
 				echo "-A V2RAY_OUTPUT -p udp --dport 53 -j MARK --set-mark 1"
 			fi
+
 			if [ "$FAKEDNS_ENABLED" = "1" ] ; then
-				echo -e "-A V2RAY_OUTPUT -p tcp -d $fakedns_pool -j MARK --set-mark 1\n \
-					-A V2RAY_OUTPUT -p udp -d $fakedns_pool -j MARK --set-mark 1"
+				echo "-A V2RAY_OUTPUT -d $fakedns_pool -j MARK --set-mark 1"
 			fi
+
 			if [ -n "$ipset_src_direct" ] ; then
-				echo	"-A V2RAY_OUTPUT -j RETURN -m set --match-set $ipset_src_direct src"
+				echo "-A V2RAY_OUTPUT -j RETURN -m set --match-set $ipset_src_direct src"
 			fi
 		)
 		-A V2RAY_OUTPUT -j RETURN -m set --match-set $ipset_dst_direct dst
@@ -873,7 +899,7 @@ add_v2ray_iptables_tproxy_rules() {
 			if [ -n "$EXCLUDED_TCP_PORT" ] ; then
 				local etp
 				for etp in $EXCLUDED_TCP_PORT ; do
-					echo "-A V2RAY_OUTPUT -p tcp --sport $(echo $etp | sed 's/\-/\:/') -j ACCEPT"
+					echo "-A V2RAY_OUTPUT -p tcp --sport $(echo $etp | sed 's/\-/\:/') -j RETURN"
 				done
 			fi
 		)
@@ -883,7 +909,7 @@ add_v2ray_iptables_tproxy_rules() {
 				if [ -n "$EXCLUDED_UDP_PORT" ] ; then
 					local etp
 					for etp in $EXCLUDED_UDP_PORT ; do
-						echo "-A V2RAY_OUTPUT -p tcp --sport $(echo $etp | sed 's/\-/\:/') -j ACCEPT"
+						echo "-A V2RAY_OUTPUT -p tcp --sport $(echo $etp | sed 's/\-/\:/') -j RETURN"
 					done
 				fi
 				echo "-A V2RAY_OUTPUT -p udp $ext_args -j MARK --set-mark 1"
@@ -918,7 +944,7 @@ add_v2ray_nftables_tproxy_rules() {
 		table inet $NAME {
 			chain divert { 
 				type filter hook prerouting priority mangle; policy accept; 
-				meta l4proto tcp socket transparent 1 counter meta mark set 1 accept
+				meta l4proto tcp socket transparent 1 counter meta mark set 1 return
 				$(
 					if [ -n "$lan_devices" ] ; then 
 						local device 
@@ -930,31 +956,40 @@ add_v2ray_nftables_tproxy_rules() {
 				meta mark 1 counter jump v2ray_rules
 			}
 			chain v2ray_rules {
-				meta skgid $V2RAY_GID counter accept
+				meta skgid $V2RAY_GID counter return
 				$(
 					if [ -n "$addition" ] ; then
+						echo -e "meta nfproto ipv4 fib daddr type != local counter tproxy ip to :$port meta mark set 1\n \
+							meta nfproto ipv6 fib daddr type != local counter tproxy ip6 to :$port meta mark set 1" #Hijack all outgoing DNS-queries to TProxy
 						if [ -n "$lan_ipaddrs" ] ; then
-							if [ "$proxy_mode" != "gfwlist_proxy" ] ; then
-								local ipaddr
-								for ipaddr in $lan_ipaddrs ; do
-									echo "ip daddr $ipaddr udp dport 53 counter tproxy ip to :$port meta mark set 1"
-								done
-							fi
+							local ipaddr
+							for ipaddr in $lan_ipaddrs ; do
+								if [ "$proxy_mode" = "gfwlist_proxy" ] ; then
+									echo "ip daddr $ipaddr udp dport 53 counter return" #do not bypass dnsmasq in GFWList-Proxy mode
+								else
+									echo "ip daddr $ipaddr udp dport 53 counter tproxy ip to :$port meta mark set 1" # Hijack all local DNS-queries to TProxy
+								fi
+							done
 						fi
 						if [ "x$TRANSPARENT_PROXY_IPV6" = "x1" ] ; then
 							if [ -n "$lan_ip6addrs" ] ; then
-								if [ "$proxy_mode" != "gfwlist_proxy" ] ; then
-									local ip6addr
-									for ip6addr in $lan_ip6addrs ; do
-										echo "ip6 daddr $ip6addr udp dport 53 counter tproxy ip6 to :$port meta mark set 1"
-									done
-								fi
+								local ip6addr
+								for ip6addr in $lan_ip6addrs ; do
+									if [ "$proxy_mode" = "gfwlist_proxy" ] ; then
+										echo "ip6 daddr $ip6addr udp dport 53 counter return" #do not bypass dnsmasq in GFWList-Proxy mode
+									else
+										echo "ip6 daddr $ip6addr udp dport 53 counter tproxy ip6 to :$port meta mark set 1" # Hijack all local DNS-queries to TProxy
+									fi
+								done
 							fi
 						fi
 					fi
-					echo "ip daddr 127.0.0.1 udp dport 53 counter tproxy ip to :$port meta mark set 1"
-					if [ "x$TRANSPARENT_PROXY_IPV6" = "x1" ] ; then
-						echo "ip6 daddr ::1 udp dport 53 counter tproxy ip6 to :$port meta mark set 1"
+					if [ "$proxy_mode" = "gfwlist_proxy" ] ; then
+						echo -e "ip daddr 127.0.0.1 udp dport 53 counter return\n \
+							ip6 daddr ::1 udp dport 53 counter return" #do not bypass dnsmasq in GFWList-proxy mode
+					else
+						echo -e "ip daddr 127.0.0.1 udp dport 53 counter tproxy ip to :$port meta mark set 1\n \
+							ip6 daddr ::1 udp dport 53 counter tproxy ip6 to :$port meta mark set 1" # Hijack localhost DNS-queries to TPProxy
 					fi
 
 					if [ "$FAKEDNS_ENABLED" = "1" ] ; then
@@ -983,7 +1018,7 @@ add_v2ray_nftables_tproxy_rules() {
 			}
 			chain v2ray_output { 
 				type route hook output priority mangle; policy accept; 
-				meta skgid $V2RAY_GID counter accept
+				meta skgid $V2RAY_GID counter return
 				$(
 					if [ -n "$addition" ] ; then
 						echo -e "udp dport 53 counter meta mark set 1"
@@ -992,14 +1027,14 @@ add_v2ray_nftables_tproxy_rules() {
 					if  [ -n "$EXCLUDED_TCP_PORT" ] ; then
 						local etp
 						for etp in $EXCLUDED_TCP_PORT ; do
-							echo "tcp sport $etp counter accept"
+							echo "tcp sport $etp counter return"
 						done
 					fi
 
 					if [ -n "$EXCLUDED_UDP_PORT" ] ; then
 						local eup
 						for eup in $EXCLUDED_UDP_PORT ; do
-							echo "udp sport $eup counter accept"
+							echo "udp sport $eup counter return"
 						done
 					fi
 				)
@@ -1009,9 +1044,9 @@ add_v2ray_nftables_tproxy_rules() {
 							ip6 daddr fc00::/18 counter meta l4proto { tcp, udp } mark set 1" 
 					fi 
 				)
-				ip daddr @$IPSET_DST_DIRECT_V4 counter accept
-				ip saddr @$IPSET_SRC_DIRECT_V4 counter accept
-				ip6 daddr @$IPSET_DST_DIRECT_V6 counter accept
+				ip daddr @$IPSET_DST_DIRECT_V4 counter return
+				ip saddr @$IPSET_SRC_DIRECT_V4 counter return
+				ip6 daddr @$IPSET_DST_DIRECT_V6 counter return
 				meta nfproto ipv4 tcp $ext_args counter meta mark set 1
 				$(
 					if [ "x$TRANSPARENT_PROXY_IPV6" = "x1" ] ; then
@@ -2269,7 +2304,7 @@ add_outbound_setting() {
 
 			if [ -n "$s_dns_address" ] ; then
 				json_add_string "address" "$s_dns_address"
-				append_server_address "$s_dns_address"
+				#append_server_address "$s_dns_address"
 			fi
 
 			test -n "$s_dns_port" && \
