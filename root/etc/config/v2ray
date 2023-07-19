@@ -129,6 +129,7 @@ config reverse 'main_reverse'
 
 config inbound 'socks_proxy'
 	option alias 'socks_proxy'
+	option tag 'socks_in'
 	option listen '0.0.0.0'
 	option port '1080'
 	option protocol 'socks'
