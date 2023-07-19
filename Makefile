@@ -13,7 +13,7 @@ PKG_LICENSE:=MIT
 PKG_MAINTAINER:=Xingwang Liao <kuoruan@gmail.com>
 
 LUCI_TITLE:=LuCI support for V2Ray & Xray
-LUCI_DEPENDS:=+jshn +ip +resolveip +dnsmasq-full +curl +coreutils-base64 \
+LUCI_DEPENDS:=+jshn +ip +resolveip +dnsmasq-full +curl +coreutils-base64 
 LUCI_EXTRA_DEPENDS:=$(if $(CONFIG_PACKAGE_kmod-ipt-core),ipset) $(if $(CONFIG_PACKAGE_kmod-ipt-core),iptables-mod-tproxy) \
 	$(if $(CONFIG_PACKAGE_kmod-ipt-core),iptables-mod-extra) $(if $(CONFIG_PACKAGE_kmod-ipt-core),iptables-mod-extra) \
 	$(if $(CONFIG_PACKAGE_kmod-nft-core),kmod-nft-tproxy) $(if $(CONFIG_PACKAGE_kmod-nft-core),kmod-nft-socket) \
