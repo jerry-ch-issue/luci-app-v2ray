@@ -1038,7 +1038,7 @@ clear_v2ray_rules() {
 	$NFT_BIN delete table inet v2ray 2>/dev/null 
 	while ip rule del fwmark 1 lookup 100 2>/dev/null ; do true ; done
 	while ip -6 rule del fwmark 1 lookup 100 2>/dev/null ; do true ; done
-	ip route flush table 100
+	ip route flush table 100 2>/dev/null
 	ip -6 route flush table 100 2>/dev/null
 	ip route del local 0.0.0.0/0 dev lo table 100 2>/dev/null
 	ip -6 route del local ::/0 dev lo table 100 2>/dev/null
