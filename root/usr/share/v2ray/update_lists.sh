@@ -12,7 +12,7 @@ tmp_list=/tmp/tmplist
 chnroute=/etc/v2ray/chnroute.txt
 chnroute6=/etc/v2ray/chnroute6.txt
 gfwlist=/etc/v2ray/gfwlist.txt
-curl -4fsSL $url --output $tmp_list
+uclient-fetch -4q $url -O $tmp_list
 
 err_code="$?"
 
