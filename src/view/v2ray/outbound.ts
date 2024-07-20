@@ -19,7 +19,7 @@
 "require view/v2ray/tools/converters as converters";
 
 // @ts-ignore
-return L.view.extend<SectionItem[][][][][][], tlsItem[], string]>({
+return L.view.extend<[SectionItem[][][][][][], tlsItem[], string]>({
   handleImportSave: function (val: string) {
     const links = val.split(/\r?\n/);
 
