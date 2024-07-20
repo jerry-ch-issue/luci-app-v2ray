@@ -564,7 +564,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       "general",
       form.Value,
       "s_hysteria2_tls_sni",
-      "Hysteria2 - SNI")
+      "Hysteria2 - SNI"
     );
     o.modalonly = true;
     o.depends("protocol", "hysteria2");
