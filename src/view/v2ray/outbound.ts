@@ -255,7 +255,6 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     });
   },
   render: function ([
-    localIPs = [],
     inbound_alias = [],
     inbound_tag = [],
     outbound_alias = [],
@@ -295,7 +294,11 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o = s.taboption("general", form.Value, "tag", _("Tag"));
     o.rmempty = false;
 
-    o = s.taboption("general", widgets.NetworkSelect, "send_through", _("Send through"));
+    o = s.taboption("general",
+      widgets.NetworkSelect,
+      "send_through",
+      _("Send through")
+    );
     o.filter = function (section_id: string, value: string) {
       return value.toUpperCase().indexOf("LAN") < 0;
     };
@@ -539,7 +542,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.modalonly = true;
     o.depends("protocol", "hysteria2");
     o.datatype = "ipaddr";
-    
+
     o = s.taboption(
       "general",
       form.Value,
@@ -549,7 +552,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.modalonly = true;
     o.depends("protocol", "hysteria2");
     o.datatype = "port";
-    
+
     o = s.taboption(
       "general",
       form.Value,
@@ -570,7 +573,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.depends("protocol", "hysteria2");
     o.datatype = "host";
     o.rmempty = true;
-    
+
     o = s.taboption(
       "general",
       form.ListValue,
@@ -582,7 +585,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.value("false", _("False"));
     o.value("true", _("True"));
     o.rmempty = true;
-    
+
     o = s.taboption(
       "general",
       form.Value,
@@ -592,18 +595,13 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.modalonly = true;
     o.depends("protocol", "hysteria2");
     o.rmempty = true;
-    
-    o = s.taboption(
-      "general",
-      form.Value,
-      "s_hysteria2_tls_ca",
-      "TLS CA"
-    );
+
+    o = s.taboption("general", form.Value, "s_hysteria2_tls_ca", "TLS CA");
     o.modalonly = true;
     o.depends("protocol", "hysteria2");
     o.datatype = "file";
     o.rmempty = true;
-    
+
     o = s.taboption(
       "general",
       form.ListValue,
@@ -615,7 +613,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.value("UseIP");
     o.value("UseIPv4");
     o.value("UseIPv6");
-    
+
     o = s.taboption(
       "general",
       form.Value,
@@ -627,7 +625,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.datatype = "and(uinteger, range(10, 100))";
     o.placeholder = "30";
     o.rmempty = true;
-    
+
     o = s.taboption(
       "general",
       form.Value,
@@ -639,7 +637,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.datatype = "uinteger";
     o.placeholder = "8388608";
     o.rmempty = true;
-    
+
     o = s.taboption(
       "general",
       form.Value,
@@ -651,7 +649,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.datatype = "uinteger";
     o.placeholder = "8388608";
     o.rmempty = true;
-    
+
     o = s.taboption(
       "general",
       form.Value,
@@ -663,7 +661,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.datatype = "uinteger";
     o.placeholder = "20971520";
     o.rmempty = true;
-    
+
     o = s.taboption(
       "general",
       form.Value,
@@ -675,7 +673,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.datatype = "uinteger";
     o.placeholder = "20971520";
     o.rmempty = true;
-    
+
     o = s.taboption(
       "general",
       form.Value,
@@ -687,9 +685,10 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.datatype = "uinteger";
     o.placeholder = "20971520";
     o.rmempty = true;
-    
+
     o = s.taboption(
-      "general", form.Value,
+      "general",
+      form.Value,
       "s_hysteria2_quic_maxIdleTO",
       _("Maximum Idle Timeout")
     );
@@ -698,7 +697,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.datatype = "and(uinteger, min(10))";
     o.placeholder = "30";
     o.rmempty = true;
-    
+
     o = s.taboption(
       "general",
       form.Value,
@@ -710,7 +709,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.datatype = "and(uinteger, min(10))";
     o.placeholder = "10";
     o.rmempty = true;
-    
+
     o = s.taboption(
       "general",
       form.ListValue,
@@ -721,7 +720,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.depends("protocol", "hysteria2");
     o.value("false", _("False"));
     o.value("true", _("True"));
-    
+
     o = s.taboption(
       "general",
       form.Value,
@@ -733,7 +732,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.datatype = "and(uinteger, range(10, 1000))";
     o.placeholder = "50";
     o.rmempty = false;
-    
+
     o = s.taboption(
       "general",
       form.Value,
@@ -1608,7 +1607,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.modalonly = true;
     o.rmempty = false;
     o.validate = function (sid: string, Value: string): boolean | string {
-      return Value.match(/(?![-_])^[\/a-z0-9-_]+(?<![_-])$/i)
+      return Value.match(/(?![-_])^[/a-z0-9-_]+(?<![_-])$/i)
         ? true
         : _("Invalid Service Name");
     };
@@ -1713,28 +1712,21 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       "stream",
       form.ListValue,
       "ss_httpupgrade_accept_proxy_protocol",
-      "%s - %s %s".format(
-        _("Accept"),
-        _("Proxy"),
-        _("Protocol")
-      )
+      "Accept Proxy Protocol"
     );
     o.modalonly = true;
     o.value("0", _("False"));
     o.value("1", _("True"));
     o.depends("ss_network", "httpupgrade");
-    
+
     o = s.taboption(
       "stream",
       form.Value,
       "ss_httpupgrade_path",
-      "%s - %s".format(
-        "HTTP Upgrade",
-        _("Path")
-      )
+      "%s - %s".format("HTTP Upgrade", _("Path"))
     );
     o.modalonly = true;
-    o.validate = function(sid: string, Value: string): boolean | string {
+    o.validate = function (sid: string, Value: string): boolean | string {
       if (!Value) {
         return false;
       }
@@ -1742,14 +1734,12 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     };
     o.placeholder = "/";
     o.depends("ss_network", "httpupgrade");
-    
+
     o = s.taboption(
       "stream",
       form.Value,
       "ss_httpupgrade_host",
-      "%s - %s".format(
-        "HTTP Upgrade",
-        _("Domain")
+      "%s - %s".format("HTTP Upgrade", _("Domain")
       )
     );
     o.modalonly = true;
@@ -1825,7 +1815,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     );
     o.depends({
       protocol: /\b(wireguard|hysteria2)\b/,
-      "!reverse": true
+      "!reverse": true,
     });
     o.modalonly = true;
     o.placeholder = "255";
@@ -1868,7 +1858,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     );
     o.depends({
       protocol: /\b(wireguard|hysteria2)\b/,
-      "!reverse": true
+      "!reverse": true,
     });
     o.modalonly = true;
     o.value("");
@@ -1897,7 +1887,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.rmempty = true;
     o.depends({
       protocol: /\b(wireguard|hysteria2)\b/,
-      "!reverse": true
+      "!reverse": true,
     });
     o.validate = function (sid, value) {
       const current_tag: string = uci.get("v2ray", sid, "tag");
@@ -1947,7 +1937,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     );
     o.modalonly = true;
     o.rmempty = true;
-    o.depends({ protocol: hysteria2, "!reverse": true });
+    o.depends({ protocol: "hysteria2", "!reverse": true });
     o.validate = function (sid, value) {
       const current_tag: string = uci.get("v2ray", sid, "tag");
       if (current_tag != value) {
