@@ -294,7 +294,8 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o = s.taboption("general", form.Value, "tag", _("Tag"));
     o.rmempty = false;
 
-    o = s.taboption("general",
+    o = s.taboption(
+      "general",
       widgets.NetworkSelect,
       "send_through",
       _("Send through")
@@ -1739,8 +1740,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       "stream",
       form.Value,
       "ss_httpupgrade_host",
-      "%s - %s".format("HTTP Upgrade", _("Domain")
-      )
+      "%s - %s".format("HTTP Upgrade", _("Domain"))
     );
     o.modalonly = true;
     o.datatype = "hostname";
