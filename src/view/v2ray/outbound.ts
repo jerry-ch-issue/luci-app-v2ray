@@ -386,7 +386,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.depends("protocol", "freedom");
     o.value("");
     o.value("AsIs");
-    o.value("ForceIP";
+    o.value("ForceIP");
     o.value("ForceIPv4");
     o.value("ForceIPv6");
     o.value("ForceIPv4v6");

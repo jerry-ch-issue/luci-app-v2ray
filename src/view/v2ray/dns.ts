@@ -171,14 +171,14 @@ return L.view.extend<SectionItem[], string>({
     o = s2.option(form.Value, "client_ip", _("Client IP"));
     o.modalonly = true;
     o.datatype = "ipaddr";
-    
+
     const s3 = m.section(
       form.GridSection,
       "host_mapping",
       _("Host Mapping"),
       _("Add host mappings here")
     );
-    s3.sectiontitle = function(section_name: string) {
+    s3.sectiontitle = function (section_name: string) {
       const section_title = uci.get("v2ray", section_name, "alias");
       return section_title;
     };
