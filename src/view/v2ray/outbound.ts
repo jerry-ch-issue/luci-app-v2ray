@@ -14,6 +14,7 @@
 "require ui";
 "require fs";
 "require validation";
+"require tools/widgets as widgets";
 
 "require view/v2ray/tools/converters as converters";
 
@@ -294,17 +295,20 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o = s.taboption("general", form.Value, "tag", _("Tag"));
     o.rmempty = false;
 
-    o = s.taboption("general", form.Value, "send_through", _("Send through"));
-    o.datatype = "ipaddr";
-    for (const IP of localIPs) {
-      o.value(IP);
-    }
+    o = s.taboption("general", widgets.NetworkSelect, "send_through", _("Send through"));
+    o.filter = function (section_id: string, value: string) {
+      return value.toUpperCase().indexOf("LAN") < 0;
+    };
+    o.nocreate = true;
+    o.multiple = false;
+    o.rmempty = true;
 
     o = s.taboption("general", form.ListValue, "protocol", _("Protocol"));
     o.value("blackhole", "Blackhole");
     o.value("dns", "DNS");
     o.value("freedom", "Freedom");
     o.value("http", "HTTP/2");
+    o.value("hysteria2", "Hysteria2");
     o.value("loopback");
     o.value("mtproto", "MTProto");
     o.value("shadowsocks", "Shadowsocks");
@@ -382,9 +386,16 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.depends("protocol", "freedom");
     o.value("");
     o.value("AsIs");
+    o.value("ForceIP";
+    o.value("ForceIPv4");
+    o.value("ForceIPv6");
+    o.value("ForceIPv4v6");
+    o.value("ForceIPv6v4");
     o.value("UseIP");
     o.value("UseIPv4");
     o.value("UseIPv6");
+    o.value("UseIPv4v6");
+    o.value("UseIPv6v4");
 
     o = s.taboption(
       "general",
@@ -517,6 +528,223 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.modalonly = true;
     o.depends("protocol", "http");
     o.rmempty = true;
+
+    // Settings - Hysteria2
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_hysteria2_address",
+      "%s - %s".format("Hysteria2", _("Server address"))
+    );
+    o.modalonly = true;
+    o.depends("protocol", "hysteria2");
+    o.datatype = "ipaddr";
+    
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_hysteria2_port",
+      "%s - %s".format("Hysteria2", _("Server port"))
+    );
+    o.modalonly = true;
+    o.depends("protocol", "hysteria2");
+    o.datatype = "port";
+    
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_hysteria2_auth",
+      "%s - %s".format("Hysteria2", _("Password"))
+    );
+    o.modalonly = true;
+    o.depends("protocol", "hysteria2");
+    o.password = true;
+
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_hysteria2_tls_sni",
+      "Hysteria2 - SNI")
+    );
+    o.modalonly = true;
+    o.depends("protocol", "hysteria2");
+    o.datatype = "host";
+    o.rmempty = true;
+    
+    o = s.taboption(
+      "general",
+      form.ListValue,
+      "s_hysteria2_tls_insecure",
+      _("Allow Insecure TLS Connection")
+    );
+    o.modalonly = true;
+    o.depends("protocol", "hysteria2");
+    o.value("false", _("False"));
+    o.value("true", _("True"));
+    o.rmempty = true;
+    
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_hysteria2_tls_pinsha256",
+      "TLS pinSHA256"
+    );
+    o.modalonly = true;
+    o.depends("protocol", "hysteria2");
+    o.rmempty = true;
+    
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_hysteria2_tls_ca",
+      "TLS CA"
+    );
+    o.modalonly = true;
+    o.depends("protocol", "hysteria2");
+    o.datatype = "file";
+    o.rmempty = true;
+    
+    o = s.taboption(
+      "general",
+      form.ListValue,
+      "s_hysteria2_domain_strategy",
+      _("Domain Strategy")
+    );
+    o.modalonly = true;
+    o.depends("protocol", "hysteria2");
+    o.value("UseIP");
+    o.value("UseIPv4");
+    o.value("UseIPv6");
+    
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_hysteria2_udp_hopinterval",
+      _("udp Hop Interval")
+    );
+    o.modalonly = true;
+    o.depends("protocol", "hysteria2");
+    o.datatype = "and(uinteger, range(10, 100))";
+    o.placeholder = "30";
+    o.rmempty = true;
+    
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_hysteria2_quic_initStreamRW",
+      _("Initial Stream Receive Window")
+    );
+    o.modalonly = true;
+    o.depends("protocol", "hysteria2");
+    o.datatype = "uinteger";
+    o.placeholder = "8388608";
+    o.rmempty = true;
+    
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_hysteria2_quic_maxStreamRW",
+      _("Maximum Stream Receive Window")
+    );
+    o.modalonly = true;
+    o.depends("protocol", "hysteria2");
+    o.datatype = "uinteger";
+    o.placeholder = "8388608";
+    o.rmempty = true;
+    
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_hysteria2_quic_initConnRW",
+      _("Initial Connection Receive Window")
+    );
+    o.modalonly = true;
+    o.depends("protocol", "hysteria2");
+    o.datatype = "uinteger";
+    o.placeholder = "20971520";
+    o.rmempty = true;
+    
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_hysteria2_quic_maxConnRW",
+      _("Maximum Connection Receive Window")
+    );
+    o.modalonly = true;
+    o.depends("protocol", "hysteria2");
+    o.datatype = "uinteger";
+    o.placeholder = "20971520";
+    o.rmempty = true;
+    
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_hysteria2_quic_maxConnRW",
+      _("Maximum Connection Receive Window")
+    );
+    o.modalonly = true;
+    o.depends("protocol", "hysteria2");
+    o.datatype = "uinteger";
+    o.placeholder = "20971520";
+    o.rmempty = true;
+    
+    o = s.taboption(
+      "general", form.Value,
+      "s_hysteria2_quic_maxIdleTO",
+      _("Maximum Idle Timeout")
+    );
+    o.modalonly = true;
+    o.depends("protocol", "hysteria2");
+    o.datatype = "and(uinteger, min(10))";
+    o.placeholder = "30";
+    o.rmempty = true;
+    
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_hysteria2_quic_keepalive",
+      _("Keep Alive Period")
+    );
+    o.modalonly = true;
+    o.depends("protocol", "hysteria2");
+    o.datatype = "and(uinteger, min(10))";
+    o.placeholder = "10";
+    o.rmempty = true;
+    
+    o = s.taboption(
+      "general",
+      form.ListValue,
+      "s_hysteria2_quic_disableMTU",
+      _("Disable Path MTU Discovery")
+    );
+    o.modalonly = true;
+    o.depends("protocol", "hysteria2");
+    o.value("false", _("False"));
+    o.value("true", _("True"));
+    
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_hysteria2_bw_up",
+      _("Expected Upload Bandwidth(In Mbps)")
+    );
+    o.modalonly = true;
+    o.depends("protocol", "hysteria2");
+    o.datatype = "and(uinteger, range(10, 1000))";
+    o.placeholder = "50";
+    o.rmempty = false;
+    
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_hysteria2_bw_down",
+      _("Expected Download Bandwidth(In Mbps)")
+    );
+    o.modalonly = true;
+    o.depends("protocol", "hysteria2");
+    o.datatype = "and(uinteger, min(10, 1000))";
+    o.placeholder = "100";
+    o.rmempty = false;
 
     // Settings - Loopback
     o = s.taboption(
@@ -934,6 +1162,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.value("kcp", "mKCP");
     o.value("ws", "WebSocket");
     o.value("h2", "HTTP/2");
+    o.value("httpupgrade", "HttpUpgrade");
     o.value("domainsocket", "Domain Socket");
     o.value("quic", "QUIC");
 
@@ -964,13 +1193,13 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     });
     o.depends({
       protocol: "vless",
-      ss_network: /\b(tcp|kcp|domainsocket|ws|grpc)\b/,
+      ss_network: /\b(tcp|kcp|domainsocket|ws|grpc|httpupgrade)\b/,
       reality_check: "1",
       ss_security: "tls",
     });
     o.depends({
       protocol: "vless",
-      ss_network: /\b(tcp|kcp|domainsocket|ws|grpc)\b/,
+      ss_network: /\b(tcp|kcp|domainsocket|ws|grpc|httpupgrade)\b/,
       reality_check: "1",
       ss_security: "reality",
     });
@@ -1361,13 +1590,25 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o = s.taboption(
       "stream",
       form.Value,
+      "ss_grpc_authority",
+      "%s %s".format("grpc", _("Domain"))
+    );
+    o.modalonly = true;
+    o.rmempty = true;
+    o.datatype = "hostname";
+    o.depends("ss_netwoork", "grpc");
+    o.placeholder = "www.example.com";
+
+    o = s.taboption(
+      "stream",
+      form.Value,
       "ss_grpc_service_name",
       "%s %s".format(_("Service"), _("Name"))
     );
     o.modalonly = true;
     o.rmempty = false;
     o.validate = function (sid: string, Value: string): boolean | string {
-      return Value.match(/(?![-_])^[a-z0-9-_]+(?<![_-])$/i)
+      return Value.match(/(?![-_])^[\/a-z0-9-_]+(?<![_-])$/i)
         ? true
         : _("Invalid Service Name");
     };
@@ -1466,6 +1707,59 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.depends("ss_network", "h2");
     o.placeholder = "/";
 
+    // Stream Settings - Http Upgrade
+
+    o = s.taboption(
+      "stream",
+      form.ListValue,
+      "ss_httpupgrade_accept_proxy_protocol",
+      "%s - %s %s".format(
+        _("Accept"),
+        _("Proxy"),
+        _("Protocol")
+      )
+    );
+    o.modalonly = true;
+    o.value("0", _("False"));
+    o.value("1", _("True"));
+    o.depends("ss_network", "httpupgrade");
+    
+    o = s.taboption(
+      "stream",
+      form.Value,
+      "ss_httpupgrade_path",
+      "%s - %s".format(
+        "HTTP Upgrade",
+        _("Path")
+      )
+    );
+    o.modalonly = true;
+    o.validate = function(sid: string, Value: string): boolean | string {
+      if (!Value) {
+        return false;
+      }
+      return v2ray.v2rayValidation("path", Value);
+    };
+    o.placeholder = "/";
+    o.depends("ss_network", "httpupgrade");
+    
+    o = s.taboption(
+      "stream",
+      form.Value,
+      "ss_httpupgrade_host",
+      "%s - %s".format(
+        "HTTP Upgrade",
+        _("Domain")
+      )
+    );
+    o.modalonly = true;
+    o.datatype = "hostname";
+    o.validate = function (sid: string, Value: string): boolean | string {
+      return v2ray.v2rayValidation("sni", Value, sid);
+    };
+    o.rmempty = true;
+    o.depends("ss_network", "httpupgrade");
+
     // Stream Settings - Domain Socket
     o = s.taboption(
       "stream",
@@ -1529,9 +1823,27 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
         "If transparent proxy is enabled, this option is ignored and will be set to 255."
       )
     );
-    o.depends({ protocol: "wireguard", "!reverse": true });
+    o.depends({
+      protocol: /\b(wireguard|hysteria2)\b/,
+      "!reverse": true
+    });
     o.modalonly = true;
     o.placeholder = "255";
+
+    o = s.taboption(
+      "stream",
+      widgets.NetworkSelect,
+      "ss_sockopt_iface",
+      "%s- %s".format(_("Sockopt"), _("Interface")),
+      _("Select outbound Interface")
+    );
+    o.depends({ protocol: "wireguard", "!reverse": true });
+    o.nocreate = true;
+    o.multiple = false;
+    o.rmempty = true;
+    o.filter = function (section_id: string, value: string) {
+      return value.toUpperCase().indexOf("LAN") < 0;
+    };
 
     o = s.taboption(
       "stream",
@@ -1554,7 +1866,10 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
       "ss_sockopt_tcp_fast_open",
       "%s - %s".format(_("Sockopt"), _("TCP fast open"))
     );
-    o.depends({ protocol: "wireguard", "!reverse": true });
+    o.depends({
+      protocol: /\b(wireguard|hysteria2)\b/,
+      "!reverse": true
+    });
     o.modalonly = true;
     o.value("");
     o.value("0", _("False"));
@@ -1580,7 +1895,10 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     );
     o.modalonly = true;
     o.rmempty = true;
-    o.depends({ protocol: "wireguard", "!reverse": true });
+    o.depends({
+      protocol: /\b(wireguard|hysteria2)\b/,
+      "!reverse": true
+    });
     o.validate = function (sid, value) {
       const current_tag: string = uci.get("v2ray", sid, "tag");
       if (current_tag != value) {
@@ -1614,7 +1932,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     o.value("", _("Default"));
     o.depends({
       protocol: /\b(http|trojan|vless|vmess)\b/,
-      ss_network: /\b(grpc|h2|tcp|ws)\b/,
+      ss_network: /\b(grpc|h2|tcp|ws|httpupgrade)\b/,
     });
     o.depends({ protocol: /\b(freedom|mtproto|socks)\b/ });
     for (let i = 0; i < tcp_congestion.length; i++) {
@@ -1629,6 +1947,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     );
     o.modalonly = true;
     o.rmempty = true;
+    o.depends({ protocol: hysteria2, "!reverse": true });
     o.validate = function (sid, value) {
       const current_tag: string = uci.get("v2ray", sid, "tag");
       if (current_tag != value) {
@@ -1667,7 +1986,7 @@ return L.view.extend<[string[], SectionItem[][][][][][], tlsItem[], string]>({
     );
     o.modalonly = true;
     o.depends({
-      ss_network: /\b(ws|tcp|grpc|h2)\b/,
+      ss_network: /\b(ws|tcp|grpc|h2|httpupgrade)\b/,
       ss_security: /\b(tls|none)\b/,
     });
     o.enabled = "1";

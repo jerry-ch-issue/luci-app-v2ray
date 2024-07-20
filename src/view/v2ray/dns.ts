@@ -15,10 +15,10 @@
 // @ts-ignore
 return L.view.extend<SectionItem[], string>({
   load: function () {
-    return Promise.all([v2ray.getSections("dns_server"), v2ray.getCore()]);
+    return Promise.all([v2ray.getSections("dns_server"), v2ray.getCore(), v2ray.getSections("host_mapping")]);
   },
 
-  render: function ([dnsServers = [], core = ""] = []) {
+  render: function ([dnsServers = [], core = "", hostMappings = []] = []) {
     const m = new form.Map(
       "v2ray",
       "%s - %s".format(core, _("DNS")),
@@ -49,25 +49,6 @@ return L.view.extend<SectionItem[], string>({
     );
     o.datatype = "ipaddr";
 
-    o = s1.option(
-      form.DynamicList,
-      "hosts",
-      _("Hosts"),
-      _(
-        "Host and domain mapping</br>format: <code>domain|ip1,ip2</code> or <code>domain-A|domain-B</code> eg: </br>%s or %s"
-      ).format(
-        "<code>dns.google|8.8.8.8,8.8.4.4</code>",
-        "<code>google.cn|google.com</code>"
-      )
-    );
-    o.validate = function (sid: string, Value: string): boolean | string {
-      if (!Value) {
-        return true;
-      }
-      return v2ray.v2rayValidation("hostmapping", Value);
-    };
-    o.rmempty = true;
-
     o = s1.option(form.ListValue, "query_strategy", _("Domain Strategy"));
     o.value("UseIP");
     o.value("UseIPv4");
@@ -96,6 +77,11 @@ return L.view.extend<SectionItem[], string>({
     o = s1.option(form.MultiValue, "servers", _("DNS Servers"));
     for (const d of dnsServers) {
       o.value(d.value, d.caption);
+    }
+
+    o = s1.option(form.MultiValue, "host_override", _("Host Mappings"));
+    for (const h of hostMappings) {
+      o.value(h.value, h.caption);
     }
 
     const s2 = m.section(
@@ -181,6 +167,42 @@ return L.view.extend<SectionItem[], string>({
     o = s2.option(form.Value, "client_ip", _("Client IP"));
     o.modalonly = true;
     o.datatype = "ipaddr";
+
+    const s3 = m.section(
+      form.GridSection,
+      "host_mapping",
+      _("Host Mapping"),
+      _("Add host mappings here")
+    );
+    s3.sectiontitle = function(section_name: string) {
+      const section_title = uci.get("v2ray", section_name, "alias");
+      return section_title;
+    };
+    s3.modaltitle = function (sid: string) {
+      const alias = uci.get("v2ray", sid, "alias");
+      return `${_("Host Mappings")} > ${alias ?? _("Add")}`;
+    };
+    s3.addremove = true;
+    s3.nodescription = true;
+    s3.sortable = true;
+
+    o = s3.option(form.Value, "alias", _("Alias"));
+    o.rmempty = false;
+    o.modalonly = true;
+
+    o = s3.option(form.Value, "host_domain", _("Domain"));
+    o.rmempty = false;
+    o.validate = function (sid: string, Value: string): boolean | string {
+      if (!Value) {
+        return true;
+      }
+      return v2ray.v2rayValidation("domainrule", Value);
+    };
+
+    o = s3.option(form.DynamicList, "host_ip", _("Host or IP Addresses"));
+    o.modalonly = true;
+    o.rmempty = false;
+    o.datatype = "host";
 
     return m.render();
   },

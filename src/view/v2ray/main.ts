@@ -99,6 +99,22 @@ return L.view.extend<SectionItem[][], string>({
     o.rmempty = false;
 
     o = s.option(
+      form.Flag,
+      "hy2_enabled",
+      "%s %s".format("Hysteria2", _("Enabled"))
+    );
+
+    o = s.option(
+      form.Value,
+      "hy2_file",
+      _("Hysteria2 Core"),
+      _("Location of the Hysteria2 binary.")
+    );
+    o.datatype = "file";
+    o.placeholder = "/usr/bin/hysteria2";
+    o.rmempty = false;
+
+    o = s.option(
       form.Value,
       "asset_location",
       _("Assets location"),
