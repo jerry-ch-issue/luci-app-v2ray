@@ -342,7 +342,7 @@ return L.Class.extend({
             }
           }
         }
-        return '%s: "%s"\|"%s"\n - %s\n - %s\n   %s\n   %s\n   %s'.format(
+        return '%s: "%s" "%s"\n - %s\n - %s\n   %s\n   %s\n   %s'.format(
           _("Expecting"),
           _("domain matching rules"),
           _("mapping objects"),

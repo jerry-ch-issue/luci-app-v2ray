@@ -15,7 +15,11 @@
 // @ts-ignore
 return L.view.extend<SectionItem[], string>({
   load: function () {
-    return Promise.all([v2ray.getSections("dns_server"), v2ray.getCore(), v2ray.getSections("host_mapping")]);
+    return Promise.all([
+      v2ray.getSections("dns_server"),
+      v2ray.getCore(),
+      v2ray.getSections("host_mapping"),
+    ]);
   },
 
   render: function ([dnsServers = [], core = "", hostMappings = []] = []) {
@@ -167,7 +171,7 @@ return L.view.extend<SectionItem[], string>({
     o = s2.option(form.Value, "client_ip", _("Client IP"));
     o.modalonly = true;
     o.datatype = "ipaddr";
-
+    
     const s3 = m.section(
       form.GridSection,
       "host_mapping",
