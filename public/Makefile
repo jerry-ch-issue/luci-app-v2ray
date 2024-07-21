@@ -14,7 +14,7 @@ PKG_MAINTAINER:=#{author}
 
 LUCI_TITLE:=#{description}
 LUCI_DEPENDS:=+jshn +ip +nftables-json +kmod-nft-socket +kmod-nft-tproxy \
-	+resolveip +dnsmasq-full(>=2.87) +curl +coreutils-base64 +procd-ujail
+	+resolveip +dnsmasq-full +curl +coreutils-base64 +procd-ujail
 LUCI_PKGARCH:=all
 
 define Package/$(PKG_NAME)/Default
