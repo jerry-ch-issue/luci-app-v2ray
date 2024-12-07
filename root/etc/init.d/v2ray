@@ -536,7 +536,6 @@ add_v2ray_nftables_redirect_rules() {
 				counter jump v2ray_tcp_rules
 			}
 		}
-	}
 	EOF
 	if [ -n "$addition" ] ; then
 		ip rule add fwmark 1 table 100
