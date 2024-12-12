@@ -907,9 +907,9 @@ init_rules_for_listfile() {
 		local proxy_v4=$(echo "$proxy_content" | grep -oE "[0-9]{1,3}(\.[0-9]{1,3}){3}(/[0-9]{1,2})?" )
 		local proxy_v6=$(echo "$proxy_content" | grep -oE "([0-9a-fA-F]{0,4}:){1,7}([0-9a-fA-F]){0,4}(/[0-9]{1,2})?" )
 		$NFT_BIN add element inet v2ray $IPSET_DST_PROXY_V4 \
-			{ $(echo "$proxy_v4" | sed "$!s/$/,/") }
+			{ $(echo "$proxy_v4" | sed "s/$/ timeout 1008d/" | sed "$!s/$/,/") }
 		$NFT_BIN add element inet v2ray $IPSET_DST_PROXY_V6 \
-			{ $(echo "$proxy_v6" | sed "$!s/$/,/") }
+			{ $(echo "$proxy_v6" | sed "s/$/ timeout 1008d/" | sed "$!s/$/,/") }
 	fi
   # For local devices outbound list
 	local src_content
