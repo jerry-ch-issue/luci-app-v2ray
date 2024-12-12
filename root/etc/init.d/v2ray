@@ -206,8 +206,8 @@ dns_server_section_validate() {
 
 routing_section_validate() {
 	uci_validate_section "$NAME" "routing" "$1" \
-		'main_domain_matcher:list(or("mph", "linear"))' \
 		'enabled:bool:0' \
+		'main_domain_matcher:list(or("mph", "linear"))' \
 		'domain_strategy:or("AsIs", "IPIfNonMatch", "IPOnDemand")' \
 		'rules:list(uci("v2ray", "@routing_rule"))' \
 		'balancers:list(uci("v2ray", "@routing_balancer"))'
